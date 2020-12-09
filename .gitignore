@@ -92,3 +92,5 @@ hs_err_pid*
 
 # specific to project
 src/assets/*.txt
+src/.classpath
+src/.project
