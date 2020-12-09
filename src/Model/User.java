@@ -1,6 +1,7 @@
 package Model;
 
 public class User implements Entity {
+
     private String firstname;
     private String lastname;
 

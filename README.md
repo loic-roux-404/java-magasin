@@ -1,6 +1,6 @@
-# java-automobil
+# java-automobile
 
-[Schema Logiciel](https://miro.com/welcomeonboard/PE5sjBC3W7MUSrV7R4fpbLQdyP0hT7scbKkO8q64iCDPbfiT27uTNgcswV27chpu)
+[Schémas Logiciel](https://miro.com/welcomeonboard/PE5sjBC3W7MUSrV7R4fpbLQdyP0hT7scbKkO8q64iCDPbfiT27uTNgcswV27chpu)
 
 1. Git
 
@@ -17,6 +17,7 @@ Staging area &rarr; repo local &rarr; remote
 ```sh
 # Bases
 git status # Consulter l'état de la staging area
+git diff # Consulter les modifs, ajouter --staged si les fichiers ont étés git add 
 git add -A # Ajouter tous les fichiers modifiés et nouveaux dans le prochaint commit
 git commit -m "" # Placer tous les fichiers ready (en vert) dans un commit
 git remote -v # Voir les remotes distantes liés à notre remote locale

@@ -4,13 +4,12 @@ import Model.EntityManager;
 import Model.User;
 import View.UserForm;
 import View.AbstractDetails;
-
 import javax.swing.*;
 import java.io.File;
 
 public class UserController {
-    // database file
-    private String databaseFile = "assets/users.txt";
+    static String databaseFile = "users_db.txt";
+    // Dependencies
     private EntityManager entityManager;
     private UserForm userForm;
     private AbstractDetails userDetails;
@@ -35,7 +34,7 @@ public class UserController {
                         JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            
+
             this.entityManager.add(new User(firstname, lastname));
             this.entityManager.save(new File(databaseFile));
             this.userForm.reset(true);

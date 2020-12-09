@@ -91,6 +91,6 @@ hs_err_pid*
 .DS_Store
 
 # specific to project
-src/assets/*.txt
+*_db.txt
 src/.classpath
 src/.project
