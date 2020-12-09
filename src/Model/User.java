@@ -1,6 +1,6 @@
 package Model;
 
-public class User {
+public class User implements Entity {
     private String firstname;
     private String lastname;
 
@@ -20,5 +20,9 @@ public class User {
 
     public String getLastname() {
         return lastname;
+    }
+
+    public String toString() {
+        return firstname + ", " + lastname;
     }
 }

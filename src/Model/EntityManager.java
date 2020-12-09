@@ -3,31 +3,31 @@ package Model;
 import java.io.*;
 import java.util.ArrayList;
 
-public class Database {
+public class EntityManager {
 
-    private ArrayList<User> userArrayList;
+    private ArrayList<Entity> entityArrayList;
 
-    public Database() {
-        userArrayList = new ArrayList<>();
+    public EntityManager() {
+        entityArrayList = new ArrayList<>();
     }
 
     // adds user to our collection
-    public void addUser(User user) {
-        userArrayList.add(user);
+    public void add(Entity item) {
+        entityArrayList.add(item);
     }
 
     // saves user to database file
-    public void saveUser(File file) {
+    public void save(File file) {
         try {
             // user model
-            User user;
+            Entity item;
             String save_data = "";
 
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
             int i = 0;
-            while( i < userArrayList.size()) {
-                user = userArrayList.get(i);
-                save_data = user.getFirstname() + ", " + user.getLastname();
+            while( i < entityArrayList.size()) {
+                item = entityArrayList.get(i);
+                save_data = item.toString();
                 i++;
             }
             bufferedWriter.write(save_data);
@@ -40,7 +40,7 @@ public class Database {
     }
 
     // reads user from database file
-    public Object[] loadUsers(File file) {
+    public Object[] loadEntities(File file) {
         Object[] objects;
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
@@ -53,6 +53,4 @@ public class Database {
         }
         return null;
     }
-
-
 }

@@ -1,9 +1,9 @@
 package Controller;
 
-import Model.Database;
+import Model.EntityManager;
 import Model.User;
-import View.Form;
-import View.UserDetails;
+import View.UserForm;
+import View.AbstractDetails;
 
 import javax.swing.*;
 import java.io.File;
@@ -11,39 +11,39 @@ import java.io.File;
 public class UserController {
     // database file
     private String databaseFile = "src/assets/users.txt";
-    private Database database;
-    private Form form;
-    private UserDetails userDetails;
+    private EntityManager entityManager;
+    private UserForm userForm;
+    private AbstractDetails userDetails;
 
-    public UserController(Form form, UserDetails userDetails) {
-        this.database = new Database();
-        this.form = form;
-        this.userDetails = userDetails;
+    public UserController(UserForm userForm, AbstractDetails abstractDetails) {
+        this.entityManager = new EntityManager();
+        this.userForm = userForm;
+        this.userDetails = abstractDetails;
 
         // submit user
-        this.form.submitUsers(e -> {
-            String firstname = this.form.getFirstname().trim();
-            String lastname = this.form.getLastname().trim();
+        this.userForm.submitUsers(e -> {
+            String firstname = this.userForm.getFirstname().trim();
+            String lastname = this.userForm.getLastname().trim();
 
             // simple validations
             if(firstname.isEmpty()) {
-                JOptionPane.showMessageDialog(this.form, "First Name Required.", "Error",
+                JOptionPane.showMessageDialog(this.userForm, "First Name Required.", "Error",
                         JOptionPane.ERROR_MESSAGE);
                 return;
             } else if(lastname.isEmpty()) {
-                JOptionPane.showMessageDialog(this.form, "Last Name Required.", "Error",
+                JOptionPane.showMessageDialog(this.userForm, "Last Name Required.", "Error",
                         JOptionPane.ERROR_MESSAGE);
                 return;
             }
             
-            this.database.addUser(new User(firstname, lastname));
-            this.database.saveUser(new File(databaseFile));
-            this.form.reset(true);
+            this.entityManager.add(new User(firstname, lastname));
+            this.entityManager.save(new File(databaseFile));
+            this.userForm.reset(true);
         });
 
         // load users
-        this.form.viewUsers(e -> {
-            this.userDetails.getUsers(this.database.loadUsers(new File(databaseFile)));
+        this.userForm.viewUsers(e -> {
+            this.userDetails.getDetails(this.entityManager.loadEntities(new File(databaseFile)));
         });
     }
 }

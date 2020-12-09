@@ -1,32 +1,23 @@
 package View;
 
-import Controller.UserController;
-
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainFrame extends JFrame {
 
     // Card layout for switching view
-    private CardLayout cardLayout;
+    public CardLayout cardLayout;
+    private MenuBar menuBar = new MenuBar();
 
     public MainFrame() {
-        super("Java Swing MVC");
+        super("Automobile Market");
+        this.createMenu();
         cardLayout = new CardLayout();
-        Form form = new Form();
-        UserDetails userDetails = new UserDetails();
-        // sets our layout as a card layout
         setLayout(cardLayout);
-
-        // initialize user controller
-        new UserController(form, userDetails);
-
-        // adds view to card layout with unique constraints
-        add(form, "form");
-        add(userDetails, "user details");
-        // switch view according to its constraints on click
-        form.viewUsers(e -> cardLayout.show(MainFrame.this.getContentPane(), "user details"));
-        userDetails.backButton(e -> cardLayout.show(MainFrame.this.getContentPane(), "form"));
+        // sets our layout as a card layout
+        new UsersPanel(cardLayout, this);
 
         // icon for our application
         ImageIcon imageIcon = new ImageIcon("src/assets/appicon.png");
@@ -38,5 +29,59 @@ public class MainFrame extends JFrame {
         setSize(FRAME_WIDTH, FRAME_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+    }
+
+    protected void createMenu() {
+
+        setJMenuBar(menuBar);
+
+        // menu listeners :
+        menuBar.jMenuItemQuit.addActionListener((ActionEvent ev) ->
+        {
+            if (confirmBeforeExit()) {
+                {
+                    System.exit(0);
+                }
+            }
+        });
+        /* menuBar.jMenuItemFrameUsers.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+               usersPanel.setVisible(true);
+            }
+        }); */
+
+
+            // jMenuItemFrameAbout :
+            /*
+            menuBar.jMenuItemFrameAbout.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent ev) {
+                    frameAbout.setVisible(true);
+                }
+            });
+
+            // jMenuItemFrame1 :
+            menuBar.jMenuItemFrame1.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent ev) {
+                    frame1.setVisible(true);
+                }
+            });
+
+            */
+
+    }
+
+    /**
+     * Show confirm dialog before closing the window.
+     *
+     * @return boolean true user answer Yes.
+     */
+    public boolean confirmBeforeExit()
+    {
+        if (JOptionPane.showConfirmDialog(this, "Exit ?", "No", JOptionPane.YES_NO_OPTION) == 0)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

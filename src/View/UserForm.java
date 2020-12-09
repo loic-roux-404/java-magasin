@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class Form extends JPanel {
+public class UserForm extends JPanel {
 
     private JTextField firstnameField;
     private JTextField lastNameField;
@@ -12,7 +12,7 @@ public class Form extends JPanel {
     private JButton addButton;
     private JButton viewButton;
 
-    public Form() {
+    public UserForm() {
 
         JLabel firstnameLabel = new JLabel("First Name: ");
         JLabel lastnameLabel = new JLabel("Last Name: ");

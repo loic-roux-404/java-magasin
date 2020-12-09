@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class Auto {
     public static void main(String[] args) {
-        // runs in AWT thread
+        // Async Swing initialization
         SwingUtilities.invokeLater(MainFrame::new);
     }
 }
