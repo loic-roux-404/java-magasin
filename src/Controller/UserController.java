@@ -10,7 +10,7 @@ import java.io.File;
 
 public class UserController {
     // database file
-    private String databaseFile = "src/assets/users.txt";
+    private String databaseFile = "assets/users.txt";
     private EntityManager entityManager;
     private UserForm userForm;
     private AbstractDetails userDetails;
