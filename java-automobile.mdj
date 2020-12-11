@@ -576,7 +576,7 @@
 											"top": 703,
 											"width": 174,
 											"height": 13,
-											"text": "ModeleFactory"
+											"text": "CarTypeFactory"
 										},
 										{
 											"_type": "LabelView",
@@ -771,7 +771,7 @@
 											"top": 703,
 											"width": 175,
 											"height": 13,
-											"text": "MarqueFactory"
+											"text": "BrandFactory"
 										},
 										{
 											"_type": "LabelView",
@@ -966,7 +966,7 @@
 											"top": 855,
 											"width": 174,
 											"height": 13,
-											"text": "Modele"
+											"text": "CarType"
 										},
 										{
 											"_type": "LabelView",
@@ -1195,7 +1195,7 @@
 											"top": 855,
 											"width": 175,
 											"height": 13,
-											"text": "Marque"
+											"text": "Brand"
 										},
 										{
 											"_type": "LabelView",
@@ -4566,7 +4566,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "ModeleFactory",
+					"name": "CarTypeFactory",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -4818,7 +4818,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "MarqueFactory",
+					"name": "BrandFactory",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -5138,7 +5138,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Modele",
+					"name": "CarType",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -5231,7 +5231,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Marque",
+					"name": "Brand",
 					"attributes": [
 						{
 							"_type": "UMLAttribute",

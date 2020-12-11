@@ -1,15 +1,15 @@
 package Model;
 
-public class User implements Entity {
+public class Client implements Entity {
 
     private String firstname;
     private String lastname;
 
-    public User() {
+    public Client() {
         // empty constructor
     }
 
-    public User(String firstname, String lastname) {
+    public Client(String firstname, String lastname) {
         this.firstname = firstname;
         this.lastname = lastname;
     }

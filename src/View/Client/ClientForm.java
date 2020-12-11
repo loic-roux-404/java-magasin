@@ -1,10 +1,10 @@
-package View;
+package View.Client;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class UserForm extends JPanel {
+public class ClientForm extends JPanel {
 
     private JTextField firstnameField;
     private JTextField lastNameField;
@@ -12,7 +12,7 @@ public class UserForm extends JPanel {
     private JButton addButton;
     private JButton viewButton;
 
-    public UserForm() {
+    public ClientForm() {
 
         JLabel firstnameLabel = new JLabel("First Name: ");
         JLabel lastnameLabel = new JLabel("Last Name: ");
