@@ -25,7 +25,7 @@ public class ClientController {
             String lastname = this.clientForm.getLastname().trim();
 
             // simple validations
-            if(firstname.isEmpty()) {
+            if (firstname.isEmpty()) {
                 JOptionPane.showMessageDialog(this.clientForm, "First Name Required.", "Error",
                         JOptionPane.ERROR_MESSAGE);
                 return;

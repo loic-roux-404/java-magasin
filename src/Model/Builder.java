@@ -9,18 +9,12 @@ public class Builder implements Entity{
     /**
      * Default constructor
      */
-    public Builder() {
-    }
+    public Builder() { }
 
-    /**
-     *
-     */
-    public ArrayList<Car> availableCars;
+    private String name;
 
+    private ArrayList<Car> availableCars;
 
-    /**
-     *
-     */
     public void orderCreation() {
         // TODO implement here
         // Check if car is in list of supported
@@ -39,8 +33,25 @@ public class Builder implements Entity{
         return false;
     }
 
+    public void setAvailableCars(ArrayList<Car> availableCars) {
+        this.availableCars = availableCars;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ArrayList<Car> getAvailableCars() {
+        return availableCars;
+    }
+
     @Override
     public String toString() {
-        return availableCars.toString(); // Verify data is comma separated list
+        // TODO Verify if data is comma separated list
+        return name + ", " + availableCars.toString();
     }
 }

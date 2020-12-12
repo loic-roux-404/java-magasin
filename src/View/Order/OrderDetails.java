@@ -3,7 +3,10 @@ package View.Order;
 import View.AbstractDetails;
 
 public class OrderDetails extends AbstractDetails {
-    public OrderDetails(String[] tableColumn) {
+
+    static String[] tableColumn = {"ID", "CAR", "CLIENT"};
+
+    public OrderDetails() {
         super(tableColumn);
     }
 }

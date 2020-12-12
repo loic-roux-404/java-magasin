@@ -1,8 +1,5 @@
 package Model.Car;
 
-/**
- * 
- */
 public class CarBrand {
 
     /**
@@ -11,8 +8,13 @@ public class CarBrand {
     public CarBrand() {
     }
 
-    /**
-     * 
-     */
-    public String name;
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

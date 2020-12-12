@@ -1,9 +1,9 @@
 package View;
 
+import View.SwingModules.BackButton;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.awt.event.ActionListener;
 
 /**
  * @TODO Transform this class in CRUD generator
@@ -16,27 +16,20 @@ abstract public class AbstractDetails extends JPanel {
     private String[] tableColumn = {};
 
     // back button
-    private JButton backButton;
+    public BackButton backButton = new BackButton(this);
 
     public AbstractDetails(String[] tableColumn) {
         this.tableColumn = tableColumn;
         // uses box layout
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        // toolbar for buttons
-        JToolBar toolBar = new JToolBar();
         table = new JTable();
         // scroll bar for table
         JScrollPane userTableScroll = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        backButton = new JButton("Go Back");
-        add(toolBar);
-        toolBar.add(backButton);
-        toolBar.setMaximumSize(new Dimension(Integer.MAX_VALUE, toolBar.getMinimumSize().height));
         add(userTableScroll);
-
     }
 
-    // gets users from database and loads to table
+    // gets data from database and loads to table
     public void getDetails(Object[] objects) {
         DefaultTableModel defaultTableModel = (DefaultTableModel) table.getModel();
         // Prevenir l'ajout de colonne alors qu'on a déjà les data
@@ -47,10 +40,5 @@ abstract public class AbstractDetails extends JPanel {
             String[] rows = row.split(",");
             defaultTableModel.addRow(rows);
         }
-    }
-
-    // event listener for back button
-    public void backButton(ActionListener actionListener) {
-        backButton.addActionListener(actionListener);
     }
 }

@@ -1,5 +1,7 @@
 package View.Client;
 
+import View.SwingModules.BackButton;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -12,17 +14,20 @@ public class ClientForm extends JPanel {
     private JButton addButton;
     private JButton viewButton;
 
+    // back button
+    public BackButton backButton;
+
     public ClientForm() {
 
-        JLabel firstnameLabel = new JLabel("First Name: ");
-        JLabel lastnameLabel = new JLabel("Last Name: ");
+        JLabel firstnameLabel = new JLabel("Nom : ");
+        JLabel lastnameLabel = new JLabel("Prénom : ");
 
         firstnameField = new JTextField(25);
         lastNameField = new JTextField(25);
 
-        addButton = new JButton("Add User");
+        addButton = new JButton("Ajouter un client");
         addButton.setPreferredSize(new Dimension(278, 40));
-        viewButton = new JButton("View All Users");
+        viewButton = new JButton("Liste");
         viewButton.setPreferredSize(new Dimension(278, 40));
 
         // space between fields
@@ -69,6 +74,8 @@ public class ClientForm extends JPanel {
         gridBagConstraints.insets = buttonInset;
 
         add(viewButton, gridBagConstraints);
+
+        backButton = new BackButton(this);
     }
 
     // getters

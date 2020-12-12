@@ -6,23 +6,30 @@ public class Order implements Entity{
 
     private int id;
 
-    private enum status{
-        done,
-        processing,
-        cancelled,
+    static enum statuses{
+        DONE,
+        PROCESSING,
+        CANCELLED,
     };
+
+    private String status;
 
     private Car car;
 
     private Builder builder;
 
+    private Client client;
+
     public Order() {
     }
 
+    // TODO use serialization
     @Override
     public String toString() {
         return id +
-                ", " + car +
-                ", " + builder;
+                ", " + status +
+                ", Car{" + car.toString() + "}" +
+                ", Client{" + car.toString() + "}" +
+                ", Builder{" + builder.toString() + "}";
     }
 }

@@ -2,7 +2,11 @@
 
 [Schémas Logiciel](https://miro.com/welcomeonboard/PE5sjBC3W7MUSrV7R4fpbLQdyP0hT7scbKkO8q64iCDPbfiT27uTNgcswV27chpu)
 
-1. Git
+### 1. Swing
+
+- [Layouts](http://zetcode.com/javaswing/swinglayoutmanagement/)
+
+### 2. Git
 
 Merge vs rebase :
 

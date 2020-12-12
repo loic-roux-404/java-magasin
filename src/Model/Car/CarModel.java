@@ -11,19 +11,33 @@ public class CarModel {
     public CarModel() {
     }
 
-    /**
-     * 
-     */
-    public String name;
+    private String name;
 
-    /**
-     * 
-     */
-    public String length;
+    private String length;
 
-    /**
-     * 
-     */
-    public double weight;
+    private double weight;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLength() {
+        return length;
+    }
+
+    public void setLength(String length) {
+        this.length = length;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
 }
