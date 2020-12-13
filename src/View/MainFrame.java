@@ -1,9 +1,5 @@
 package View;
 
-import View.Car.CarPanel;
-import View.Client.ClientPanel;
-import View.Order.OrderPanel;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,9 +18,10 @@ public class MainFrame extends JFrame {
         setLayout(cardLayout);
         // sets our layout as a card layout
         add(home, "Home");
-        new ClientPanel(cardLayout, this, home);
-        new CarPanel(cardLayout, this, home);
-        new OrderPanel(cardLayout, this, home);
+        new ClientView(cardLayout, this, home);
+        new CarView(cardLayout, this, home);
+        new OrderView(cardLayout, this, home);
+        new BuilderView(cardLayout, this, home);
 
         // icon for our application
         ImageIcon imageIcon = new ImageIcon("appicon.png");

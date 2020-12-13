@@ -1,14 +1,12 @@
-package View;
-
-import View.SwingModules.BackButton;
+package View.SwingModules;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * @TODO Transform this class in CRUD generator
+ * List data in table
  */
-abstract public class AbstractDetails extends JPanel {
+public class List extends JPanel {
 
     // Table for user data
     private JTable table;
@@ -16,9 +14,10 @@ abstract public class AbstractDetails extends JPanel {
     private String[] tableColumn = {};
 
     // back button
-    public BackButton backButton = new BackButton(this);
+    public BackButton backButton = new BackButton();
 
-    public AbstractDetails(String[] tableColumn) {
+    public List(String[] tableColumn) {
+        add(backButton.getToolBar());
         this.tableColumn = tableColumn;
         // uses box layout
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));

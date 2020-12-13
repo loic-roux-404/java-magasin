@@ -1,13 +1,17 @@
 package Model;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class EntityManager {
 
+    private File file;
     private ArrayList<Entity> entityArrayList;
 
-    public EntityManager() {
+    public EntityManager(Class entityClass) {
+        this.file = this.createFile(entityClass.getSimpleName());
         entityArrayList = new ArrayList<>();
     }
 
@@ -17,7 +21,7 @@ public class EntityManager {
     }
 
     // saves user to database file
-    public void save(File file) {
+    public void save() {
         try {
             // user model
             Entity item;
@@ -40,10 +44,10 @@ public class EntityManager {
     }
 
     // reads user from database file
-    public Object[] loadEntities(File file) {
+    public Object[] loadEntities() {
         Object[] objects;
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file.getPath()));
             // each lines to array
             objects = bufferedReader.lines().toArray();
             bufferedReader.close();
@@ -52,5 +56,21 @@ public class EntityManager {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public File createFile(String fileName) {
+
+        if (Files.exists(Paths.get(fileName))) {
+            return file;
+        }
+
+        File myFile = new File("db/" + fileName + ".txt");
+        try {
+            myFile.createNewFile();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
+        return myFile;
     }
 }

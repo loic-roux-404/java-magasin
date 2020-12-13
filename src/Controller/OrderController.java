@@ -1,23 +1,21 @@
 package Controller;
 
+import Model.Order;
 import Model.EntityManager;
-import View.AbstractDetails;
-import View.Client.ClientForm;
-import View.Order.OrderDetails;
-import View.Order.OrderForm;
+import View.SwingModules.List;
+import View.SwingModules.Form;
 
 /**
  * Process order and manage CRUD operations
  */
 public class OrderController {
-    static String databaseFile = "orders_db.txt";
     private EntityManager entityManager;
 
-    private OrderForm orderForm;
-    private OrderDetails orderDetails;
+    private Form orderForm;
+    private List orderDetails;
 
-    public OrderController(OrderForm orderForm, OrderDetails orderDetails) {
-        this.entityManager = new EntityManager();
+    public OrderController(Form orderForm, List orderDetails) {
+        this.entityManager = new EntityManager(Order.class);
         this.orderForm = orderForm;
         this.orderDetails = orderDetails;
     }

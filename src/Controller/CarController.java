@@ -1,17 +1,20 @@
 package Controller;
 
 import Model.EntityManager;
-import View.AbstractDetails;
+import Model.Car.Car;
+import View.SwingModules.List;
 
 /**
  * List / READ ONE cars (cars are provided by there builder so search cars in builders)
  */
 public class CarController {
-    static String databaseFile = "cars_db.txt";
     private EntityManager entityManager;
 
-    public CarController(AbstractDetails abstractDetails) {
-        this.entityManager = new EntityManager();
+    private List list;
+
+    public CarController(List list) {
+        this.entityManager = new EntityManager(Car.class);
         // Handle actions here and views data recuperation
+        this.list = list;
     }
 }

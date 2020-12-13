@@ -11,11 +11,13 @@ public class Home extends JPanel {
     final static String CLIENTS = "clients";
     final static String CARS = "cars";
     final static String ORDERS = "orders";
+    final static String BUILDERS = "builders";
 
     public Home() {
         this.addPage("Gestion des clients", CLIENTS);
         this.addPage("Catalogue de voitures", CARS);
         this.addPage("Gestion des commandes", ORDERS);
+        this.addPage("Fabricants", BUILDERS);
     }
 
     protected void addPage(String name, String id) {
@@ -51,5 +53,9 @@ public class Home extends JPanel {
 
     public void ordersPage(ActionListener actionListener) {
         pages.get(ORDERS).addActionListener(actionListener);
+    }
+
+    public void buildersPage(ActionListener actionListener) {
+        pages.get(BUILDERS).addActionListener(actionListener);
     }
 }
