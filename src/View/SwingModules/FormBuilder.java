@@ -10,24 +10,28 @@ public class FormBuilder implements Form {
 
     private JPanel panel;
 
-    public HashMap<String, JTextField> fields = new HashMap<>();
-    private JButton listButton;
-    private final JButton submitButton;
-    private static final Dimension buttonSize = new Dimension(278, 40);
-
+    public HashMap<String, JComponent> fields = new HashMap<>();
+    // Basic form buttons
+    private JButton listButton    = new JButton("Liste");
+    private JButton submitButton  = new JButton("Ajouter");
     private BackButton backButton = new BackButton();
+    // Sizing
+    private static final Dimension buttonSize = new Dimension(278, 40);
+    // space between fields
+    Insets fieldsInset = new Insets(0, 0, 10, 0);
+    // space between buttons
+    Insets buttonInset = new Insets(20,0,0,0);
+    // Config
+    private boolean autoJLabel;
 
-    public FormBuilder(boolean enableListBtn) {
-        if (enableListBtn) {
-            this.listButton = new JButton("Liste");
-            listButton.setPreferredSize(buttonSize);
-        }
-        submitButton = new JButton("Ajouter");
+    public FormBuilder(boolean autoJLabels) {
+        listButton.setPreferredSize(buttonSize);
+        this.autoJLabel = autoJLabels;
         submitButton.setPreferredSize(buttonSize);
     }
 
-    public FormBuilder addField(String name, JTextField jTextField) {
-        this.fields.put(name, jTextField);
+    public FormBuilder addField(String name, JComponent jComponent) {
+        this.fields.put(name, jComponent);
 
         return this;
     }
@@ -36,10 +40,6 @@ public class FormBuilder implements Form {
         panel = optionalJPanel.isPresent()
                 ? optionalJPanel.get()
                 : new JPanel();
-        // space between fields
-        Insets fieldsInset = new Insets(0, 0, 10, 0);
-        // space between buttons
-        Insets buttonInset = new Insets(20,0,0,0);
 
         // uses Grid Bag Layout
         panel.setLayout(new GridBagLayout());
@@ -49,31 +49,41 @@ public class FormBuilder implements Form {
         // First constraints
         this.addGridBagConstraint(gridBagConstraints);
 
-        for (HashMap.Entry<String, JTextField> entry : fields.entrySet()) {
-            String name = entry.getKey();
-            JTextField jTextField = entry.getValue();
-            panel.add(
-                    new JLabel(name.substring(0, 1).toUpperCase() + name.substring(1) + " :"),
-                    gridBagConstraints
-            );
-            this.addGridBagConstraint(gridBagConstraints);
+        for (HashMap.Entry<String, JComponent> entry : fields.entrySet()) {
+            if (autoJLabel) {
+                String name = entry.getKey();
+                panel.add(
+                        new JLabel(name.substring(0, 1).toUpperCase() + name.substring(1) + " :"),
+                        gridBagConstraints
+                );
+                this.addGridBagConstraint(gridBagConstraints);
+            }
+            JComponent jTextField = entry.getValue();
             panel.add(jTextField, gridBagConstraints);
             this.addGridBagConstraint(gridBagConstraints);
         }
 
-        if (listButton.isEnabled()) {
+        this.initButtons(gridBagConstraints);
+
+        return this;
+    }
+
+    protected void initButtons(GridBagConstraints gridBagConstraints) {
+        if (listButton != null) {
             gridBagConstraints.insets = buttonInset;
             panel.add(listButton, gridBagConstraints);
         }
 
-        this.addGridBagConstraint(gridBagConstraints);
-        gridBagConstraints.insets = buttonInset;
-        panel.add(submitButton, gridBagConstraints);
+        if (submitButton != null) {
+            this.addGridBagConstraint(gridBagConstraints);
+            gridBagConstraints.insets = buttonInset;
+            panel.add(submitButton, gridBagConstraints);
+        }
 
-        this.addGridBagConstraint(gridBagConstraints);
-        panel.add(backButton.getToolBar(), gridBagConstraints);
-
-        return this;
+        if (backButton != null) {
+            this.addGridBagConstraint(gridBagConstraints);
+            panel.add(backButton.getToolBar(), gridBagConstraints);
+        }
     }
 
     public void submit(ActionListener actionListener) {
@@ -89,10 +99,39 @@ public class FormBuilder implements Form {
         if (!bln) {
             return;
         }
-        for (HashMap.Entry<String, JTextField> entry : fields.entrySet()) {
-            JTextField jTextField = entry.getValue();
-            jTextField.setText("");
+        for (HashMap.Entry<String, JComponent> entry : fields.entrySet()) {
+            JComponent jField = entry.getValue();
+            if (jField instanceof JTextField) {
+                JTextField jTextField = (JTextField) jField;
+                jTextField.setText("");
+            }
         }
+    }
+
+    public FormBuilder disableSubmitBtn() {
+        listButton = null;
+
+        return this;
+    }
+
+    public FormBuilder disableListBtn() {
+        listButton = null;
+
+        return this;
+    }
+
+    public FormBuilder disableBackBtn() {
+        backButton = null;
+
+        return this;
+    }
+
+    public FormBuilder disableAllBtn() {
+        backButton = null;
+        listButton = null;
+        submitButton = null;
+
+        return this;
     }
 
     @Override

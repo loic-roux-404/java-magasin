@@ -16,7 +16,7 @@ public class BackButton {
         toolBar.setOrientation(JToolBar.HORIZONTAL);
         toolBar.setBounds(300, 300, 1200, 100);
         // Back
-        btn = new JButton("Go Back");
+        btn = new JButton("Retour");
         toolBar.setMaximumSize(new Dimension(Integer.MAX_VALUE, toolBar.getMinimumSize().height));
         toolBar.add(btn);
     }
