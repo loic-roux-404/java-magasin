@@ -8,7 +8,15 @@ public class CarBrand {
     public CarBrand() {
     }
 
-    private String name;
+    
+    
+    public CarBrand(String name) {
+		this.name = name;
+	}
+
+
+
+	private String name;
 
     public String getName() {
         return name;

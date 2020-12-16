@@ -5,6 +5,10 @@ import Model.Car.Car;
 public class Order implements Entity{
 
     private int id;
+    private String status;
+    private Car car;
+    private Builder builder;
+    private Client client;
 
     static enum statuses{
         DONE,
@@ -12,15 +16,11 @@ public class Order implements Entity{
         CANCELLED,
     };
 
-    private String status;
 
-    private Car car;
-
-    private Builder builder;
-
-    private Client client;
-
-    public Order() {
+    public Order(int id, Client client, Car car) {
+    	this.id = id;
+        this.client = client;
+        this.car = car;
     }
 
     // TODO use serialization

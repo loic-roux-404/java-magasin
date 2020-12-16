@@ -1,13 +1,22 @@
 package Model.Car;
 
-public class Car {
+import Model.Entity;
+
+public class Car implements Entity {
 
     /**
      * Default constructor
      */
     public Car() {}
+    
+    public Car(CarBrand carBrand, CarModel type) {
+		this.carBrand = carBrand;
+		this.type = type;
+	}
 
-    private CarBrand carBrand;
+
+
+	private CarBrand carBrand;
 
     private CarModel type;
 

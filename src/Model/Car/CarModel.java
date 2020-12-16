@@ -11,7 +11,17 @@ public class CarModel {
     public CarModel() {
     }
 
-    private String name;
+    
+    
+    public CarModel(String name, String length, double weight) {
+		this.name = name;
+		this.length = length;
+		this.weight = weight;
+	}
+
+
+
+	private String name;
 
     private String length;
 
