@@ -31,11 +31,4 @@ public class Client implements Entity {
     public String toString() {
         return firstname + ", " + lastname;
     }
-
-    @Override
-    public Entity factory(String[] dbData) {
-
-        System.out.println(dbData);
-        return new Client();
-    }
 }

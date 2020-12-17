@@ -55,9 +55,4 @@ public class Builder implements Entity {
         // TODO Verify if data is comma separated list
         return name + ", " + availableCars.toString();
     }
-
-    @Override
-    public Entity factory(String[] dbData) {
-        return new Builder();
-    }
 }

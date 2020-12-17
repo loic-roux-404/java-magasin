@@ -23,7 +23,7 @@ public class ClientController extends AbstractController {
 
     @Override
     protected void actions() {
-
+    
         // submit user
         clientView.createForm.submit(e -> {
             String firstname = clientView.getFirstname().trim();
@@ -41,13 +41,13 @@ public class ClientController extends AbstractController {
             }
 
             this.entityManager.add(new Client(firstname, lastname));
-            this.entityManager.save();
+            
             clientView.createForm.reset(true);
         });
 
         // load users
         clientView.createForm.list(e -> {
-            clientView.list.getDetails(this.entityManager.loadEntities());
+            clientView.list.getDetails(this.entityManager.getAll());
         });
 
         // TODO delete here

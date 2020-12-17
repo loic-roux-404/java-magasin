@@ -27,18 +27,12 @@ public class Order implements Entity {
         this.car = car;
     }
 
-    // TODO use serialization
     @Override
     public String toString() {
         return id +
                 ", " + status +
-                ", Car{" + car.toString() + "}" +
-                ", Client{" + car.toString() + "}" +
-                ", Builder{" + builder.toString() + "}";
-    }
-
-    @Override
-    public Entity factory(String[] dbData) {
-        return new Order(1, new Client(), new Car());
+                ", " + car.toString() +
+                ", " + car.toString() +
+                ", " + builder.toString();
     }
 }

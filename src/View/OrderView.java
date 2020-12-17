@@ -57,9 +57,9 @@ public class OrderView {
 	public Form CREATE() throws InternalException {
 		EntityManager managerCar = controller.getEntityManager(Car.class);
 		managerCar.add(new Car(new CarBrand("Renault"), new CarModel("Megane", "2.5", 1320)));
-		managerCar.save();
+		
 		managerCar.add(new Car(new CarBrand("Renault"), new CarModel("Laguna", "3", 1562.5)));        
-		managerCar.save();
+		
 		ArrayList<Entity> listeClients = this.getClients();
 		ArrayList<Entity> listeCars = this.getCars();
 
@@ -83,10 +83,10 @@ public class OrderView {
 	}
 	
     public ArrayList<Entity> getClients() throws ServiceRegisteryException {
-    	return controller.getEntityManager(Client.class).loadEntities();
+    	return controller.getEntityManager(Client.class).getAll();
     }
     public ArrayList<Entity> getCars() throws ServiceRegisteryException {
-    	return controller.getEntityManager(Car.class).loadEntities();
+    	return controller.getEntityManager(Car.class).getAll();
     }
 
 	public String getId() {

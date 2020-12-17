@@ -40,11 +40,6 @@ public class Car implements Entity {
                 ", " + type.getName();
     }
 
-    @Override
-    public Entity factory(String[] dbData) {
-        return new Car(new CarBrand(dbData[0]), new CarModel("TODO", "todo", 0.0));
-    }
-
     public void Operation1() {
         // TODO implement here
     }

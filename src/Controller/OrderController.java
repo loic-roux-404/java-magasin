@@ -53,7 +53,7 @@ public class OrderController extends AbstractController {
             }
 
             this.entityManager.add(new Order(Integer.parseInt(id), client, car));
-            this.entityManager.save();
+            
             this.orderView.orderForm.reset(true);
         });
     }
