@@ -2,10 +2,8 @@ package Model;
 
 import Services.Entity.Entity;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-
 public class Client implements Entity {
+    private int id;
 
     private String firstname;
     private String lastname;
@@ -28,6 +26,19 @@ public class Client implements Entity {
         return lastname;
     }
 
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public Client setId(int id) {
+        this.id = id;
+
+        return this;
+    }
+
+    @Override
     public String toString() {
         return firstname + ", " + lastname;
     }

@@ -4,7 +4,7 @@ import Exceptions.ServiceRegisteryException;
 import Model.Shop;
 import Services.Entity.EntityManager;
 import Services.Layout;
-import Services.Registery;
+import Framework.Registery;
 
 public class ShopController extends AbstractController {
     private EntityManager entityManager;

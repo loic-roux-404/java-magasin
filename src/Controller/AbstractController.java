@@ -4,14 +4,16 @@ import Exceptions.InternalException;
 import Exceptions.ServiceRegisteryException;
 import Services.Entity.EntityManager;
 import Services.Layout;
-import Services.Registery;
-import Services.Service;
+import Framework.Registery;
+import Framework.Service;
+
+import javax.swing.*;
 
 public abstract class AbstractController {
     private Registery registery;
 
     public AbstractController(Registery registery) {
-        setRegistery(registery != null ? registery : new Registery(null));
+        setRegistery(registery);
     }
 
     public EntityManager getEntityManager(Class entityClass) throws ServiceRegisteryException {
@@ -36,6 +38,17 @@ public abstract class AbstractController {
 
     public void setRegistery(Registery registery) {
         this.registery = registery;
+    }
+
+    public void refresh() {
+        try {
+            JFrame frame = this.getLayout().mainFrame;
+            frame.invalidate();
+            frame.validate();
+            frame.repaint();
+        } catch (ServiceRegisteryException serviceRegisteryException) {
+            serviceRegisteryException.printStackTrace();
+        }
     }
 
     abstract protected void actions() throws ServiceRegisteryException, InternalException;

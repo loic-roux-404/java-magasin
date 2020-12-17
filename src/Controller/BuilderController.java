@@ -4,7 +4,7 @@ import Exceptions.ServiceRegisteryException;
 import Services.Entity.EntityManager;
 import Model.Builder;
 import Services.Layout;
-import Services.Registery;
+import Framework.Registery;
 import View.BuilderView;
 
 public class BuilderController extends AbstractController {
@@ -24,11 +24,11 @@ public class BuilderController extends AbstractController {
         Layout ly = this.getLayout();
         // Open list page from create form
         view.builderCreateForm.list(e -> {
-
+            this.refresh();
         });
 
         view.builderCreateForm.submit(e -> {
-
+            this.refresh();
         });
     }
 }

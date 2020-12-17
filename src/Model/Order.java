@@ -17,6 +17,9 @@ public class Order implements Entity {
         CANCELLED,
     };
 
+    /**
+     * Default constructor, used by entityManager
+     */
     public Order() {
 
     }
@@ -25,6 +28,18 @@ public class Order implements Entity {
     	this.id = id;
         this.client = client;
         this.car = car;
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public Order setId(int id) {
+        this.id = id;
+
+        return this;
     }
 
     @Override

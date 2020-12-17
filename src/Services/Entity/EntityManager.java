@@ -1,22 +1,17 @@
 package Services.Entity;
 
-import Services.Service;
+import Framework.Service;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class EntityManager implements Service {
     private boolean loaded;
 
-    private File file;
     private ArrayList<Entity> entityArrayList;
 
     protected Entity managedEn;
 
     public EntityManager(Class entityClass) {
-        
         entityArrayList = new ArrayList<>();
         this.loadEntityInstance(entityClass);
         this.load();
@@ -34,18 +29,14 @@ public class EntityManager implements Service {
 
     }
 
-    // adds user to our collection
+    // adds entity to our collection
     public void add(Entity item) {
+        item.setId(entityArrayList.size() + 1);
         entityArrayList.add(item);
     }
 
     public ArrayList<Entity> getAll() {
-        
-
-        
-
-            return entityArrayList;
-         
+        return entityArrayList;
     }   
 
     @Override

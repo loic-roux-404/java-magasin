@@ -1,4 +1,4 @@
-package Services;
+package Framework;
 
 import Exceptions.ServiceNotLoadedException;
 import Exceptions.ServiceRegisteryException;

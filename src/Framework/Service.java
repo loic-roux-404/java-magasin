@@ -1,4 +1,4 @@
-package Services;
+package Framework;
 
 public interface Service {
     void load();

@@ -70,19 +70,24 @@ EntityManager car = new EntityManager(Car.class);
 Il contient deux méthodes
 
 `add` : Ajout d'une instance à la base
-`save` : Confirmer la sauvegarde du nouveau fichier avec les nouvelles données
 
-##### création d'une entité
+`getAll` : récupérer la liste des entités
 
-> Pour créer une entité veiller à bien utiliser un constructuer vide pour que l'entity manager puisse correctement
-> utitilisé les méthodes clés de vos entités.
+`getById` : Récupérer une entité par son id
 
-> ATTENTION : l'ordre des champs est très important, il faut le même dans les méthode clés d'une entité pour ne pas inverser les données.
+##### Création d'une entité
+
+> Pour créer une entité veiller à bien utiliser un constructuer vide pour que l'entity manager puisse correctement fonctionner
 
 Voici les **Deux méthodes** clés d'une entité 
 
-`toString()` : pour ajouter à la base les propriétés sous form de chaines de caractères séparés par des virgules
-`factory(String dbData)` : pour recréer une instance de l'objet à partir de la chaine de texte en bdd 
+`toString()` : Pour récupérer les propriétés dans une liste en les séparant par des virgules. Utile pour créer des vue tableau des données d'entités.
+
+`getId()` : Pour récupérer l'id de l'entité, cet id correspond à sa place dans la liste stocké dans un `EntityManager`
+Très utile si on veut pouvoir récupérer précisemment une entité pour faire une modification de celle-ci.
+
+`setId()` : Pour ajouter un id, obligation de l'implémenter dans une entité pour avoir que l'index dans la `ArrayList<Entity>` corresponde bien à l'id.
+N'utilisez pas cette méthode, elle fait partie du fonctionnement interne d'un `entityManager` 
 
 #### Le cas du service Layout : 
 

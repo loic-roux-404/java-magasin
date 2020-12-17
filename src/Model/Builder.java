@@ -6,7 +6,7 @@ import Services.Entity.Entity;
 import java.util.ArrayList;
 
 public class Builder implements Entity {
-
+    private int id;
     /**
      * Default constructor
      */
@@ -48,6 +48,18 @@ public class Builder implements Entity {
 
     public ArrayList<Car> getAvailableCars() {
         return availableCars;
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public Builder setId(int id) {
+        this.id = id;
+
+        return this;
     }
 
     @Override

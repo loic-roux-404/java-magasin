@@ -1,9 +1,10 @@
 package Model.Car;
 
+import Model.Order;
 import Services.Entity.Entity;
 
 public class Car implements Entity {
-
+    private int id;
     /**
      * Default constructor
      */
@@ -32,6 +33,18 @@ public class Car implements Entity {
 
     public void setType(CarModel type) {
         this.type = type;
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public Car setId(int id) {
+        this.id = id;
+
+        return this;
     }
 
     @Override

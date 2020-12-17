@@ -1,6 +1,7 @@
 package Controller;
 
 import Exceptions.InternalException;
+import Exceptions.ServiceRegisteryException;
 import Model.Order;
 import Model.Car.Car;
 
@@ -10,7 +11,7 @@ import Model.Client;
 import View.OrderView;
 import View.SwingModules.Form;
 import Services.Entity.EntityManager;
-import Services.Registery;
+import Framework.Registery;
 
 /**
  * Process order and manage CRUD operations
@@ -32,9 +33,17 @@ public class OrderController extends AbstractController {
         Form orderForm = this.orderView.orderForm;
         // submit order
         orderForm.submit(e -> {
-            System.out.println(orderView.getClientSelect().getSelectedItem());
-            Client client = (Client) orderView.getClientSelect().getSelectedItem();
-            Car car = (Car) orderView.getCarSelect().getSelectedItem();
+            Object clientSelected = orderView.getClientSelect().getSelectedItem();
+            Object carSelect = orderView.getClientSelect().getSelectedItem();
+
+            if (clientSelected == this.orderView.NO_SELECT || carSelect == this.orderView.NO_SELECT) {
+                JOptionPane.showMessageDialog(orderForm.getPanel(), "Sélectionnez un champs", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            Client client = (Client) clientSelected;
+            Car car = (Car) clientSelected;
             String id = orderView.getId().trim();
 
             // simple validations
@@ -55,6 +64,7 @@ public class OrderController extends AbstractController {
             this.entityManager.add(new Order(Integer.parseInt(id), client, car));
             
             this.orderView.orderForm.reset(true);
+            this.refresh();
         });
     }
 }
