@@ -1,5 +1,10 @@
 package Model;
 
+import Services.Entity.Entity;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
 public class Client implements Entity {
 
     private String firstname;
@@ -25,5 +30,12 @@ public class Client implements Entity {
 
     public String toString() {
         return firstname + ", " + lastname;
+    }
+
+    @Override
+    public Entity factory(String[] dbData) {
+
+        System.out.println(dbData);
+        return new Client();
     }
 }

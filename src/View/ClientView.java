@@ -1,15 +1,16 @@
 package View;
 
-import Controller.ClientController;
+import Controller.AbstractController;
+import Services.Layout;
 import View.SwingModules.Form;
 import View.SwingModules.FormBuilder;
 import View.SwingModules.List;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.Optional;
 
 public class ClientView {
+
     static String[] tableColumn = {"FIRST NAME", "LAST NAME"};
 
     static final String ADD = "client_add";
@@ -18,23 +19,20 @@ public class ClientView {
     private JTextField firstNameField;
     private JTextField lastNameField;
 
-    public FormBuilder builder;
+    // Components
+    public Form createForm = this.CREATE();
+    public List list = this.LIST();
 
-    public ClientView(CardLayout cardLayout, MainFrame mainFrame, Home home) throws HeadlessException {
-        Form clientCreateForm = this.CREATE();
-        View.SwingModules.List clientDetails = this.LIST();
-        // initialize user controller
-        new ClientController(clientCreateForm, clientDetails, this);
-
-        clientCreateForm.getBackButton().onClick(e -> cardLayout.show(mainFrame.getContentPane(), "Home"));
+    public ClientView(Layout ly, AbstractController controller) {
+        createForm.getBackButton().onClick(e -> ly.card.show(ly.mainFrame.getContentPane(), "Home"));
         // adds view to card layout with unique constraints
-        mainFrame.add(clientCreateForm.getPanel(), ADD);
-        mainFrame.add(clientDetails, LIST);
+        ly.mainFrame.add(createForm.getPanel(), ADD);
+        ly.mainFrame.add(list, LIST);
         // Home access
-        home.usersPage(e -> cardLayout.show(mainFrame.getContentPane(), ADD));
+        ly.home.usersPage(e -> ly.card.show(ly.mainFrame.getContentPane(), ADD));
         // switch view according to its constraints on click
-        clientCreateForm.list(e -> cardLayout.show(mainFrame.getContentPane(), LIST));
-        clientDetails.backButton.onClick(e -> cardLayout.show(mainFrame.getContentPane(), ADD));
+        createForm.list(e -> ly.card.show(ly.mainFrame.getContentPane(), LIST));
+        list.backButton.onClick(e -> ly.card.show(ly.mainFrame.getContentPane(), ADD));
     }
 
     public View.SwingModules.List LIST() {
@@ -44,11 +42,10 @@ public class ClientView {
     public Form CREATE() {
         firstNameField = new JTextField(25);
         lastNameField = new JTextField(25);
-        builder = (new FormBuilder(true))
+        return (new FormBuilder(true))
                 .addField("nom", firstNameField)
-                .addField("prenom", lastNameField);
-
-        return builder.create(Optional.empty());
+                .addField("prenom", lastNameField)
+                .create(Optional.empty());
     }
 
     // getters

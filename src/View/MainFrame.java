@@ -1,28 +1,31 @@
 package View;
 
+import Controller.*;
+import Exceptions.InternalException;
+import Exceptions.ServiceNotLoadedException;
+import Services.Layout;
+import Services.Listener;
+import Services.Registery;
+import Services.Service;
+
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainFrame extends JFrame {
 
     // Card layout for switching view
-    public CardLayout cardLayout;
-    private MenuBar menuBar = new MenuBar();
-    public Home home = new Home();
+    public Layout layout = new Layout(this);
+
+    public Registery registery;
+    // viewRegisery
+    public ArrayList<JPanel> views = new ArrayList<>();
 
     public MainFrame() {
         super("Automobile Market");
-        this.createMenu();
-        cardLayout = new CardLayout();
-        setLayout(cardLayout);
-        // sets our layout as a card layout
-        add(home, "Home");
-        new ClientView(cardLayout, this, home);
-        new CarView(cardLayout, this, home);
-        new OrderView(cardLayout, this, home);
-        new BuilderView(cardLayout, this, home);
 
+        this.init();
         // icon for our application
         ImageIcon imageIcon = new ImageIcon("appicon.png");
         setIconImage(imageIcon.getImage());
@@ -31,16 +34,52 @@ public class MainFrame extends JFrame {
         int FRAME_HEIGHT = 700;
         // size of our application frame
         setSize(FRAME_WIDTH, FRAME_HEIGHT);
+    }
+
+    protected void init() {
+        this.createMenu();
+        // Bootstrap app
+        setLayout(layout.card);
+        add(layout.home, "Home");
+        try {
+            // Core Service creation
+            this.loadServices();
+            // Controllers
+            new ClientController(registery);
+            new CarController(registery);
+            new CarController(registery);
+            new OrderController(registery);
+            new BuilderController(registery);
+            new ShopController(registery);
+            // Listeners
+            this.callListeners();
+        } catch (InternalException e) {
+            e.printStackTrace();
+        }
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
 
+    protected void loadServices() throws ServiceNotLoadedException {
+        registery = new Registery(null);
+        registery.add(Layout.NAME, layout);
+    }
+
+    protected void callListeners() {
+        for (HashMap.Entry<String, Service> service : registery.services.entrySet()) {
+            if (service instanceof Listener) {
+                ((Listener) service).call();
+            }
+        }
+    }
+
     protected void createMenu() {
 
-        setJMenuBar(menuBar);
+        setJMenuBar(layout.menuBar);
 
         // menu listeners :
-        menuBar.jMenuItemQuit.addActionListener((ActionEvent ev) ->
+        layout.menuBar.jMenuItemQuit.addActionListener((ActionEvent ev) ->
         {
             if (confirmBeforeExit()) {
                 {

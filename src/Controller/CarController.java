@@ -1,20 +1,33 @@
 package Controller;
 
-import Model.EntityManager;
+import Exceptions.InternalException;
+import Exceptions.ServiceRegisteryException;
+import Model.Client;
+import Services.Entity.EntityManager;
 import Model.Car.Car;
+import Services.Layout;
+import Services.Registery;
+import View.CarView;
+import View.ClientView;
 import View.SwingModules.List;
 
 /**
  * List / READ ONE cars (cars are provided by there builder so search cars in builders)
  */
-public class CarController {
+public class CarController extends AbstractController {
     private EntityManager entityManager;
 
-    private List list;
+    private CarView carView;
 
-    public CarController(List list) {
-        this.entityManager = new EntityManager(Car.class);
-        // Handle actions here and views data recuperation
-        this.list = list;
+    public CarController(Registery registery) throws InternalException {
+        super(registery);
+        this.entityManager = this.getEntityManager(Client.class);
+        carView = new CarView(this.getLayout(), this);
+        this.actions();
+    }
+
+    @Override
+    protected void actions() throws InternalException {
+
     }
 }

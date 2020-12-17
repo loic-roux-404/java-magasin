@@ -1,11 +1,15 @@
 package View;
 
+import Controller.AbstractController;
 import Controller.OrderController;
-import Model.Order;
+import Exceptions.InternalException;
+import Exceptions.ServiceRegisteryException;
 import Model.Car.Car;
 import Model.Car.CarBrand;
 import Model.Car.CarModel;
-import Model.EntityManager;
+import Services.Entity.Entity;
+import Services.Entity.EntityManager;
+import Services.Layout;
 import View.SwingModules.Form;
 import View.SwingModules.FormBuilder;
 import View.SwingModules.List;
@@ -18,88 +22,82 @@ import Model.Client;
 
 public class OrderView {
 	static String[] tableColumn = { "ID", "CAR", "CLIENT" };
-	OrderController oc;
+	OrderController controller;
 	static final String ADD = "order_add";
 	static final String LIST = "order_list";
 	
-	private JTextField id;
-	private JComboBox clientList;
-	private JComboBox carList;
-	
-	public OrderView(CardLayout cardLayout, MainFrame mainFrame, Home home) throws HeadlessException {
-		Form orderForm = this.CREATE();
-		View.SwingModules.List orderList = this.LIST();
-		// initialize user controller
-		oc = new OrderController(orderForm, orderList, this);
+	private JTextField id = new JTextField(25);;
+	private JComboBox clientSelect = new JComboBox();
+	private JComboBox carSelect = new JComboBox();
 
-		orderForm.getBackButton().onClick(e -> cardLayout.show(mainFrame.getContentPane(), "Home"));
+	public Form orderForm;
+	public View.SwingModules.List orderList;
+
+	public OrderView(Layout ly, OrderController controller) throws HeadlessException, InternalException {
+		this.controller = controller;
+		// Components
+		orderForm = this.CREATE();
+		orderList = this.LIST();
+
+		orderForm.getBackButton().onClick(e -> ly.card.show(ly.mainFrame.getContentPane(), "Home"));
 		// adds view to card layout with unique constraints
-		mainFrame.add(orderForm.getPanel(), ADD);
-		mainFrame.add(orderList, LIST);
+		ly.mainFrame.add(orderForm.getPanel(), ADD);
+		ly.mainFrame.add(orderList, LIST);
 		// Home access
-		home.ordersPage(e -> cardLayout.show(mainFrame.getContentPane(), ADD));
+		ly.home.ordersPage(e -> ly.card.show(ly.mainFrame.getContentPane(), ADD));
 		// switch view according to its constraints on click
-		orderForm.list(e -> cardLayout.show(mainFrame.getContentPane(), LIST));
-		orderList.backButton.onClick(e -> cardLayout.show(mainFrame.getContentPane(), ADD));
+		orderForm.list(e -> ly.card.show(ly.mainFrame.getContentPane(), LIST));
+		orderList.backButton.onClick(e -> ly.card.show(ly.mainFrame.getContentPane(), ADD));
 	}
 
 	public View.SwingModules.List LIST() {
 		return new List(tableColumn);
 	}
 
-	public Form CREATE() {
-		EntityManager managerCar=new EntityManager(Car.class);
+	public Form CREATE() throws InternalException {
+		EntityManager managerCar = controller.getEntityManager(Car.class);
 		managerCar.add(new Car(new CarBrand("Renault"), new CarModel("Megane", "2.5", 1320)));
 		managerCar.save();
 		managerCar.add(new Car(new CarBrand("Renault"), new CarModel("Laguna", "3", 1562.5)));        
 		managerCar.save();
-		Object[] listeClients = this.getClients();
-		Object[] listeCars = this.getCars();
+		ArrayList<Entity> listeClients = this.getClients();
+		ArrayList<Entity> listeCars = this.getCars();
 
-		id = new JTextField(25);
-		
-		clientList = new JComboBox();		
-		carList = new JComboBox();
+		clientSelect.addItem("Select...");
+		carSelect.addItem("Select...");
 
-		clientList.addItem("Select...");		
-		carList.addItem("Select...");
-
-		
-		
-		for (var i = 0; i < listeClients.length; i++) {
-			clientList.addItem(listeClients[i]);		
+		for (Entity client: listeClients) {
+			clientSelect.addItem(client);
 		}
-		for (var i = 0; i < listeCars.length; i++) {
-			carList.addItem(listeCars[i]);		
+
+		for (Entity car: listeCars) {
+			carSelect.addItem(car);
 		}
 
 		FormBuilder builder = (new FormBuilder(true))
 				.addField("id", id)
-				.addField("voiture", carList)
-				.addField("client", clientList);
+				.addField("voiture", carSelect)
+				.addField("client", clientSelect);
 
 		return builder.create(Optional.empty());
 	}
 	
-    public Object[] getClients() {
-    	return (new EntityManager(Client.class)).loadEntities();
+    public ArrayList<Entity> getClients() throws ServiceRegisteryException {
+    	return controller.getEntityManager(Client.class).loadEntities();
     }
-    public Object[] getCars() {
-    	return (new EntityManager(Car.class)).loadEntities();
+    public ArrayList<Entity> getCars() throws ServiceRegisteryException {
+    	return controller.getEntityManager(Car.class).loadEntities();
     }
 
 	public String getId() {
 		return id.getText();
 	}
 
-	public JComboBox getClientList() {
-		return clientList;
+	public JComboBox getClientSelect() {
+		return clientSelect;
 	}
 
-	public JComboBox getCarList() {
-		return carList;
+	public JComboBox getCarSelect() {
+		return carSelect;
 	}
-    
-    
-   
 }

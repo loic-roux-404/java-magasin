@@ -1,18 +1,37 @@
-package Model;
+package Services.Entity;
+
+import Services.Service;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class EntityManager {
+public class EntityManager implements Service {
+    private boolean loaded;
 
     private File file;
     private ArrayList<Entity> entityArrayList;
 
+    protected Entity managedEn;
+
     public EntityManager(Class entityClass) {
         this.file = this.createFile(entityClass.getSimpleName());
         entityArrayList = new ArrayList<>();
+        this.loadEntityInstance(entityClass);
+        this.load();
+    }
+
+    void loadEntityInstance(Class entityClass) {
+        try {
+            managedEn = (Entity) entityClass.getDeclaredConstructor().newInstance();
+            // managedEn.ge
+        } catch (Exception e) {
+            System.err.println("This entity definition has errors " + entityClass.getName());
+            System.err.println("Verify methods and empty constructor usage");
+            e.printStackTrace();
+        }
+
     }
 
     // adds user to our collection
@@ -29,7 +48,7 @@ public class EntityManager {
 
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
             int i = 0;
-            while( i < entityArrayList.size()) {
+            while(i < entityArrayList.size()) {
                 item = entityArrayList.get(i);
                 save_data = item.toString();
                 i++;
@@ -43,15 +62,21 @@ public class EntityManager {
         }
     }
 
-    // reads user from database file
-    public Object[] loadEntities() {
-        Object[] objects;
+    // reads entity from database file
+    public ArrayList<Entity> loadEntities() {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file.getPath()));
             // each lines to array
-            objects = bufferedReader.lines().toArray();
+            Object[] objects = bufferedReader.lines().toArray();
             bufferedReader.close();
-            return objects;
+
+            for (Object o: objects) {
+                String row = o.toString().trim();
+                String[] rows = row.split(",");
+                entityArrayList.add(managedEn.factory(rows));
+            }
+
+            return entityArrayList;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -72,5 +97,16 @@ public class EntityManager {
         }
 
         return myFile;
+    }
+
+
+    @Override
+    public void load() {
+        loaded = true;
+    }
+
+    @Override
+    public boolean isLoaded() {
+        return loaded;
     }
 }

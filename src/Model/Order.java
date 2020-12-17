@@ -1,8 +1,9 @@
 package Model;
 
 import Model.Car.Car;
+import Services.Entity.Entity;
 
-public class Order implements Entity{
+public class Order implements Entity {
 
     private int id;
     private String status;
@@ -16,6 +17,9 @@ public class Order implements Entity{
         CANCELLED,
     };
 
+    public Order() {
+
+    }
 
     public Order(int id, Client client, Car car) {
     	this.id = id;
@@ -31,5 +35,10 @@ public class Order implements Entity{
                 ", Car{" + car.toString() + "}" +
                 ", Client{" + car.toString() + "}" +
                 ", Builder{" + builder.toString() + "}";
+    }
+
+    @Override
+    public Entity factory(String[] dbData) {
+        return new Order(1, new Client(), new Car());
     }
 }

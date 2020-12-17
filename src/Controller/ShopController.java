@@ -1,19 +1,25 @@
 package Controller;
 
-import Model.EntityManager;
-import Model.Order;
-import View.SwingModules.List;
-import View.SwingModules.Form;
+import Exceptions.ServiceRegisteryException;
+import Model.Shop;
+import Services.Entity.EntityManager;
+import Services.Layout;
+import Services.Registery;
 
-public class ShopController {
+public class ShopController extends AbstractController {
     private EntityManager entityManager;
 
-    private Form form;
-    private List list;
+    // Views
+    // private ShopView shopView;
 
-    public ShopController(Form orderForm, List orderDetails) {
-        this.entityManager = new EntityManager(Order.class);
-        this.form = orderForm;
-        this.list = orderDetails;
+    public ShopController(Registery registery) throws ServiceRegisteryException {
+        super(registery);
+        this.entityManager = new EntityManager(Shop.class);
+        this.actions();
+    }
+
+    @Override
+    protected void actions() throws ServiceRegisteryException {
+        Layout ly = this.getLayout();
     }
 }

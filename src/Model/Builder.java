@@ -1,10 +1,11 @@
 package Model;
 
 import Model.Car.Car;
+import Services.Entity.Entity;
 
 import java.util.ArrayList;
 
-public class Builder implements Entity{
+public class Builder implements Entity {
 
     /**
      * Default constructor
@@ -53,5 +54,10 @@ public class Builder implements Entity{
     public String toString() {
         // TODO Verify if data is comma separated list
         return name + ", " + availableCars.toString();
+    }
+
+    @Override
+    public Entity factory(String[] dbData) {
+        return new Builder();
     }
 }

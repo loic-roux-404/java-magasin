@@ -1,7 +1,10 @@
 package View.SwingModules;
 
+import Services.Entity.Entity;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
 
 /**
  * List data in table
@@ -29,12 +32,12 @@ public class List extends JPanel {
     }
 
     // gets data from database and loads to table
-    public void getDetails(Object[] objects) {
+    public void getDetails(ArrayList<Entity> entities) {
         DefaultTableModel defaultTableModel = (DefaultTableModel) table.getModel();
         // Prevenir l'ajout de colonne alors qu'on a déjà les data
         defaultTableModel.setRowCount(0);
         defaultTableModel.setColumnIdentifiers(tableColumn);
-        for (Object o: objects) {
+        for (Entity o: entities) {
             String row = o.toString().trim();
             String[] rows = row.split(",");
             defaultTableModel.addRow(rows);

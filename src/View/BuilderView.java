@@ -1,6 +1,8 @@
 package View;
 
+import Controller.AbstractController;
 import Controller.BuilderController;
+import Services.Layout;
 import View.SwingModules.List;
 import View.SwingModules.Form;
 import View.SwingModules.FormBuilder;
@@ -18,21 +20,20 @@ public class BuilderView {
     // TODO select from cars
     // private JTextField lastNameField;
 
-    public BuilderView(CardLayout cardLayout, MainFrame mainFrame, Home home) throws HeadlessException {
-        Form builderCreateForm = this.CREATE();
-        List builderList = this.LIST();
-        // initialize user controller
-        new BuilderController(builderCreateForm, builderList);
+    // Components
+    public Form builderCreateForm = this.CREATE();
+    public List builderList = this.LIST();
 
-        builderCreateForm.getBackButton().onClick(e -> cardLayout.show(mainFrame.getContentPane(), "Home"));
+    public BuilderView(Layout ly, BuilderController controller) throws HeadlessException {
+        builderCreateForm.getBackButton().onClick(e -> ly.card.show(ly.mainFrame.getContentPane(), "Home"));
         // adds view to card layout with unique constraints
-        mainFrame.add(builderCreateForm.getPanel(), ADD);
-        mainFrame.add(builderList, LIST);
+        ly.mainFrame.add(builderCreateForm.getPanel(), ADD);
+        ly.mainFrame.add(builderList, LIST);
         // Home access
-        home.buildersPage(e -> cardLayout.show(mainFrame.getContentPane(), ADD));
+        ly.home.buildersPage(e -> ly.card.show(ly.mainFrame.getContentPane(), ADD));
         // switch view according to its constraints on click
-        builderCreateForm.list(e -> cardLayout.show(mainFrame.getContentPane(), LIST));
-        builderList.backButton.onClick(e -> cardLayout.show(mainFrame.getContentPane(), ADD));
+        builderCreateForm.list(e -> ly.card.show(ly.mainFrame.getContentPane(), LIST));
+        builderList.backButton.onClick(e -> ly.card.show(ly.mainFrame.getContentPane(), ADD));
     }
 
     public Form CREATE() {
