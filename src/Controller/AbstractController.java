@@ -40,16 +40,5 @@ public abstract class AbstractController {
         this.registery = registery;
     }
 
-    public void refresh() {
-        try {
-            JFrame frame = this.getLayout().mainFrame;
-            frame.invalidate();
-            frame.validate();
-            frame.repaint();
-        } catch (ServiceRegisteryException serviceRegisteryException) {
-            serviceRegisteryException.printStackTrace();
-        }
-    }
-
-    abstract protected void actions() throws ServiceRegisteryException, InternalException;
+    abstract protected void actions() throws InternalException;
 }

@@ -1,6 +1,5 @@
 package View;
 
-import View.SwingModules.Form;
 import View.SwingModules.FormBuilder;
 
 import javax.swing.*;

@@ -3,9 +3,7 @@ package View;
 import Controller.OrderController;
 import Exceptions.InternalException;
 import Exceptions.ServiceRegisteryException;
-import Model.Car.Car;
-import Model.Car.CarBrand;
-import Model.Car.CarModel;
+import Model.Car;
 import Services.Entity.Entity;
 import Services.Entity.EntityManager;
 import Services.Layout;
@@ -46,7 +44,7 @@ public class OrderView {
 		ly.mainFrame.add(orderForm.getPanel(), ADD);
 		ly.mainFrame.add(orderList, LIST);
 		// Home access
-		ly.home.ordersPage(e -> ly.card.show(ly.mainFrame.getContentPane(), ADD));
+		ly.home.ordersPage(e -> { this.fillForm(); ly.card.show(ly.mainFrame.getContentPane(), ADD); });
 		// switch view according to its constraints on click
 		orderForm.list(e -> ly.card.show(ly.mainFrame.getContentPane(), LIST));
 		orderList.backButton.onClick(e -> ly.card.show(ly.mainFrame.getContentPane(), ADD));
@@ -56,41 +54,30 @@ public class OrderView {
 		return new List(tableColumn);
 	}
 
-	public Form CREATE() throws InternalException {
-		EntityManager managerCar = controller.getEntityManager(Car.class);
-		managerCar.add(new Car(new CarBrand("Renault"), new CarModel("Megane", "2.5", 1320)));
-		
-		managerCar.add(new Car(new CarBrand("Renault"), new CarModel("Laguna", "3", 1562.5)));        
-		
-		ArrayList<Entity> listeClients = this.getClients();
-		ArrayList<Entity> listeCars = this.getCars();
-
+	public void fillForm() {
+		clientSelect.removeAllItems();
+		carSelect.removeAllItems();
 		clientSelect.addItem(NO_SELECT);
 		carSelect.addItem(NO_SELECT);
-
-		for (Entity client: listeClients) {
-			System.out.println(client.toString());
+		// The solution
+		for (Entity client: controller.clients) {
 			clientSelect.addItem(client);
 		}
 
-		for (Entity car: listeCars) {
+		for (Entity car: controller.cars) {
 			carSelect.addItem(car);
 		}
+	}
 
+	public Form CREATE() {
 		FormBuilder builder = (new FormBuilder(true))
-				.addField("id", id)
+				.addField("client", clientSelect)
 				.addField("voiture", carSelect)
-				.addField("client", clientSelect);
+				.addField("id", id)
+		;
 
 		return builder.create(Optional.empty());
 	}
-	
-    public ArrayList<Entity> getClients() throws ServiceRegisteryException {
-    	return controller.getEntityManager(Client.class).getAll();
-    }
-    public ArrayList<Entity> getCars() throws ServiceRegisteryException {
-    	return controller.getEntityManager(Car.class).getAll();
-    }
 
 	public String getId() {
 		return id.getText();

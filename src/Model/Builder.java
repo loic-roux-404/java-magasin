@@ -1,8 +1,6 @@
 package Model;
 
-import Model.Car.Car;
 import Services.Entity.Entity;
-
 import java.util.ArrayList;
 
 public class Builder implements Entity {
@@ -10,11 +8,11 @@ public class Builder implements Entity {
     /**
      * Default constructor
      */
-    public Builder() { }
+    public Builder() {}
 
     private String name;
 
-    private ArrayList<Car> availableCars;
+    private ArrayList<Car> availableCars = new ArrayList<>();
 
     public void orderCreation() {
         // TODO implement here

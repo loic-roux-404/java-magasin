@@ -1,6 +1,5 @@
 package Model;
 
-import Model.Car.Car;
 import Services.Entity.Entity;
 
 public class Order implements Entity {
