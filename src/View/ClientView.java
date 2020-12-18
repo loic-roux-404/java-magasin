@@ -24,15 +24,12 @@ public class ClientView {
     public List list = this.LIST();
 
     public ClientView(Layout ly, AbstractController controller) {
-        createForm.getBackButton().onClick(e -> ly.card.show(ly.mainFrame.getContentPane(), "Home"));
-        // adds view to card layout with unique constraints
-        ly.mainFrame.add(createForm.getPanel(), ADD);
-        ly.mainFrame.add(list, LIST);
+        createForm.getBackButton().onClick(e -> ly.openHome());
         // Home access
-        ly.home.usersPage(e -> ly.card.show(ly.mainFrame.getContentPane(), ADD));
+        ly.home.page(Home.CLIENTS).onOpen(e -> ly.openPage(createForm.getPanel(), ADD));
         // switch view according to its constraints on click
-        createForm.list(e -> ly.card.show(ly.mainFrame.getContentPane(), LIST));
-        list.backButton.onClick(e -> ly.card.show(ly.mainFrame.getContentPane(), ADD));
+        createForm.list(e -> ly.openPage(list, LIST));
+        list.backButton.onClick(e -> ly.openPage(createForm.getPanel(), ADD));
     }
 
     public View.SwingModules.List LIST() {
@@ -43,9 +40,9 @@ public class ClientView {
         firstNameField = new JTextField(25);
         lastNameField = new JTextField(25);
         return (new FormBuilder(true))
-                .addField("nom", firstNameField)
-                .addField("prenom", lastNameField)
-                .create(Optional.empty());
+            .addField("nom", firstNameField)
+            .addField("prenom", lastNameField)
+            .create(Optional.empty());
     }
 
     // getters

@@ -1,18 +1,18 @@
 package Controller;
 
 import Exceptions.InternalException;
+import Framework.Registery;
 import Model.Client;
 import Services.Entity.EntityManager;
-import Framework.Registery;
 import View.CarView;
 
 /**
  * List / READ ONE cars (cars are provided by there builder so search cars in builders)
  */
 public class CarController extends AbstractController {
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
-    private CarView carView;
+    private final CarView carView;
 
     public CarController(Registery registery) throws InternalException {
         super(registery);

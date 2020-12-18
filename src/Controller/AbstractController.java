@@ -2,12 +2,10 @@ package Controller;
 
 import Exceptions.InternalException;
 import Exceptions.ServiceRegisteryException;
-import Services.Entity.EntityManager;
-import Services.Layout;
 import Framework.Registery;
 import Framework.Service;
-
-import javax.swing.*;
+import Services.Entity.EntityManager;
+import Services.Layout;
 
 public abstract class AbstractController {
     private Registery registery;
@@ -20,8 +18,8 @@ public abstract class AbstractController {
         // Init first services
         String name = entityClass.getSimpleName();
         return (EntityManager) (this.registery.has(name)
-                ? this.registery.get(name)
-                : this.registery.add(name, new EntityManager(entityClass)).get(name));
+            ? this.registery.get(name)
+            : this.registery.add(name, new EntityManager(entityClass)).get(name));
     }
 
     public Layout getLayout() throws ServiceRegisteryException {

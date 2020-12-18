@@ -1,18 +1,18 @@
 package Controller;
 
 import Exceptions.ServiceRegisteryException;
-import Services.Entity.EntityManager;
-import Model.Client;
 import Framework.Registery;
+import Model.Client;
+import Services.Entity.EntityManager;
 import View.ClientView;
 
 import javax.swing.*;
 
 public class ClientController extends AbstractController {
     // Dependencies
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
     // Views
-    private ClientView clientView;
+    private final ClientView clientView;
 
     public ClientController(Registery registery) throws ServiceRegisteryException {
         super(registery);
@@ -31,16 +31,16 @@ public class ClientController extends AbstractController {
             // simple validations
             if (firstname.isEmpty()) {
                 JOptionPane.showMessageDialog(clientView.createForm.getPanel(), "First Name Required.", "Error",
-                        JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);
                 return;
             } else if (lastname.isEmpty()) {
                 JOptionPane.showMessageDialog(clientView.createForm.getPanel(), "Last Name Required.", "Error",
-                        JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             this.entityManager.add(new Client(firstname, lastname));
-            
+
             clientView.createForm.reset(true);
         });
 

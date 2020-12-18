@@ -1,14 +1,17 @@
 package Model;
 
 import Services.Entity.Entity;
+
 import java.util.ArrayList;
 
 public class Builder implements Entity {
     private int id;
+
     /**
      * Default constructor
      */
-    public Builder() {}
+    public Builder() {
+    }
 
     private String name;
 
@@ -25,7 +28,7 @@ public class Builder implements Entity {
 
     public Builder nextBuilder() {
         return new Builder();
-    };
+    }
 
     protected boolean isSupportedCar() {
         // search in cars list

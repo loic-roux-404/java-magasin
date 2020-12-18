@@ -13,7 +13,8 @@ public class Shop implements Entity {
     /**
      * Default constructor, used by entityManager
      */
-    public Shop() {}
+    public Shop() {
+    }
 
     public Shop(int id, String address) {
         this.id = id;

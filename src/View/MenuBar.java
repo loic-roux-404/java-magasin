@@ -1,14 +1,13 @@
 package View;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import javax.swing.*;
 
 /**
  * MenuBar class.
  */
-public class MenuBar extends JMenuBar
-{
+public class MenuBar extends JMenuBar {
     // file :
     JMenu jMenuFile = new JMenu("Menu");
     // JMenuItem jMenuItemFrame1 = new JMenuItem("Clients");
@@ -21,8 +20,7 @@ public class MenuBar extends JMenuBar
     /**
      * Constructor.
      */
-    public MenuBar()
-    {
+    public MenuBar() {
         // Design
         this.setForeground(Color.lightGray);
         // file :

@@ -3,10 +3,10 @@ package View;
 import Controller.*;
 import Exceptions.InternalException;
 import Exceptions.ServiceNotLoadedException;
-import Services.Layout;
 import Framework.Listener;
 import Framework.Registery;
 import Framework.Service;
+import Services.Layout;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -42,7 +42,7 @@ public class MainFrame extends JFrame {
         setLayout(layout.card);
         add(layout.home, "Home");
         try {
-            // Core Service creation
+            // Core Framework.Service creation
             this.loadServices();
             // Controllers
             new ClientController(registery);
@@ -102,13 +102,7 @@ public class MainFrame extends JFrame {
      *
      * @return boolean true user answer Yes.
      */
-    public boolean confirmBeforeExit()
-    {
-        if (JOptionPane.showConfirmDialog(this, "Exit ?", "No", JOptionPane.YES_NO_OPTION) == 0)
-        {
-            return true;
-        }
-
-        return false;
+    public boolean confirmBeforeExit() {
+        return JOptionPane.showConfirmDialog(this, "Exit ?", "No", JOptionPane.YES_NO_OPTION) == 0;
     }
 }

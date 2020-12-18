@@ -1,24 +1,21 @@
 package Controller;
 
 import Exceptions.ServiceRegisteryException;
-import Services.Entity.Entity;
-import Services.Entity.EntityManager;
-import Model.Builder;
-import Services.Layout;
 import Framework.Registery;
+import Model.Builder;
+import Services.Entity.EntityManager;
+import Services.Layout;
 import View.BuilderView;
 
-import java.util.ArrayList;
-
 public class BuilderController extends AbstractController {
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
-    private BuilderView view;
+    private final BuilderView view;
 
     // Form create, List list
     public BuilderController(Registery registery) throws ServiceRegisteryException {
         super(registery);
-        this.entityManager = new EntityManager(Builder.class);
+        this.entityManager = this.getEntityManager(Builder.class);
         view = new BuilderView(this.getLayout(), this);
         this.actions();
     }
@@ -28,9 +25,15 @@ public class BuilderController extends AbstractController {
         Layout ly = this.getLayout();
         // Open list page from create form
         view.builderCreateForm.list(e -> {
+
         });
 
         view.builderCreateForm.submit(e -> {
+
+        });
+
+        view.carPageBtn.onOpen(e -> {
+
         });
     }
 }

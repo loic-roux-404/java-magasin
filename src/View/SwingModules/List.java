@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class List extends JPanel {
 
     // Table for user data
-    private JTable table;
+    private final JTable table;
     // table column
     private String[] tableColumn = {};
 
@@ -27,7 +27,7 @@ public class List extends JPanel {
         table = new JTable();
         // scroll bar for table
         JScrollPane userTableScroll = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+            JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         add(userTableScroll);
     }
 
@@ -37,7 +37,8 @@ public class List extends JPanel {
         // Prevenir l'ajout de colonne alors qu'on a déjà les data
         defaultTableModel.setRowCount(0);
         defaultTableModel.setColumnIdentifiers(tableColumn);
-        for (Entity o: entities) {
+        for (Entity o : entities) {
+            System.out.println(o.toString());
             String row = o.toString().trim();
             String[] rows = row.split(",");
             defaultTableModel.addRow(rows);

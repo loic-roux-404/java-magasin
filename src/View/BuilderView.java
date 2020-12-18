@@ -1,11 +1,12 @@
 package View;
 
-import Controller.AbstractController;
 import Controller.BuilderController;
 import Services.Layout;
-import View.SwingModules.List;
 import View.SwingModules.Form;
 import View.SwingModules.FormBuilder;
+import View.SwingModules.List;
+import View.SwingModules.PageBtn;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Optional;
@@ -17,6 +18,8 @@ public class BuilderView {
     static String[] tableColumn = {"NOM"};
 
     private JTextField nameField;
+    public PageBtn carPageBtn = new PageBtn("Ajouter une voiture");
+
     // TODO select from cars
     // private JTextField lastNameField;
 
@@ -25,21 +28,19 @@ public class BuilderView {
     public List builderList = this.LIST();
 
     public BuilderView(Layout ly, BuilderController controller) throws HeadlessException {
-        builderCreateForm.getBackButton().onClick(e -> ly.card.show(ly.mainFrame.getContentPane(), "Home"));
-        // adds view to card layout with unique constraints
-        ly.mainFrame.add(builderCreateForm.getPanel(), ADD);
-        ly.mainFrame.add(builderList, LIST);
+        builderCreateForm.getBackButton().onClick(e -> ly.openHome());
         // Home access
-        ly.home.buildersPage(e -> ly.card.show(ly.mainFrame.getContentPane(), ADD));
+        ly.home.page(Home.BUILDERS).onOpen(e -> ly.openPage(builderCreateForm.getPanel(), ADD));
         // switch view according to its constraints on click
-        builderCreateForm.list(e -> ly.card.show(ly.mainFrame.getContentPane(), LIST));
-        builderList.backButton.onClick(e -> ly.card.show(ly.mainFrame.getContentPane(), ADD));
+        builderCreateForm.list(e -> ly.openPage(builderList, LIST));
+        builderList.backButton.onClick(e -> ly.openPage(builderCreateForm.getPanel(), ADD));
     }
 
     public Form CREATE() {
         nameField = new JTextField(25);
         FormBuilder builder = (new FormBuilder(true))
-                .addField("nom", nameField);
+            .addField("nom", nameField)
+            .addNoLabel("cars", carPageBtn.getBtn());
 
         return builder.create(Optional.empty());
     }

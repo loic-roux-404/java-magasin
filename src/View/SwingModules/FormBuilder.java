@@ -3,6 +3,7 @@ package View.SwingModules;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -11,23 +12,23 @@ public class FormBuilder implements Form {
     private JPanel panel;
 
     public HashMap<String, JComponent> fields = new HashMap<>();
+    // List of fields id with no auto label
+    public ArrayList<String> noLabelFields = new ArrayList<>();
     // Basic form buttons
-    private JButton listButton    = new JButton("Liste");
-    private JButton submitButton  = new JButton("Ajouter");
+    private JButton listButton = new JButton("Liste");
+    private JButton submitButton = new JButton("Ajouter");
     private BackButton backButton = new BackButton();
-    // Sizing
-    private static final Dimension buttonSize = new Dimension(278, 40);
     // space between fields
     Insets fieldsInset = new Insets(0, 0, 10, 0);
     // space between buttons
-    Insets buttonInset = new Insets(20,0,0,0);
+    Insets buttonInset = new Insets(20, 0, 0, 0);
     // Config
-    private boolean autoJLabel;
+    private final boolean autoJLabel;
 
     public FormBuilder(boolean autoJLabels) {
-        listButton.setPreferredSize(buttonSize);
+        listButton.setPreferredSize(PageBtn.SIZE);
         this.autoJLabel = autoJLabels;
-        submitButton.setPreferredSize(buttonSize);
+        submitButton.setPreferredSize(PageBtn.SIZE);
     }
 
     public FormBuilder addField(String name, JComponent jComponent) {
@@ -36,10 +37,15 @@ public class FormBuilder implements Form {
         return this;
     }
 
+    public FormBuilder addNoLabel(String name, JComponent jComponent) {
+        noLabelFields.add(name);
+        return this.addField(name, jComponent);
+    }
+
     public Form create(Optional<JPanel> optionalJPanel) {
         panel = optionalJPanel.isPresent()
-                ? optionalJPanel.get()
-                : new JPanel();
+            ? optionalJPanel.get()
+            : new JPanel();
 
         // uses Grid Bag Layout
         panel.setLayout(new GridBagLayout());
@@ -50,11 +56,11 @@ public class FormBuilder implements Form {
         this.addGridBagConstraint(gridBagConstraints);
 
         for (HashMap.Entry<String, JComponent> entry : fields.entrySet()) {
-            if (autoJLabel) {
-                String name = entry.getKey();
+            String name = entry.getKey();
+            if (autoJLabel && !noLabelFields.contains(name)) {
                 panel.add(
-                        new JLabel(name.substring(0, 1).toUpperCase() + name.substring(1) + " :"),
-                        gridBagConstraints
+                    new JLabel(name.substring(0, 1).toUpperCase() + name.substring(1) + " :"),
+                    gridBagConstraints
                 );
                 this.addGridBagConstraint(gridBagConstraints);
             }
@@ -104,6 +110,9 @@ public class FormBuilder implements Form {
             if (jField instanceof JTextField) {
                 JTextField jTextField = (JTextField) jField;
                 jTextField.setText("");
+            } else if (jField instanceof JComboBox) {
+                JComboBox jBox = (JComboBox) jField;
+                jBox.removeAllItems();
             }
         }
     }
@@ -146,6 +155,7 @@ public class FormBuilder implements Form {
 
     /**
      * Move view to a new form row
+     *
      * @param gridBagConstraints Grid bag constraints
      */
     protected void addGridBagConstraint(GridBagConstraints gridBagConstraints) {

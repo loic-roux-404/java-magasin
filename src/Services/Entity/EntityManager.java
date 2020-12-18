@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class EntityManager implements Service {
     private boolean loaded;
 
-    private ArrayList<Entity> entityArrayList;
+    private final ArrayList<Entity> entityArrayList;
 
     protected Entity managedEn;
 
@@ -37,7 +37,12 @@ public class EntityManager implements Service {
 
     public ArrayList<Entity> getAll() {
         return entityArrayList;
-    }   
+    }
+
+    public Entity getById(int index) {
+        return entityArrayList.get(index);
+    }
+
 
     @Override
     public void load() {

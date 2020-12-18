@@ -23,7 +23,7 @@ Pour donner de la structure à notre projet nous séparons nos opérations en tr
 
 ## Registre de service
 
-Dans ce pseudo framework tout les objets qui transite dans les différents Contrôleurs sont des **services** et implémentent l'interface `Service` . Un service non `load` déclenche une erreur qui peut être fatale pour le fonctionnement de l'application.
+Dans ce pseudo framework tout les objets qui transite dans les différents Contrôleurs sont des **services** et implémentent l'interface `Framework.Service` . Un service non `load` déclenche une erreur qui peut être fatale pour le fonctionnement de l'application.
 
 Voici les méthodes obligatoires d'un service si jamais vous avez besoin de créer le votre...
 ```java
@@ -41,7 +41,7 @@ Voici les méthodes obligatoires d'un service si jamais vous avez besoin de cré
 > Petite doc de l'api des services depuis un controller
 
 - `this.getRegistery()` pour récupérer le registre complet
-- `this.getService()` pour récupérer un service, attention si vous voulez récupérer une classe particulière il faut bien casté l'instance Service vers celle de votre classe avec par exemple: 
+- `this.getService()` pour récupérer un service, attention si vous voulez récupérer une classe particulière il faut bien casté l'instance Framework.Service vers celle de votre classe avec par exemple: 
 ```java
 // C'est un exemple cela n'est pas conseillé
 (Layout) ly = this.getService('layout'); 
@@ -91,7 +91,7 @@ N'utilisez pas cette méthode, elle fait partie du fonctionnement interne d'un `
 
 #### Le cas du service Layout : 
 
-Le service Layout créer avec les composants swing nous permet de gérer la page d'accueil et donc de créer des liens vers les pages.
+Le service Layout créer avec les composants swing nous permet de gérer la pageBtn d'accueil et donc de créer des liens vers les pages.
 Il est indispensable dans connexion des vues avec le fenêtre principale grâce à sa propriété `mainFrame` qui est un accès direct à l'objet.
 
 Voici les propriété du service layout : 
@@ -101,7 +101,7 @@ Voici les propriété du service layout :
     public View.MenuBar menuBar = new MenuBar();
 ``` 
 
-- `card` correspond à l'organisation de la page d'accueil, il permet de switcher entre les vues
+- `card` correspond à l'organisation de la pageBtn d'accueil, il permet de switcher entre les vues
 
 - `home`  regroupe les différentes pages de l'accueil que 'on référence dans une View
 

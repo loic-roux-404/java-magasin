@@ -13,7 +13,8 @@ public class Car implements Entity {
     /**
      * Default constructor
      */
-    public Car() {}
+    public Car() {
+    }
 
     public Car(String brandName, String modelName, double length, double weight) {
         this.modelName = modelName;
@@ -69,9 +70,9 @@ public class Car implements Entity {
     @Override
     public String toString() {
         return brandName
-                + ", " + modelName
-                + ", " + length
-                + ", " + weight;
+            + ", " + modelName
+            + ", " + length
+            + ", " + weight;
     }
 
     public void Operation1() {

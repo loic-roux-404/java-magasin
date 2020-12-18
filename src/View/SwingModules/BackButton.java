@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 public class BackButton {
 
-    private JToolBar toolBar;
+    private final JToolBar toolBar;
     // back button
     protected JButton btn;
 

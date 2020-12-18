@@ -1,13 +1,13 @@
 package Controller;
 
 import Exceptions.ServiceRegisteryException;
+import Framework.Registery;
 import Model.Shop;
 import Services.Entity.EntityManager;
 import Services.Layout;
-import Framework.Registery;
 
 public class ShopController extends AbstractController {
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
     // Views
     // private ShopView shopView;
