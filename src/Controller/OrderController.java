@@ -56,12 +56,12 @@ public class OrderController extends AbstractController {
             Object carSelected = orderView.getCarSelect().getSelectedItem();
 
             if (clientSelected == this.orderView.NO_SELECT) {
-                JOptionPane.showMessageDialog(orderForm.getPanel(), "Sélectionnez un client", "Error",
+                JOptionPane.showMessageDialog(orderForm.getPanel(), "SÃ©lectionnez un client", "Error",
                         JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (carSelected == this.orderView.NO_SELECT) {
-                JOptionPane.showMessageDialog(orderForm.getPanel(), "Sélectionnez une voiture", "Error",
+                JOptionPane.showMessageDialog(orderForm.getPanel(), "SÃ©lectionnez une voiture", "Error",
                         JOptionPane.ERROR_MESSAGE);
                 return;
             }            
@@ -70,9 +70,6 @@ public class OrderController extends AbstractController {
             Car car = (Car) carSelected;
             String id = orderView.getId().trim();
 
-            System.out.println(id);
-            System.out.println(clientSelected.toString());
-            System.out.println(carSelected.toString());
             
             // simple validations
             if (client.toString().isEmpty()) {
