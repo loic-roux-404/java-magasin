@@ -67,7 +67,7 @@ EntityManager car = this.getEntityManager(Car.class);
 EntityManager car = new EntityManager(Car.class);
 ```
 
-Il contient deux méthodes
+Il contient ces méthodes
 
 `add` : Ajout d'une instance à la base
 
@@ -79,7 +79,7 @@ Il contient deux méthodes
 
 > Pour créer une entité veiller à bien utiliser un constructuer vide pour que l'entity manager puisse correctement fonctionner
 
-Voici les **Deux méthodes** clés d'une entité 
+Voici les **méthodes** clés d'une entité 
 
 `toString()` : Pour récupérer les propriétés dans une liste en les séparant par des virgules. Utile pour créer des vue tableau des données d'entités.
 
