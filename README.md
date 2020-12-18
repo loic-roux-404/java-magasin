@@ -141,6 +141,31 @@ builder.add('NomLabel', new JLabel("Nom"))
 builder.getPanel();
 ```
 
+Les évênements sur les boutons :
+
+Lorsque l'on clique sur un bouton de formulaire, des fonctions vont être automatiquemment lancées, par exemple sur un formulaire `submit()` est déclenché et appelée partout là ou on écoute la fonction. C'est une fonction correspondante à un listener java, ainsi on peut en déclencher une autre sur plusieurs classes quand celle-ci survient : 
+
+> Voir Exemple dans la vue client
+
+```java
+// Utilisez avec un formulaire buildé
+Form.submit(e -> { // ici le code déclenché au submit, en général validation et ajout des données })
+
+Form.list(e -> { // ici le code déclenché au listing d'entités, On récupère bien les données avant de la ajouté à la vue Swing })
+``` 
+
+D'autres méthodes listeners sont utilisables notamment celles de `Home` (récupérable dans un controller avec `this.getLayout().home` :
+
+- `home.usersPage(ActionListener actionListener)` 
+- `home.carsPage(e -> {} )`
+- `ordersPage(e -> {})` 
+- `buildersPage(e -> {} )
+
+> Il peut être utile d'appeler des donneés dans ces méthodes lors de la création de JCombobox (cf `OrderController` et `OrderView`)
+
+> Logiquement elles sont déjà appélées dans la View correspondante d'une entié (OrderView), mais pour la récupération de donnée, il est quand même préférable de les stocker 
+dans une propriété du constructeur et d'après les récupérées de la vue...
+
 ### 3. Git
 
 Merge vs rebase :
