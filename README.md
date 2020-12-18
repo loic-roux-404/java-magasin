@@ -43,12 +43,12 @@ Voici les méthodes obligatoires d'un service si jamais vous avez besoin de cré
 - `this.getRegistery()` pour récupérer le registre complet
 - `this.getService()` pour récupérer un service, attention si vous voulez récupérer une classe particulière il faut bien casté l'instance Service vers celle de votre classe avec par exemple: 
 ```java
+// C'est un exemple cela n'est pas conseillé
 (Layout) ly = this.getService('layout'); 
-
-Pour récupérer les services particulier du `entityManager` et du layoutd dans un contrôleur
+```
+Pour récupérer les services particulier du `entityManager` et du layout dans un contrôleur
 
 ```java
-// C'est un exemple cela n'est pas conseillé
 // Faites plutôt un
 this.getLayout(); // pour récupérer une classe Layout
 
@@ -159,7 +159,7 @@ D'autres méthodes listeners sont utilisables notamment celles de `Home` (récup
 - `home.usersPage(ActionListener actionListener)` 
 - `home.carsPage(e -> {} )`
 - `ordersPage(e -> {})` 
-- `buildersPage(e -> {} )
+- `buildersPage(e -> {} )`
 
 > Il peut être utile d'appeler des donneés dans ces méthodes lors de la création de JCombobox (cf `OrderController` et `OrderView`)
 
