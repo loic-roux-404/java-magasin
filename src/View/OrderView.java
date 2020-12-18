@@ -19,8 +19,8 @@ import Model.Client;
 
 public class OrderView {
 	// Table config
-	static String[] tableColumn = { "ID", "CAR", "CLIENT" };
-	public static String NO_SELECT = "SÃ©lectionner ...";
+	static String[] tableColumn = { "ID", "STATUS", "NOM", "PRENOM", "BRAND", "MODEL",  "BUILDER" };
+	public static String NO_SELECT = "Sélectionner ...";
 
 	OrderController controller;
 	static final String ADD = "order_add";
@@ -30,8 +30,9 @@ public class OrderView {
 	private JComboBox clientSelect = new JComboBox();
 	private JComboBox carSelect = new JComboBox();
 
-	public Form orderForm;
-	public View.SwingModules.List orderList;
+	// Components
+	public Form orderForm = this.CREATE();
+	public List orderList = this.LIST();
 
 	public OrderView(Layout ly, OrderController controller) throws HeadlessException, InternalException {
 		this.controller = controller;

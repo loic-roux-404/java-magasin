@@ -5,14 +5,15 @@ import Services.Entity.Entity;
 public class Order implements Entity {
 
     private int id;
-    private String status;
+    private statuses status;
     private Car car;
     private Builder builder;
     private Client client;
 
     static enum statuses{
+    	PENDING,
+    	PROCESSING,
         DONE,
-        PROCESSING,
         CANCELLED,
     };
 
@@ -27,6 +28,8 @@ public class Order implements Entity {
     	this.id = id;
         this.client = client;
         this.car = car;
+        this.builder = new Builder();
+        status = statuses.valueOf("PENDING");
     }
 
     @Override
@@ -45,8 +48,9 @@ public class Order implements Entity {
     public String toString() {
         return id +
                 ", " + status +
-                ", " + car.toString() +
-                ", " + car.toString() +
+                ", " + client.toString() +
+                ", " + car.getBrandName() +
+                ", " + car.getModelName() +
                 ", " + builder.toString();
     }
 }

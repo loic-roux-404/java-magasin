@@ -20,15 +20,17 @@ import java.util.ArrayList;
  * Process order and manage CRUD operations
  */
 public class OrderController extends AbstractController {
-    private EntityManager orderManager;
     public ArrayList<Entity> cars = new ArrayList<>();
     public ArrayList<Entity> clients = new ArrayList<>();
+    
+ // Dependencies
+    private EntityManager entityManager;
     // Associated View
-    protected OrderView orderView;
+    private OrderView orderView;
 
     public OrderController(Registery registery) throws InternalException {
         super(registery);
-        this.orderManager = this.getEntityManager(Order.class);
+        this.entityManager = this.getEntityManager(Order.class);
         this.orderView = new OrderView(this.getLayout(), this);
         this.actions();
     }
@@ -53,16 +55,25 @@ public class OrderController extends AbstractController {
             Object clientSelected = orderView.getClientSelect().getSelectedItem();
             Object carSelected = orderView.getCarSelect().getSelectedItem();
 
-            if (clientSelected == this.orderView.NO_SELECT || carSelected == this.orderView.NO_SELECT) {
-                JOptionPane.showMessageDialog(orderForm.getPanel(), "SÃ©lectionnez un champs", "Error",
+            if (clientSelected == this.orderView.NO_SELECT) {
+                JOptionPane.showMessageDialog(orderForm.getPanel(), "Sélectionnez un client", "Error",
                         JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            if (carSelected == this.orderView.NO_SELECT) {
+                JOptionPane.showMessageDialog(orderForm.getPanel(), "Sélectionnez une voiture", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }            
 
             Client client = (Client) clientSelected;
             Car car = (Car) carSelected;
             String id = orderView.getId().trim();
 
+            System.out.println(id);
+            System.out.println(clientSelected.toString());
+            System.out.println(carSelected.toString());
+            
             // simple validations
             if (client.toString().isEmpty()) {
                 JOptionPane.showMessageDialog(orderForm.getPanel(), "Client Required.", "Error",
@@ -78,9 +89,14 @@ public class OrderController extends AbstractController {
                 return;
             }
 
-            this.orderManager.add(new Order(Integer.parseInt(id), client, car));
+            this.entityManager.add(new Order(Integer.parseInt(id), client, car));
             
             this.orderView.orderForm.reset(true);
+        });
+        
+        // Load orders // load users
+        orderView.orderForm.list(e -> {
+        	orderView.orderList.getDetails(this.entityManager.getAll());
         });
     }
 }
