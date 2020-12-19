@@ -1,10 +1,13 @@
 package View;
 
+import Controller.BuilderController;
+import Controller.CarController;
+import Controller.ClientController;
+import Controller.OrderController;
 import View.SwingModules.FormBuilder;
 import View.SwingModules.PageBtn;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -18,13 +21,11 @@ public class Home extends JPanel {
     public final static String ORDERS = "orders";
     public final static String BUILDERS = "builders";
 
-    private final GridBagConstraints gridBagConstraints = new GridBagConstraints();
-
     public Home() {
-        this.addPageBtn("Gestion des clients", CLIENTS);
-        this.addPageBtn("Catalogue de voitures", CARS);
-        this.addPageBtn("Gestion des commandes", ORDERS);
-        this.addPageBtn("Gestion des Fabricants", BUILDERS);
+        this.addPageBtn(ClientController.TITLE, CLIENTS);
+        this.addPageBtn(CarController.TITLE, CARS);
+        this.addPageBtn(OrderController.TITLE, ORDERS);
+        this.addPageBtn(BuilderController.TITLE, BUILDERS);
 
         form.create(Optional.ofNullable(this));
     }

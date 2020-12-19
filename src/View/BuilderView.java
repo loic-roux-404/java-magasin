@@ -1,6 +1,7 @@
 package View;
 
 import Controller.BuilderController;
+import Controller.CarController;
 import Services.Layout;
 import View.SwingModules.Form;
 import View.SwingModules.FormBuilder;
@@ -30,10 +31,23 @@ public class BuilderView {
     public BuilderView(Layout ly, BuilderController controller) throws HeadlessException {
         builderCreateForm.getBackButton().onClick(e -> ly.openHome());
         // Home access
-        ly.home.page(Home.BUILDERS).onOpen(e -> ly.openPage(builderCreateForm.getPanel(), ADD));
+        ly.home.page(Home.BUILDERS).onOpen(e -> {
+            ly.openPage(builderCreateForm.getPanel(), ADD);
+            ly.setPageTitle(BuilderController.TITLE);
+        });
         // switch view according to its constraints on click
-        builderCreateForm.list(e -> ly.openPage(builderList, LIST));
-        builderList.backButton.onClick(e -> ly.openPage(builderCreateForm.getPanel(), ADD));
+        carPageBtn.onOpen(e -> {
+            ly.openPage(ly.getPage(CarView.ADD), CarView.ADD);
+            ly.setPageTitle(CarController.TITLE_ADD);
+        });
+        builderCreateForm.list(e -> {
+            ly.openPage(builderList, LIST);
+            ly.setPageTitle(BuilderController.TITLE);
+        });
+        builderList.backButton.onClick(e -> {
+            ly.openPage(builderCreateForm.getPanel(), ADD);
+            ly.setPageTitle(BuilderController.TITLE);
+        });
     }
 
     public Form CREATE() {

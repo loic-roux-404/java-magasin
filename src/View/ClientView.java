@@ -1,6 +1,7 @@
 package View;
 
 import Controller.AbstractController;
+import Controller.ClientController;
 import Services.Layout;
 import View.SwingModules.Form;
 import View.SwingModules.FormBuilder;
@@ -26,10 +27,19 @@ public class ClientView {
     public ClientView(Layout ly, AbstractController controller) {
         createForm.getBackButton().onClick(e -> ly.openHome());
         // Home access
-        ly.home.page(Home.CLIENTS).onOpen(e -> ly.openPage(createForm.getPanel(), ADD));
+        ly.home.page(Home.CLIENTS).onOpen(e -> {
+            ly.openPage(createForm.getPanel(), ADD);
+            ly.setPageTitle(ClientController.TITLE);
+        });
         // switch view according to its constraints on click
-        createForm.list(e -> ly.openPage(list, LIST));
-        list.backButton.onClick(e -> ly.openPage(createForm.getPanel(), ADD));
+        createForm.list(e -> {
+            ly.openPage(list, LIST);
+            ly.setPageTitle(ClientController.TITLE);
+        });
+        list.backButton.onClick(e -> {
+            ly.openPage(createForm.getPanel(), ADD);
+            ly.setPageTitle(ClientController.TITLE);
+        });
     }
 
     public View.SwingModules.List LIST() {

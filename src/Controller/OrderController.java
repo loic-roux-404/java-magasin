@@ -19,6 +19,8 @@ import java.util.ArrayList;
  * Process order and manage CRUD operations
  */
 public class OrderController extends AbstractController {
+    public final static String TITLE = "Gestion des commandes";
+
     public ArrayList<Entity> cars = new ArrayList<>();
     public ArrayList<Entity> clients = new ArrayList<>();
 
@@ -68,7 +70,6 @@ public class OrderController extends AbstractController {
             Client client = (Client) clientSelected;
             Car car = (Car) carSelected;
             String id = orderView.getId().trim();
-
 
             // simple validations
             if (client.toString().isEmpty()) {

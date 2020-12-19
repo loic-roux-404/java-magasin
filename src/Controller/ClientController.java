@@ -9,6 +9,7 @@ import View.ClientView;
 import javax.swing.*;
 
 public class ClientController extends AbstractController {
+    public final static String TITLE = "Gestion des clients";
     // Dependencies
     private final EntityManager entityManager;
     // Views

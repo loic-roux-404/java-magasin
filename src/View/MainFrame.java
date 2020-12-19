@@ -3,17 +3,15 @@ package View;
 import Controller.*;
 import Exceptions.InternalException;
 import Exceptions.ServiceNotLoadedException;
-import Framework.Listener;
 import Framework.Registery;
-import Framework.Service;
 import Services.Layout;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MainFrame extends JFrame {
+    public final static String TITLE = "Automobile Market";
 
     // Card layout for switching view
     public Layout layout = new Layout(this);
@@ -23,8 +21,7 @@ public class MainFrame extends JFrame {
     public ArrayList<JPanel> views = new ArrayList<>();
 
     public MainFrame() {
-        super("Automobile Market");
-
+        super(TITLE);
         this.init();
         // icon for our application
         ImageIcon imageIcon = new ImageIcon("appicon.png");
@@ -50,9 +47,6 @@ public class MainFrame extends JFrame {
             new CarController(registery);
             new OrderController(registery);
             new BuilderController(registery);
-            new ShopController(registery);
-            // Listeners
-            this.callListeners();
         } catch (InternalException e) {
             e.printStackTrace();
         }
@@ -64,14 +58,6 @@ public class MainFrame extends JFrame {
     protected void loadServices() throws ServiceNotLoadedException {
         registery = new Registery(null);
         registery.add(Layout.NAME, layout);
-    }
-
-    protected void callListeners() {
-        for (HashMap.Entry<String, Service> service : registery.services.entrySet()) {
-            if (service instanceof Listener) {
-                ((Listener) service).call();
-            }
-        }
     }
 
     protected void createMenu() {

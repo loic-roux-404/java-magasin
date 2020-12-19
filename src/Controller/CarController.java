@@ -10,8 +10,10 @@ import View.CarView;
  * List / READ ONE cars (cars are provided by there builder so search cars in builders)
  */
 public class CarController extends AbstractController {
-    private final EntityManager entityManager;
+    public final static String TITLE = "Catalogue des Bagnoles";
+    public final static String TITLE_ADD = "Gestion des Bagnoles";
 
+    private final EntityManager entityManager;
     private final CarView carView;
 
     public CarController(Registery registery) throws InternalException {

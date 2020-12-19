@@ -40,10 +40,17 @@ public class OrderView {
         ly.home.page(Home.ORDERS).onOpen(e -> {
             this.fillForm();
             ly.openPage(orderForm.getPanel(), ADD);
+            ly.setPageTitle(OrderController.TITLE);
         });
         // switch view according to its constraints on click
-        orderForm.list(e -> ly.openPage(orderList, LIST));
-        orderList.backButton.onClick(e -> ly.openPage(orderForm.getPanel(), ADD));
+        orderForm.list(e -> {
+            ly.openPage(orderList, LIST);
+            ly.setPageTitle(OrderController.TITLE);
+        });
+        orderList.backButton.onClick(e -> {
+            ly.openPage(orderForm.getPanel(), ADD);
+            ly.setPageTitle(OrderController.TITLE);
+        });
     }
 
     public View.SwingModules.List LIST() {

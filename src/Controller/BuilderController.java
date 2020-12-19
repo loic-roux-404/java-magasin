@@ -8,6 +8,7 @@ import Services.Layout;
 import View.BuilderView;
 
 public class BuilderController extends AbstractController {
+    public final static String TITLE = "Gestion des Fabricants";
     private final EntityManager entityManager;
 
     private final BuilderView view;
@@ -29,10 +30,6 @@ public class BuilderController extends AbstractController {
         });
 
         view.builderCreateForm.submit(e -> {
-
-        });
-
-        view.carPageBtn.onOpen(e -> {
 
         });
     }

@@ -2,6 +2,7 @@ package Services;
 
 import Framework.Service;
 import View.Home;
+import View.MainFrame;
 import View.MenuBar;
 
 import javax.swing.*;
@@ -25,15 +26,51 @@ public class Layout implements Service {
         this.load();
     }
 
-    public void openPage(JPanel jPanel, String name) {
+    /**
+     * Get page Jpanel
+     *
+     * @param name
+     * @return
+     */
+    public JPanel getPage(String name) {
+        return views.get(name);
+    }
+
+    /**
+     * Add a page for a later use
+     *
+     * @param jPanel
+     * @param name
+     */
+    public void addPage(JPanel jPanel, String name) {
+        if (jPanel == null) {
+            return;
+        }
         if (jPanel.getParent() == null) {
             mainFrame.add(jPanel, name);
         }
+        views.put(name, jPanel);
+    }
+
+    /**
+     * Open and create the page
+     * @param jPanel
+     * @param name
+     */
+    public void openPage(JPanel jPanel, String name) {
+        this.addPage(jPanel, name);
         this.card.show(mainFrame.getContentPane(), name);
     }
 
     public void openHome() {
         this.card.show(this.mainFrame.getContentPane(), "Home");
+        setPageTitle(null);
+    }
+
+    public void setPageTitle(String title) {
+        this.mainFrame.setTitle(
+            MainFrame.TITLE + (title != null ? " - " + title : "")
+        );
     }
 
     @Override

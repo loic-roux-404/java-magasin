@@ -6,11 +6,16 @@ import Framework.Registery;
 import Framework.Service;
 import Services.Entity.EntityManager;
 import Services.Layout;
+import View.MainFrame;
+import View.SwingModules.PageBtn;
+
+import java.util.HashMap;
 
 public abstract class AbstractController {
     private Registery registery;
+    public HashMap<String, PageBtn> routes = new HashMap<>();
 
-    public AbstractController(Registery registery) {
+    public AbstractController(Registery registery) throws ServiceRegisteryException {
         setRegistery(registery);
     }
 
