@@ -1,9 +1,11 @@
 package View.SwingModules;
 
+import Exceptions.FormException;
+
 import javax.swing.*;
 import java.awt.event.ActionListener;
 
-public interface Form {
+public interface Form extends BuilderInterface {
     void submit(ActionListener actionListener);
 
     // Access to list from form
@@ -14,4 +16,6 @@ public interface Form {
     JPanel getPanel();
 
     BackButton getBackButton();
+
+    void validate() throws FormException;
 }

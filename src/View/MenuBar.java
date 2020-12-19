@@ -12,6 +12,7 @@ public class MenuBar extends JMenuBar {
     JMenu jMenuFile = new JMenu("Menu");
     // JMenuItem jMenuItemFrame1 = new JMenuItem("Clients");
     JMenuItem jMenuItemQuit = new JMenuItem("Quitter");
+    JMenuItem jMenuItemHome = new JMenuItem("Accueil");
 
     // help :
     JMenu jMenuHelp = new JMenu("Aide");
@@ -31,6 +32,10 @@ public class MenuBar extends JMenuBar {
 
         // jMenuItemFrame1.setAccelerator(KeyStroke.getKeyStroke('R'));
         // jMenuFile.add(jMenuItemFrame1);
+
+        jMenuItemHome.setAccelerator(KeyStroke.getKeyStroke('H'));
+        jMenuFile.add(jMenuItemHome);
+        this.designMenuItem(jMenuItemHome);
 
         jMenuFile.addSeparator();
 

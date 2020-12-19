@@ -38,8 +38,7 @@ public class List extends JPanel {
         defaultTableModel.setRowCount(0);
         defaultTableModel.setColumnIdentifiers(tableColumn);
         for (Entity o : entities) {
-            System.out.println(o.toString());
-            String row = o.toString().trim();
+            String row = o.toString(true).trim();
             String[] rows = row.split(",");
             defaultTableModel.addRow(rows);
         }

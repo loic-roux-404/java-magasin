@@ -2,6 +2,7 @@ package View;
 
 import Controller.BuilderController;
 import Controller.CarController;
+import Exceptions.InternalException;
 import Services.Layout;
 import View.SwingModules.Form;
 import View.SwingModules.FormBuilder;
@@ -16,19 +17,25 @@ public class BuilderView {
     static final String ADD = "builder_add";
     static final String LIST = "builder_list";
     // Entity fields to show
-    static String[] tableColumn = {"NOM"};
+    static String[] tableColumn = {"NOM", "Modèles de voiture pris en charge"};
 
     private JTextField nameField;
-    public PageBtn carPageBtn = new PageBtn("Ajouter une voiture");
 
     // TODO select from cars
     // private JTextField lastNameField;
-
+    // Paging
+    private PageBtn carPageBtn;
     // Components
-    public Form builderCreateForm = this.CREATE();
-    public List builderList = this.LIST();
+    public Form builderCreateForm;
+    public List builderList;
 
-    public BuilderView(Layout ly, BuilderController controller) throws HeadlessException {
+    public BuilderView(Layout ly, BuilderController controller) throws HeadlessException, InternalException {
+        // Recuperate the page object
+        carPageBtn = controller.getLayout().home.page(CarView.ADD);
+
+        builderCreateForm = this.CREATE();
+        builderList = this.LIST();
+
         builderCreateForm.getBackButton().onClick(e -> ly.openHome());
         // Home access
         ly.home.page(Home.BUILDERS).onOpen(e -> {
@@ -36,7 +43,7 @@ public class BuilderView {
             ly.setPageTitle(BuilderController.TITLE);
         });
         // switch view according to its constraints on click
-        carPageBtn.onOpen(e -> {
+        controller.getLayout().home.page(CarView.ADD).onOpen(e -> {
             ly.openPage(ly.getPage(CarView.ADD), CarView.ADD);
             ly.setPageTitle(CarController.TITLE_ADD);
         });
@@ -53,7 +60,7 @@ public class BuilderView {
     public Form CREATE() {
         nameField = new JTextField(25);
         FormBuilder builder = (new FormBuilder(true))
-            .addField("nom", nameField)
+            .addField("nom_constructeur", nameField)
             .addButton("cars", carPageBtn.getBtn());
 
         return builder.create(Optional.empty());

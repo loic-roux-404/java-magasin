@@ -30,6 +30,10 @@ public class Home extends JPanel {
         form.create(Optional.ofNullable(this));
     }
 
+    public void registerPage(String name, PageBtn pageBtn) {
+        pages.put(name, pageBtn);
+    }
+
     protected void addPageBtn(String name, String id) {
         PageBtn pageBtn = new PageBtn(name);
         pages.put(id, pageBtn);

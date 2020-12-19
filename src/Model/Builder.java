@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Builder implements Entity {
     private int id;
+    private String name;
 
     /**
      * Default constructor
@@ -13,7 +14,9 @@ public class Builder implements Entity {
     public Builder() {
     }
 
-    private String name;
+    public Builder(String name) {
+        this.name = name;
+    }
 
     private ArrayList<Car> availableCars = new ArrayList<>();
 
@@ -35,8 +38,8 @@ public class Builder implements Entity {
         return false;
     }
 
-    public void setAvailableCars(ArrayList<Car> availableCars) {
-        this.availableCars = availableCars;
+    public void addCar(Car car) {
+        this.availableCars.add(car);
     }
 
     public String getName() {
@@ -63,9 +66,25 @@ public class Builder implements Entity {
         return this;
     }
 
+    /**
+     * List toString
+     * @param list
+     * @return
+     */
+    public String toString(boolean list) {
+        String carsString = ", ";
+        for (Car car: availableCars) {
+            carsString += car.getModelName() + ", ";
+        }
+        return name + carsString;
+    }
+
+    /**
+     * Java default toString
+     * @return
+     */
     @Override
     public String toString() {
-        // TODO Verify if data is comma separated list
-        return name + ", " + availableCars.toString();
+        return name;
     }
 }

@@ -7,8 +7,8 @@ public class Car implements Entity {
     private int id;
     private String modelName;
     private String brandName;
-    private double length;
-    private double weight;
+    private Integer length;
+    private Integer weight;
 
     /**
      * Default constructor
@@ -16,7 +16,7 @@ public class Car implements Entity {
     public Car() {
     }
 
-    public Car(String brandName, String modelName, double length, double weight) {
+    public Car(String brandName, String modelName, Integer length, Integer weight) {
         this.modelName = modelName;
         this.brandName = brandName;
         this.length = length;
@@ -39,19 +39,19 @@ public class Car implements Entity {
         this.brandName = brandName;
     }
 
-    public double getLength() {
+    public Integer getLength() {
         return length;
     }
 
-    public void setLength(double length) {
+    public void setLength(Integer length) {
         this.length = length;
     }
 
-    public double getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
@@ -69,6 +69,12 @@ public class Car implements Entity {
 
     @Override
     public String toString() {
+        return brandName
+            + ", " + modelName;
+    }
+
+    @Override
+    public String toString(boolean list) {
         return brandName
             + ", " + modelName
             + ", " + length

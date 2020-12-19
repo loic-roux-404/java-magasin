@@ -14,8 +14,7 @@ import java.util.Optional;
 
 public class OrderView {
     // Table config
-    static String[] tableColumn = {"ID", "STATUS", "NOM", "PRENOM", "BRAND", "MODEL", "BUILDER"};
-    public static String NO_SELECT = "Sélectionner ...";
+    static String[] tableColumn = {"ID", "STATUS", "NOM", "PRENOM", "MARQUE", "MODELE", "CONSTRUCTEUR"};
 
     OrderController controller;
     static final String ADD = "order_add";
@@ -60,8 +59,8 @@ public class OrderView {
     public void fillForm() {
         clientSelect.removeAllItems();
         carSelect.removeAllItems();
-        clientSelect.addItem(NO_SELECT);
-        carSelect.addItem(NO_SELECT);
+        clientSelect.addItem(FormBuilder.NO_SELECT);
+        carSelect.addItem(FormBuilder.NO_SELECT);
         // The solution
         for (Entity client : controller.clients) {
             clientSelect.addItem(client);
@@ -75,8 +74,7 @@ public class OrderView {
     public Form CREATE() {
         FormBuilder builder = (new FormBuilder(true))
             .addField("client", clientSelect)
-            .addField("voiture", carSelect)
-            .addField("id", id);
+            .addField("voiture", carSelect);
 
         return builder.create(Optional.empty());
     }

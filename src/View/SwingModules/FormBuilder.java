@@ -1,5 +1,7 @@
 package View.SwingModules;
 
+import Exceptions.FormException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -27,6 +29,9 @@ public class FormBuilder implements Form {
     Insets buttonInset = new Insets(20, 0, 0, 0);
     // Config
     private final boolean autoJLabel;
+   static private int position = GridBagConstraints.WEST;
+    // combobox
+    public static String NO_SELECT = "Sélectionner ...";
 
     public FormBuilder(boolean autoJLabels) {
         listButton.setPreferredSize(PageBtn.SIZE);
@@ -58,6 +63,7 @@ public class FormBuilder implements Form {
         return this.addField(name, jComponent);
     }
 
+    @Override
     public Form create(Optional<JPanel> optionalJPanel) {
         panel = optionalJPanel.isPresent()
             ? optionalJPanel.get()
@@ -75,7 +81,7 @@ public class FormBuilder implements Form {
             String name = entry.getKey();
             if (autoJLabel && !noLabelFields.contains(name)) {
                 panel.add(
-                    new JLabel(name.substring(0, 1).toUpperCase() + name.substring(1) + " :"),
+                    new JLabel(name.substring(0, 1).toUpperCase() + name.substring(1).replace("_", " ") + " :"),
                     gridBagConstraints
                 );
                 this.addGridBagConstraint(gridBagConstraints);
@@ -120,11 +126,37 @@ public class FormBuilder implements Form {
         listButton.addActionListener(actionListener);
     }
 
+    public void validate() throws FormException {
+        for (HashMap.Entry<String, JComponent> entry : fields.entrySet()) {
+            JComponent jField = entry.getValue();
+            String name = entry.getKey();
+
+            if (jField instanceof JTextField) {
+                if (((JTextField) jField).getText().isEmpty()) {
+                    throw new FormException("Le champ texte "+ name +" doit être remplit");
+                }
+            } else if (jField instanceof JComboBox) {
+                Object selected = ((JComboBox) jField).getSelectedItem();
+
+                if (((JComboBox) jField).getSelectedItem() == NO_SELECT ||
+                    selected.toString().isEmpty()
+                ) {
+                    throw new FormException("Le champ de sélection " + name + " doit être remplit");
+                }
+            } else if (jField instanceof JSpinner) {
+                Object selected = ((JSpinner) jField).getValue();
+                if ((Integer) selected <= 0) {
+                    throw new FormException("Le champ nombre " + name + " doit être remplit");
+                }
+            }
+        }
+    }
     // reset fields
     public void reset(boolean bln) {
         if (!bln) {
             return;
         }
+
         for (HashMap.Entry<String, JComponent> entry : fields.entrySet()) {
             JComponent jField = entry.getValue();
             if (jField instanceof JTextField) {
@@ -132,9 +164,17 @@ public class FormBuilder implements Form {
                 jTextField.setText("");
             } else if (jField instanceof JComboBox) {
                 JComboBox jBox = (JComboBox) jField;
-                jBox.removeAllItems();
+                jBox.setSelectedIndex(0);
+            } else if (jField instanceof JSpinner) {
+                JSpinner jSpinner = (JSpinner) jField;
+                jSpinner.setValue(1);
             }
+
         }
+    }
+
+    public static void setPosition(int position) {
+        FormBuilder.position = position;
     }
 
     public FormBuilder disableSubmitBtn() {
@@ -181,6 +221,6 @@ public class FormBuilder implements Form {
     protected void addGridBagConstraint(GridBagConstraints gridBagConstraints) {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy += 1;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
+        gridBagConstraints.anchor = position;
     }
 }

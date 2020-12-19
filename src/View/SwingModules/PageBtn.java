@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 public class PageBtn {
     JButton btn;
-    public static Dimension SIZE = new Dimension(278, 40);
+    public static Dimension SIZE = new Dimension(310, 40);
 
     public PageBtn(String txt) {
         this.btn = new JButton(txt);

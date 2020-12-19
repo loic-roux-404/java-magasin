@@ -1,5 +1,6 @@
 package Controller;
 
+import Exceptions.FormException;
 import Exceptions.InternalException;
 import Exceptions.ServiceRegisteryException;
 import Framework.Registery;
@@ -43,5 +44,5 @@ public abstract class AbstractController {
         this.registery = registery;
     }
 
-    abstract protected void actions() throws InternalException;
+    abstract protected void actions() throws InternalException, FormException;
 }

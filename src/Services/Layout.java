@@ -4,6 +4,7 @@ import Framework.Service;
 import View.Home;
 import View.MainFrame;
 import View.MenuBar;
+import View.SwingModules.PageBtn;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,7 +43,10 @@ public class Layout implements Service {
      * @param jPanel
      * @param name
      */
-    public void addPage(JPanel jPanel, String name) {
+    public void addPage(JPanel jPanel, String name, PageBtn pageBtn) {
+        if (null != pageBtn) {
+            home.registerPage(name, pageBtn);
+        }
         if (jPanel == null) {
             return;
         }
@@ -58,7 +62,7 @@ public class Layout implements Service {
      * @param name
      */
     public void openPage(JPanel jPanel, String name) {
-        this.addPage(jPanel, name);
+        this.addPage(jPanel, name, null);
         this.card.show(mainFrame.getContentPane(), name);
     }
 

@@ -39,7 +39,12 @@ public class Client implements Entity {
     }
 
     @Override
-    public String toString() {
+    public String toString(boolean list) {
         return firstname + ", " + lastname;
+    }
+
+    @Override
+    public String toString() {
+        return this.toString(true);
     }
 }

@@ -1,5 +1,6 @@
 package Controller;
 
+import Exceptions.FormException;
 import Exceptions.ServiceRegisteryException;
 import Framework.Registery;
 import Model.Client;
@@ -26,21 +27,17 @@ public class ClientController extends AbstractController {
     protected void actions() {
         // submit user
         clientView.createForm.submit(e -> {
-            String firstname = clientView.getFirstname().trim();
-            String lastname = clientView.getLastname().trim();
+            try {
+                clientView.createForm.validate();
+                String firstname = clientView.getFirstname().trim();
+                String lastname = clientView.getLastname().trim();
+                this.entityManager.add(new Client(firstname, lastname));
 
-            // simple validations
-            if (firstname.isEmpty()) {
-                JOptionPane.showMessageDialog(clientView.createForm.getPanel(), "First Name Required.", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-                return;
-            } else if (lastname.isEmpty()) {
-                JOptionPane.showMessageDialog(clientView.createForm.getPanel(), "Last Name Required.", "Error",
+            } catch (FormException formException) {
+                JOptionPane.showMessageDialog(clientView.createForm.getPanel(), formException.getMessage(), "Error",
                     JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
-            this.entityManager.add(new Client(firstname, lastname));
 
             clientView.createForm.reset(true);
         });

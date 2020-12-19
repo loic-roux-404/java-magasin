@@ -24,8 +24,7 @@ public class Order implements Entity {
 
     }
 
-    public Order(int id, Client client, Car car) {
-        this.id = id;
+    public Order(Client client, Car car) {
         this.client = client;
         this.car = car;
         this.builder = new Builder();
@@ -77,12 +76,20 @@ public class Order implements Entity {
     }
 
     @Override
-    public String toString() {
+    public String toString(boolean list) {
         return id +
             ", " + status +
             ", " + client.toString() +
             ", " + car.getBrandName() +
             ", " + car.getModelName() +
             ", " + builder.toString();
+    }
+
+    @Override
+    public String toString() {
+        return id +
+            ", " + client.toString() +
+            ", " + car.getModelName() +
+            ", " + builder.getName();
     }
 }

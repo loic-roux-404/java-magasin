@@ -4,9 +4,13 @@ import java.io.Serializable;
 
 public interface Entity extends Serializable {
     /**
-     * This method should return ordered comma list separated entity items
+     * This method is for java components like combobox
      */
     String toString();
+    /**
+     * This method should return ordered comma list separated entity items
+     */
+    String toString(boolean list);
 
     int getId();
 

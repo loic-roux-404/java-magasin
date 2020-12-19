@@ -1,36 +1,48 @@
 package Controller;
 
+import Exceptions.FormException;
+import Exceptions.InternalException;
 import Exceptions.ServiceRegisteryException;
 import Framework.Registery;
 import Model.Builder;
 import Services.Entity.EntityManager;
-import Services.Layout;
 import View.BuilderView;
+
+import javax.swing.*;
 
 public class BuilderController extends AbstractController {
     public final static String TITLE = "Gestion des Fabricants";
     private final EntityManager entityManager;
 
-    private final BuilderView view;
+    private BuilderView builderview;
 
     // Form create, List list
-    public BuilderController(Registery registery) throws ServiceRegisteryException {
+    public BuilderController(Registery registery) throws InternalException {
         super(registery);
         this.entityManager = this.getEntityManager(Builder.class);
-        view = new BuilderView(this.getLayout(), this);
+        builderview = new BuilderView(this.getLayout(), this);
         this.actions();
     }
 
     @Override
     protected void actions() throws ServiceRegisteryException {
-        Layout ly = this.getLayout();
         // Open list page from create form
-        view.builderCreateForm.list(e -> {
-
+        builderview.builderCreateForm.list(e -> {
+            builderview.builderList.getDetails(this.entityManager.getAll());
         });
 
-        view.builderCreateForm.submit(e -> {
+        builderview.builderCreateForm.submit(e -> {
+            try {
+                builderview.builderCreateForm.validate();
+                String builderName = builderview.getName().trim();
+                this.entityManager.add(new Builder(builderName));
+            } catch (FormException formException) {
+                JOptionPane.showMessageDialog(builderview.builderCreateForm.getPanel(), formException.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
+            builderview.builderCreateForm.reset(true);
         });
     }
 }
