@@ -5,13 +5,16 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Optional;
 
 public class FormBuilder implements Form {
 
     private JPanel panel;
 
-    public HashMap<String, JComponent> fields = new HashMap<>();
+    public LinkedHashMap<String, JComponent> fields = new LinkedHashMap<>();
+    public LinkedHashMap<String, JComponent> buttons = new LinkedHashMap<>();
+
     // List of fields id with no auto label
     public ArrayList<String> noLabelFields = new ArrayList<>();
     // Basic form buttons
@@ -33,6 +36,19 @@ public class FormBuilder implements Form {
 
     public FormBuilder addField(String name, JComponent jComponent) {
         this.fields.put(name, jComponent);
+
+        return this;
+    }
+
+    /**
+     * Display on end
+     *
+     * @param name
+     * @param jComponent
+     * @return
+     */
+    public FormBuilder addButton(String name, JComponent jComponent) {
+        buttons.put(name, jComponent);
 
         return this;
     }
@@ -75,21 +91,25 @@ public class FormBuilder implements Form {
     }
 
     protected void initButtons(GridBagConstraints gridBagConstraints) {
-        if (listButton != null) {
-            gridBagConstraints.insets = buttonInset;
-            panel.add(listButton, gridBagConstraints);
+        LinkedHashMap<String, JComponent> tmpBtns = new LinkedHashMap<>();
+
+        if (submitButton != null) tmpBtns.put("submit", submitButton);
+        if (listButton != null) tmpBtns.put("list", listButton);
+        if (backButton != null) buttons.put("return", backButton.getToolBar());
+
+        for (HashMap.Entry<String, JComponent> entry : tmpBtns.entrySet()) {
+            this.panelAddBtn(entry.getValue(), gridBagConstraints);
         }
 
-        if (submitButton != null) {
-            this.addGridBagConstraint(gridBagConstraints);
-            gridBagConstraints.insets = buttonInset;
-            panel.add(submitButton, gridBagConstraints);
+        for (HashMap.Entry<String, JComponent> entry : buttons.entrySet()) {
+            this.panelAddBtn(entry.getValue(), gridBagConstraints);
         }
+    }
 
-        if (backButton != null) {
-            this.addGridBagConstraint(gridBagConstraints);
-            panel.add(backButton.getToolBar(), gridBagConstraints);
-        }
+    protected void panelAddBtn(JComponent jComponent, GridBagConstraints gridBagConstraints) {
+        this.addGridBagConstraint(gridBagConstraints);
+        gridBagConstraints.insets = buttonInset;
+        panel.add(jComponent, gridBagConstraints);
     }
 
     public void submit(ActionListener actionListener) {

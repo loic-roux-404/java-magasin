@@ -5,10 +5,18 @@ import Exceptions.InternalException;
 import Exceptions.ServiceNotLoadedException;
 import Framework.Registery;
 import Services.Layout;
+import View.SwingModules.Form;
+import View.SwingModules.FormBuilder;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class MainFrame extends JFrame {
     public final static String TITLE = "Automobile Market";
@@ -76,11 +84,36 @@ public class MainFrame extends JFrame {
         /**
          * TODO show dialog with infos about project
          */
-        /* menuBar.jMenuItemAbout.addActionListener(new ActionListener() {
+        layout.menuBar.jMenuItemAbout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
-               aboutdDialog.setVisible(true);
+                BufferedImage image = null;
+                try {
+                    image = ImageIO.read(new File("appicon.png"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                FormBuilder about = (new FormBuilder(false))
+                    .disableAllBtn()
+                    .addField("img", new JLabel(new ImageIcon(image)))
+                    .addField("aboutTitle", new JLabel("À propos\n"))
+                    .addField("about1", new JLabel("Cet outil de gestion permet de facilité le traitement d'imports et d'achats de voitures à notre magasin"))
+                    .addField("about2", new JLabel("Ainsi en temps qu'employé vous pouvez consulter et proposer un catalogue de voiture actualisé en temps réel"))
+                    .addField("about3", new JLabel("Et qui s'adapte à la disponibilité des constructeurs automobiles"))
+                    .addField("teamTitle",new JLabel("L'équipe\n"))
+                    .addField("team1", new JLabel("Lead developer : Loic Roux\n"))
+                    .addField("team2",new JLabel("Dev expérimenté : Julien Guillaud\n"))
+                    .addField("team3",new JLabel("Dev expérimenté : Achref Walcott\n"));
+
+                JOptionPane.showMessageDialog(
+                    layout.mainFrame,
+                    about.create(Optional.empty()).getPanel(),
+                    "À propos du projet",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null
+                );
             }
-        }); */
+        });
     }
 
     /**

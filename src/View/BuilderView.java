@@ -54,7 +54,7 @@ public class BuilderView {
         nameField = new JTextField(25);
         FormBuilder builder = (new FormBuilder(true))
             .addField("nom", nameField)
-            .addNoLabel("cars", carPageBtn.getBtn());
+            .addButton("cars", carPageBtn.getBtn());
 
         return builder.create(Optional.empty());
     }
