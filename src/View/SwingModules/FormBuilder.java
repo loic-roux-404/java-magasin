@@ -64,10 +64,8 @@ public class FormBuilder implements Form {
     }
 
     @Override
-    public Form create(Optional<JPanel> optionalJPanel) {
-        panel = optionalJPanel.isPresent()
-            ? optionalJPanel.get()
-            : new JPanel();
+    public Form create(JPanel jPanel) {
+        panel = jPanel != null ? jPanel : new JPanel();
 
         // uses Grid Bag Layout
         panel.setLayout(new GridBagLayout());

@@ -5,11 +5,11 @@ import Exceptions.ServiceRegisteryException;
 import Framework.Registery;
 import Model.Client;
 import Services.Entity.EntityManager;
+import Utils.StrUtils;
 import View.ClientView;
 import View.SwingModules.Theme;
 
 import javax.swing.*;
-import javax.swing.event.TableModelEvent;
 import javax.swing.table.TableModel;
 
 public class ClientController extends AbstractController {
@@ -63,10 +63,10 @@ public class ClientController extends AbstractController {
 
             switch (col) {
                 case 0:
-                    en.setFirstname((String) model.getValueAt(row, col));
+                    en.setFirstname(StrUtils.updateString(model.getValueAt(row, col)));
                     break;
                 case 1:
-                    en.setLastname((String) model.getValueAt(row, col));
+                    en.setLastname(StrUtils.updateString(model.getValueAt(row, col)));
                     break;
             }
         });

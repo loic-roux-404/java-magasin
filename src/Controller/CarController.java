@@ -6,7 +6,6 @@ import Exceptions.InternalException;
 import Framework.Registery;
 import Model.Builder;
 import Model.Car;
-import Model.Client;
 import Services.Entity.Entity;
 import Services.Entity.EntityManager;
 import View.CarView;
@@ -27,9 +26,6 @@ public class CarController extends AbstractController {
     private final EntityManager entityManager;
     private final CarView carView;
 
-    // other data
-    public ArrayList<Entity> builders;
-
     public CarController(Registery registery) throws InternalException {
         super(registery);
         this.entityManager = this.getEntityManager(Car.class);
@@ -39,7 +35,6 @@ public class CarController extends AbstractController {
 
     @Override
     protected void actions() throws InternalException {
-        builders = this.getBuilders();
 
         carView.carAdd.submit(e -> {
             try {
@@ -75,22 +70,25 @@ public class CarController extends AbstractController {
 
             switch (col) {
                 case 0:
-                    en.setModelName((String) model.getValueAt(row, col));
-                    break;
-                case 1:
                     en.setBrandName((String) model.getValueAt(row, col));
                     break;
+                case 1:
+                    en.setModelName((String) model.getValueAt(row, col));
+                    break;
+                /*
                 case 2:
                     en.setLength((Integer) model.getValueAt(row, col));
                     break;
                 case 3:
                     en.setWeight((Integer) model.getValueAt(row, col));
                     break;
+
+                 */
             }
         });
     }
 
-    protected ArrayList<Entity> getBuilders() throws InternalException {
+    public ArrayList<Entity> getBuilders() throws InternalException {
         return this.getEntityManager(Builder.class).getAll();
     }
 }

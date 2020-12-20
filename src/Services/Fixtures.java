@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Fixtures implements Service {
-    public static String DEMO_TEXT_OFF = "Désactiver le mode démo";
-    public static String DEMO_TEXT_ON = "Activer le mode démo";
+    public static String DEMO_TEXT_OFF = "Désactiver la démo";
+    public static String DEMO_TEXT_ON = "Activer la démo";
     public boolean ENABLE = false;
     private boolean loaded = false;
 
@@ -50,15 +50,26 @@ public class Fixtures implements Service {
     }
 
     protected void managerRemoveFixtures(EntityManager manager) {
-        manager.setEntityArrayList(this.map.get(manager.getEntityClass().getSimpleName()));
+        manager.setEntityArrayList(new ArrayList<>());
     }
 
     private ArrayList<Entity> getFakeBuilders() {
         ArrayList<Entity> arr = new ArrayList<>();
-        Builder b1 = new Builder("TMAX");
+
+        Builder b1 = new Builder("TMAX Y");
+        b1.addCar((Car) this.getFakeCars().get(0));
+        b1.addCar((Car) this.getFakeCars().get(2));
+        b1.addCar((Car) this.getFakeCars().get(3));
+
         Builder b2 = new Builder("Jean Zouave SARL");
+        b2.addCar((Car) this.getFakeCars().get(3));
+        b2.addCar((Car) this.getFakeCars().get(4));
+
         Builder b3 = new Builder("ADIBOU SAS");
+        b3.addCar((Car) this.getFakeCars().get(0));
         Builder b4 = new Builder("Carrosserie MAXIMATOR");
+        b4.addCar((Car) this.getFakeCars().get(0));
+
         Builder b5 = new Builder("86 Construct");
 
         arr.add(b1);

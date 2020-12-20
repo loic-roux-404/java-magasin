@@ -54,9 +54,9 @@ public class LabelBuilder implements BuilderInterface {
         return this;
     }
 
-    public LabelBuilder create(Optional<JPanel> optionalJPanel) {
-        jPanel = optionalJPanel.isPresent()
-            ? optionalJPanel.get()
+    public LabelBuilder create(JPanel jPanel) {
+        jPanel = jPanel != null
+            ? jPanel
             : new JPanel();
 
         jPanel.add(jLabel);

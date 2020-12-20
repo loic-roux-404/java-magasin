@@ -8,7 +8,6 @@ import View.SwingModules.FormBuilder;
 import View.SwingModules.List;
 
 import javax.swing.*;
-import java.util.Optional;
 
 public class ClientView {
 
@@ -22,7 +21,7 @@ public class ClientView {
 
     // Components
     public Form createForm = this.CREATE();
-    public List list = this.LIST();
+    public List list = (this.LIST()).create(null);
 
     public ClientView(Layout ly, AbstractController controller) {
         createForm.getBackButton().onClick(e -> ly.openHome());
@@ -43,7 +42,7 @@ public class ClientView {
         });
     }
 
-    public View.SwingModules.List LIST() {
+    public List LIST() {
         return new List(tableColumn);
     }
 
@@ -53,7 +52,7 @@ public class ClientView {
         return (new FormBuilder(true))
             .addField("nom", firstNameField)
             .addField("prenom", lastNameField)
-            .create(Optional.empty());
+            .create(null);
     }
 
     // getters

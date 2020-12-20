@@ -86,7 +86,7 @@ public class MenuBar extends JMenuBar {
 
         JOptionPane.showMessageDialog(
             frame,
-            about.create(Optional.empty()).getPanel(),
+            about.create(null).getPanel(),
             "À propos du projet",
             JOptionPane.PLAIN_MESSAGE,
             null
@@ -106,7 +106,7 @@ public class MenuBar extends JMenuBar {
 
         JOptionPane.showMessageDialog(
             frame,
-            about.create(Optional.empty()).getPanel(),
+            about.create(null).getPanel(),
             "Tutoriel - raccourcis",
             JOptionPane.PLAIN_MESSAGE,
             null

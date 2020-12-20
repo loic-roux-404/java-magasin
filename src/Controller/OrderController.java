@@ -1,8 +1,6 @@
 package Controller;
 
-import Exceptions.FormException;
-import Exceptions.InternalException;
-import Exceptions.ServiceRegisteryException;
+import Exceptions.*;
 import Framework.Registery;
 import Model.Car;
 import Model.Client;
@@ -13,7 +11,6 @@ import Services.Entity.EntityManager;
 import View.Home;
 import View.OrderView;
 import View.SwingModules.Form;
-import View.SwingModules.FormBuilder;
 import View.SwingModules.Theme;
 
 import javax.swing.*;
@@ -28,7 +25,6 @@ public class OrderController extends AbstractController {
     public ArrayList<Entity> cars = new ArrayList<>();
     public ArrayList<Entity> clients = new ArrayList<>();
     public ArrayList<Entity> builders = new ArrayList<>();
-    public Builder availableBuilder;
     // Dependencies
     private final EntityManager entityManager;
     // Associated View
@@ -42,7 +38,7 @@ public class OrderController extends AbstractController {
     }
 
     @Override
-    public void actions() throws ServiceRegisteryException {
+    public void actions() throws InternalException {
         this.getLayout().home.page(Home.ORDERS).onOpen(e -> {
             try {
                 this.cars = this.getEntityManager(Car.class).getAll();
@@ -59,40 +55,73 @@ public class OrderController extends AbstractController {
                 orderForm.validate();
                 Client client = (Client) orderView.getClientSelect().getSelectedItem();
                 Car car = (Car) orderView.getCarSelect().getSelectedItem();
+                Builder availableBuilder = null;
+
 
                 // Search available builder
                 this.builders = this.getEntityManager(Builder.class).getAll();
 
                 for(int i = 0 ; i < this.builders.size() ; i++) {
                 	Builder currentBuilder = (Builder) this.builders.get(i);
-                	if(currentBuilder.isSupportedCar(car)) {
-                		availableBuilder=(Builder) this.builders.get(i);
-                	}
-                	else {
-                		System.out.println("Error, no aivalible builder");
-                	}
+                	if (currentBuilder.isSupportedCar(car)) {
+                		availableBuilder = (Builder) this.builders.get(i);
+                		break;
+                    }
                 }
 
+                if (availableBuilder == null) {
+                    throw new InvalidOrderException("Aucun constructeur ne peut gérer votre commande");
+                }
 
-
-
-                this.entityManager.add(new Order(client, car, this.availableBuilder));
-
+                this.entityManager.add(new Order(client, car, availableBuilder));
                 this.orderView.orderForm.reset(true);
-            } catch (FormException formException) {
+            } catch (FormException | InvalidOrderException orderException) {
                 JOptionPane.showMessageDialog(
                     orderForm.getPanel(),
-                    formException.getMessage(),
+                    orderException.getMessage(),
                     Theme.dialogErrorTxt,
                     JOptionPane.ERROR_MESSAGE
                 );
                 return;
+            } catch (ServiceRegisteryException serviceRegisteryException) {
+                serviceRegisteryException.printStackTrace();
             }
         });
 
         // Load orders // load users
         orderView.orderForm.list(e -> {
-            orderView.orderList.getDetails(this.entityManager.getAll());
+            this.fillList();
         });
+
+        orderView.onValid(e -> {
+            try {
+                ((Order) orderView.orderList.getEntity()).valid();
+            } catch (OrderMutationException exception) {
+                this.exceptionPane(exception);
+            }
+            this.fillList();
+        });
+
+        orderView.onCancel(e -> {
+            try {
+                ((Order) orderView.orderList.getEntity()).cancel();
+            } catch (OrderMutationException orderException) {
+                this.exceptionPane(orderException);
+                return;            }
+            this.fillList();
+        });
+    }
+
+    protected void fillList() {
+        orderView.orderList.getDetails(this.entityManager.getAll());
+    }
+
+    protected void exceptionPane(Exception e) {
+        JOptionPane.showMessageDialog(
+            null,
+            e.getMessage(),
+            Theme.dialogErrorTxt,
+            JOptionPane.ERROR_MESSAGE
+        );
     }
 }

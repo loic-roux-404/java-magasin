@@ -140,7 +140,7 @@ public class MainFrame extends JFrame {
     public boolean confirmLoose() {
         return JOptionPane.showConfirmDialog(
             this,
-            "Attention cette action engendre la pertes de vos données",
+            "Attention cette action engendre la perte de vos données",
             "Confirmer",
             JOptionPane.YES_NO_OPTION
         ) == 1;

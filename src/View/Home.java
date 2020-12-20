@@ -27,7 +27,7 @@ public class Home extends JPanel {
         this.addPageBtn(OrderController.TITLE, ORDERS);
         this.addPageBtn(BuilderController.TITLE, BUILDERS);
 
-        form.create(Optional.ofNullable(this));
+        form.create(this);
     }
 
     public void registerPage(String name, PageBtn pageBtn) {

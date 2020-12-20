@@ -11,7 +11,6 @@ import View.SwingModules.PageBtn;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Optional;
 
 public class BuilderView {
     static final String ADD = "builder_add";
@@ -63,7 +62,7 @@ public class BuilderView {
             .addField("nom_constructeur", nameField)
             .addButton("cars", carPageBtn.getBtn());
 
-        return builder.create(Optional.empty());
+        return builder.create(null);
     }
 
     public List LIST() {

@@ -20,14 +20,6 @@ public class Builder implements Entity {
 
     private ArrayList<Car> availableCars = new ArrayList<>();
 
-    public void orderCreation() {
-        // TODO implement here
-        // Check if car is in list of supported
-
-        // Call to car factory
-    }
-
-
     public boolean isSupportedCar(Car car) {
         // search in cars list
     	for(int i = 0 ; i < this.availableCars.size() ; i++) {
@@ -74,7 +66,7 @@ public class Builder implements Entity {
     public String toString(boolean list) {
         String carsString = ", ";
         for (Car car: availableCars) {
-            carsString += car.getModelName() + ", ";
+            carsString += car.getModelName() + " / ";
         }
         return name + carsString;
     }

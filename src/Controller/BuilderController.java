@@ -5,7 +5,6 @@ import Exceptions.InternalException;
 import Exceptions.ServiceRegisteryException;
 import Framework.Registery;
 import Model.Builder;
-import Model.Client;
 import Services.Entity.EntityManager;
 import View.BuilderView;
 import View.SwingModules.Theme;

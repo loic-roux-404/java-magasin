@@ -1,5 +1,6 @@
 package Model;
 
+import Exceptions.OrderMutationException;
 import Services.Entity.Entity;
 
 public class Order implements Entity {
@@ -75,6 +76,21 @@ public class Order implements Entity {
         this.client = client;
     }
 
+    // Work function
+    public void valid() throws OrderMutationException {
+        if (status == statuses.CANCELLED) {
+            throw new OrderMutationException();
+        }
+        status = statuses.DONE;
+    }
+
+    public void cancel() throws OrderMutationException {
+        if (status == statuses.DONE) {
+            throw new OrderMutationException();
+        }
+        status = statuses.CANCELLED;
+    }
+
     @Override
     public String toString(boolean list) {
         return id +
@@ -82,7 +98,7 @@ public class Order implements Entity {
             ", " + client.toString() +
             ", " + car.getBrandName() +
             ", " + car.getModelName() +
-            ", " + builder.toString();
+            ", " + builder.getName();
     }
 
     @Override

@@ -9,7 +9,6 @@ import View.SwingModules.*;
 
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Optional;
 
 public class CarView {
     static String[] tableColumn = {"Modèle", "Marque", "Longueur", "Taille"};
@@ -39,7 +38,11 @@ public class CarView {
         });
         // Functional
         carPageBtn.onOpen(e -> {
-            this.fillForm(controller.builders);
+            try {
+                this.fillForm(controller.getBuilders());
+            } catch (InternalException internalException) {
+                internalException.printStackTrace();
+            }
         });
         // Warning : we open car form from builder
         carList.backButton.onClick(e -> ly.openHome());
@@ -67,6 +70,6 @@ public class CarView {
             .addField("Poid", weight)
             .disableListBtn();
 
-        return builder.create(Optional.empty());
+        return builder.create(null);
     }
 }

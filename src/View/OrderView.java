@@ -10,7 +10,7 @@ import View.SwingModules.List;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Optional;
+import java.awt.event.ActionListener;
 
 public class OrderView {
     // Table config
@@ -24,6 +24,10 @@ public class OrderView {
     private final JComboBox clientSelect = new JComboBox();
     private final JComboBox carSelect = new JComboBox();
 
+    // Special buttons
+    private JButton validOrderBtn = new JButton("Valider la commande");
+    private JButton cancelOrderBtn = new JButton("Refuser la commande");
+
     // Components
     public Form orderForm;
     public List orderList;
@@ -32,7 +36,11 @@ public class OrderView {
         this.controller = controller;
         // Components
         orderForm = this.CREATE();
-        orderList = this.LIST();
+        orderList = (this.LIST())
+            .addButton(validOrderBtn)
+            .addButton(cancelOrderBtn)
+            .disableDeleteButton()
+            .create(null);
 
         orderForm.getBackButton().onClick(e -> ly.openHome());
         // Home access
@@ -76,11 +84,7 @@ public class OrderView {
             .addField("client", clientSelect)
             .addField("voiture", carSelect);
 
-        return builder.create(Optional.empty());
-    }
-
-    public String getId() {
-        return id.getText();
+        return builder.create(null);
     }
 
     public JComboBox getClientSelect() {
@@ -89,5 +93,13 @@ public class OrderView {
 
     public JComboBox getCarSelect() {
         return carSelect;
+    }
+
+    public void onValid(ActionListener actionListener) {
+        validOrderBtn.addActionListener(actionListener);
+    }
+
+    public void onCancel(ActionListener actionListener) {
+        cancelOrderBtn.addActionListener(actionListener);
     }
 }
