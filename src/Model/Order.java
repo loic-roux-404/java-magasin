@@ -20,7 +20,13 @@ public class Order implements Entity, Dated {
         PENDING,
         PROCESSING,
         DONE,
-        CANCELLED,
+        CANCELLED;
+
+        statuses getNext() {
+            return this.ordinal() < statuses.values().length - 1
+                ? statuses.values()[this.ordinal() + 1]
+                : null;
+        }
     }
 
     /**
@@ -98,12 +104,13 @@ public class Order implements Entity, Dated {
     }
 
     // Work function
-    public void valid() throws OrderMutationException {
-        if (status == statuses.CANCELLED) {
+    public void nextStatus() throws OrderMutationException {
+        if (status == statuses.DONE || status == statuses.CANCELLED) {
             throw new OrderMutationException();
         }
-        status = statuses.DONE;
+        status = status.getNext();
         this.builder.decrementUsedCapacity();
+        this.setUpdatedAt();
     }
 
     public void cancel() throws OrderMutationException {
@@ -112,6 +119,7 @@ public class Order implements Entity, Dated {
         }
         status = statuses.CANCELLED;
         this.builder.decrementUsedCapacity();
+        this.setUpdatedAt();
     }
 
     @Override

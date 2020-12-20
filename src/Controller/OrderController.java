@@ -95,8 +95,9 @@ public class OrderController extends AbstractController {
         });
 
         orderView.onValid(e -> {
+            if (orderView.orderList.getEntity() == null) return;
             try {
-                ((Order) orderView.orderList.getEntity()).valid();
+                ((Order) orderView.orderList.getEntity()).nextStatus();
             } catch (OrderMutationException exception) {
                 this.exceptionPane(exception);
             }

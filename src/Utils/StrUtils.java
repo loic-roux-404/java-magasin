@@ -12,7 +12,7 @@ public class StrUtils {
      */
     public static String dateFmt(Date date) {
         if (date == null) return "";
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
         return format.format(date);
     }
 

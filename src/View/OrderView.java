@@ -25,7 +25,7 @@ public class OrderView {
     private final JComboBox carSelect = new JComboBox();
 
     // Special buttons
-    private JButton validOrderBtn = new JButton("Valider la commande");
+    private JButton validOrderBtn = new JButton("Passer au statut suivant");
     private JButton cancelOrderBtn = new JButton("Refuser la commande");
 
     // Components
