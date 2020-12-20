@@ -97,9 +97,9 @@ public class MainFrame extends JFrame {
             layout.openHome();
         });
 
-        layout.menuBar.jMenuItemDemo.addActionListener((ActionEvent ev) -> {
+        layout.menuBar.demoOpen(e -> {
             if (confirmLoose()) return;
-            this.initFixtures((JMenuItem) ev.getSource());
+            this.initFixtures((JMenuItem) e.getSource());
             layout.openHome();
         });
 

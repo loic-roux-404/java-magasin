@@ -1,10 +1,8 @@
 package View;
 
-import Controller.AbstractController;
 import Controller.BuilderController;
 import Controller.CarController;
 import Exceptions.InternalException;
-import Exceptions.ServiceRegisteryException;
 import Services.Entity.Entity;
 import Services.Layout;
 import View.SwingModules.*;
@@ -14,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public class CarView {
-    static String[] tableColumn = {"Modèle", "Marque"};
+    static String[] tableColumn = {"Modèle", "Marque", "Longueur", "Taille"};
     static final String LIST = "car_list";
     static final String ADD = "car_add";
 
