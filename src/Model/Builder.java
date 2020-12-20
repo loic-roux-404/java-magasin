@@ -23,19 +23,19 @@ public class Builder implements Entity {
     public void orderCreation() {
         // TODO implement here
         // Check if car is in list of supported
-        if (!this.isSupportedCar()) {
-            this.nextBuilder();
-        }
+
         // Call to car factory
     }
 
-    public Builder nextBuilder() {
-        return new Builder();
-    }
 
-    protected boolean isSupportedCar() {
+    public boolean isSupportedCar(Car car) {
         // search in cars list
-        return false;
+    	for(int i = 0 ; i < this.availableCars.size() ; i++) {
+        	if(car.getModelName() == this.availableCars.get(i).getModelName())
+        		return true;
+        }
+    	return false;
+        
     }
 
     public void addCar(Car car) {

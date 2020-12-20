@@ -24,10 +24,10 @@ public class Order implements Entity {
 
     }
 
-    public Order(Client client, Car car) {
+    public Order(Client client, Car car, Builder builder) {
         this.client = client;
         this.car = car;
-        this.builder = new Builder();
+        this.builder = builder;
         status = statuses.valueOf("PENDING");
     }
 

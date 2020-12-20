@@ -7,6 +7,7 @@ import Framework.Registery;
 import Model.Car;
 import Model.Client;
 import Model.Order;
+import Model.Builder;
 import Services.Entity.Entity;
 import Services.Entity.EntityManager;
 import View.Home;
@@ -26,7 +27,8 @@ public class OrderController extends AbstractController {
 
     public ArrayList<Entity> cars = new ArrayList<>();
     public ArrayList<Entity> clients = new ArrayList<>();
-
+    public ArrayList<Entity> builders = new ArrayList<>();
+    public Builder availableBuilder;
     // Dependencies
     private final EntityManager entityManager;
     // Associated View
@@ -58,7 +60,24 @@ public class OrderController extends AbstractController {
                 Client client = (Client) orderView.getClientSelect().getSelectedItem();
                 Car car = (Car) orderView.getCarSelect().getSelectedItem();
 
-                this.entityManager.add(new Order(client, car));
+                // Search available builder
+                this.builders = this.getEntityManager(Builder.class).getAll();
+
+                for(int i = 0 ; i < this.builders.size() ; i++) {
+                	Builder currentBuilder = (Builder) this.builders.get(i);
+                	if(currentBuilder.isSupportedCar(car)) {
+                		availableBuilder=(Builder) this.builders.get(i);
+                	}
+                	else {
+                		System.out.println("Error, no aivalible builder");
+                	}
+                }
+
+
+
+
+                this.entityManager.add(new Order(client, car, this.availableBuilder));
+
                 this.orderView.orderForm.reset(true);
             } catch (FormException formException) {
                 JOptionPane.showMessageDialog(
@@ -71,6 +90,7 @@ public class OrderController extends AbstractController {
             }
         });
 
+        // Load orders // load users
         orderView.orderForm.list(e -> {
             orderView.orderList.getDetails(this.entityManager.getAll());
         });
