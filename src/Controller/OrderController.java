@@ -73,7 +73,9 @@ public class OrderController extends AbstractController {
                     throw new InvalidOrderException("Aucun constructeur ne peut gérer votre commande");
                 }
 
+                // Add new order
                 this.entityManager.add(new Order(client, car, availableBuilder));
+                // Reset form after
                 this.orderView.orderForm.reset(true);
             } catch (FormException | InvalidOrderException orderException) {
                 JOptionPane.showMessageDialog(

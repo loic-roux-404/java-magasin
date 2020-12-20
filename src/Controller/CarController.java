@@ -2,7 +2,7 @@ package Controller;
 
 import Exceptions.FormException;
 import Exceptions.InternalException;
-
+import Exceptions.InvalidOrderException;
 import Framework.Registery;
 import Model.Builder;
 import Model.Car;
@@ -44,7 +44,8 @@ public class CarController extends AbstractController {
                     carView.modelName.getText(),
                     carView.brandName.getText(),
                     (Integer) carView.length.getValue(),
-                    (Integer) carView.weight.getValue()
+                    (Integer) carView.weight.getValue(),
+                    Double.parseDouble(carView.price.getText())
                 );
                 this.entityManager.add(car);
                 builder.addCar(car);
@@ -53,6 +54,10 @@ public class CarController extends AbstractController {
                 JOptionPane.showMessageDialog(carView.carAdd.getPanel(), formException.getMessage(), Theme.dialogErrorTxt,
                     JOptionPane.ERROR_MESSAGE);
                 return;
+            } catch (NumberFormatException numExeption) {
+            	JOptionPane.showMessageDialog(carView.carAdd.getPanel(), "Prix ne peut contenir qu'un nombre à virgule", Theme.dialogErrorTxt,
+                        JOptionPane.ERROR_MESSAGE);
+                    return;
             }
         });
 

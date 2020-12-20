@@ -11,7 +11,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class CarView {
-    static String[] tableColumn = {"Modèle", "Marque", "Longueur", "Taille"};
+    static String[] tableColumn = {"Modèle", "Marque", "Longueur", "Taille", "Prix"};
     static final String LIST = "car_list";
     static final String ADD = "car_add";
 
@@ -20,6 +20,7 @@ public class CarView {
 
     public JTextField modelName = new JTextField(25);;
     public JTextField brandName = new JTextField(25);;
+    public JTextField price = new JTextField(25);;
     public JSpinner length = (new NumberField()).getField();
     public JSpinner weight = (new NumberField()).getField();
     public JComboBox builderSelect = new JComboBox();
@@ -68,6 +69,7 @@ public class CarView {
             .addField("Marque", brandName)
             .addField("Longueur", length)
             .addField("Poid", weight)
+            .addField("Prix", price)
             .disableListBtn();
 
         return builder.create(null);

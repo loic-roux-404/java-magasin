@@ -9,6 +9,7 @@ public class Car implements Entity {
     private String brandName;
     private Integer length;
     private Integer weight;
+    private Double price;
 
     /**
      * Default constructor
@@ -16,11 +17,12 @@ public class Car implements Entity {
     public Car() {
     }
 
-    public Car(String brandName, String modelName, Integer length, Integer weight) {
+    public Car(String brandName, String modelName, Integer length, Integer weight, Double price) {
         this.modelName = modelName;
         this.brandName = brandName;
         this.length = length;
         this.weight = weight;
+        this.price = price;
     }
 
     public String getModelName() {
@@ -34,8 +36,16 @@ public class Car implements Entity {
     public String getBrandName() {
         return brandName;
     }
+    
+    public Double getPrice() {
+		return price;
+	}
 
-    public void setBrandName(String brandName) {
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public void setBrandName(String brandName) {
         this.brandName = brandName;
     }
 
@@ -78,6 +88,7 @@ public class Car implements Entity {
         return brandName
             + ", " + modelName
             + ", " + length
-            + ", " + weight;
+            + ", " + weight
+            + ", " + price;
     }
 }
