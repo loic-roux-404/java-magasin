@@ -1,9 +1,14 @@
 package Services.Entity;
 
 import Framework.Service;
+import Model.Dated;
 
 import java.util.ArrayList;
+import java.util.Date;
 
+/**
+ * Class to manage entities and store them in list
+ */
 public class EntityManager implements Service {
     private boolean loaded;
 
@@ -19,6 +24,10 @@ public class EntityManager implements Service {
         this.load();
     }
 
+    /**
+     * Use reflection to create an empty entity and check definition
+     * is compliant with this manager
+     */
     void loadEntityInstance() {
         try {
             managedEn = (Entity) entityClass.getDeclaredConstructor().newInstance();
@@ -31,16 +40,35 @@ public class EntityManager implements Service {
 
     }
 
-    // adds entity to our collection
+    /**
+     * Adds entity to our collection
+     *
+     * @param item
+     */
     public void add(Entity item) {
         item.setId(entityArrayList.size() + 1);
+        if (item instanceof Dated) {
+            ((Dated) item).setUpdatedAt();
+            if (((Dated) item).getCreatedAt() == null) {
+                ((Dated) item).setCreatedAt();
+            }
+        }
         entityArrayList.add(item);
     }
 
+    /**
+     * Get all entities for managed entity (ex Car)
+     * @return
+     */
     public ArrayList<Entity> getAll() {
         return entityArrayList;
     }
 
+    /**
+     * Get one entity by his index in list
+     * @param index
+     * @return
+     */
     public Entity getById(int index) {
         return entityArrayList.get(index);
     }

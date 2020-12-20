@@ -1,29 +1,21 @@
 package Model;
 
-import Services.Entity.Entity;
-
-public class Client implements Entity {
-    private int id;
-
+public class Client extends AbstractActor {
     private String firstname;
-    private String lastname;
 
-    public Client() {
-        // empty constructor
-    }
+    /**
+     * Default constructor useful in some cases
+     */
+    public Client() {}
 
-    public Client(String firstname, String lastname) {
+    public Client(String firstname, String name) {
+        super(name);
         this.firstname = firstname;
-        this.lastname = lastname;
     }
 
     // getters
     public String getFirstname() {
         return firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
     }
 
     // setters
@@ -32,25 +24,9 @@ public class Client implements Entity {
         this.firstname = firstname;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    @Override
-    public int getId() {
-        return id;
-    }
-
-    @Override
-    public Client setId(int id) {
-        this.id = id;
-
-        return this;
-    }
-
     @Override
     public String toString(boolean list) {
-        return firstname + ", " + lastname;
+        return firstname + ", " + this.getName();
     }
 
     @Override

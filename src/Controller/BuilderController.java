@@ -37,7 +37,8 @@ public class BuilderController extends AbstractController {
             try {
                 builderview.builderCreateForm.validate();
                 String builderName = builderview.getName().trim();
-                this.entityManager.add(new Builder(builderName));
+                int builderCapacity = builderview.getCapacity();
+                this.entityManager.add(new Builder(builderName, builderCapacity));
             } catch (FormException formException) {
                 JOptionPane.showMessageDialog(
                     builderview.builderCreateForm.getPanel(),

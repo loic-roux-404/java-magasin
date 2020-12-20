@@ -5,6 +5,9 @@ import Exceptions.FormException;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 
+/**
+ * Interface type to identify a builded and ready form
+ */
 public interface Form extends BuilderInterface {
     void submit(ActionListener actionListener);
 

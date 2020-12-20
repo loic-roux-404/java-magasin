@@ -4,10 +4,8 @@ import Controller.BuilderController;
 import Controller.CarController;
 import Exceptions.InternalException;
 import Services.Layout;
-import View.SwingModules.Form;
-import View.SwingModules.FormBuilder;
+import View.SwingModules.*;
 import View.SwingModules.List;
-import View.SwingModules.PageBtn;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +16,9 @@ public class BuilderView {
     // Entity fields to show
     static String[] tableColumn = {"NOM", "Modèles de voiture pris en charge"};
 
+    // Form fields
     private JTextField nameField;
+    private JSpinner capacity = (new NumberField()).getField();
 
     // TODO select from cars
     // private JTextField lastNameField;
@@ -60,6 +60,7 @@ public class BuilderView {
         nameField = new JTextField(25);
         FormBuilder builder = (new FormBuilder(true))
             .addField("nom_constructeur", nameField)
+            .addField("capacité", capacity)
             .addButton("cars", carPageBtn.getBtn());
 
         return builder.create(null);
@@ -72,5 +73,9 @@ public class BuilderView {
     // getters
     public String getName() {
         return nameField.getText();
+    }
+
+    public int getCapacity() {
+        return (int) capacity.getValue();
     }
 }

@@ -48,11 +48,15 @@ public class ClientController extends AbstractController {
             clientView.createForm.reset(true);
         });
 
-        // load users
+        // load users in table list
         clientView.createForm.list(e -> {
             clientView.list.getDetails(this.entityManager.getAll());
         });
 
+        /**
+         * Update data of table, we only support text field
+         * Also we use table column to determine entity field
+         */
         clientView.list.update(e -> {
             if (e.getColumn() <= -1) return;
             int col = e.getColumn();
@@ -66,7 +70,7 @@ public class ClientController extends AbstractController {
                     en.setFirstname(StrUtils.updateString(model.getValueAt(row, col)));
                     break;
                 case 1:
-                    en.setLastname(StrUtils.updateString(model.getValueAt(row, col)));
+                    en.setName(StrUtils.updateString(model.getValueAt(row, col)));
                     break;
             }
         });

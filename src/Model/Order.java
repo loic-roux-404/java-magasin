@@ -2,14 +2,19 @@ package Model;
 
 import Exceptions.OrderMutationException;
 import Services.Entity.Entity;
+import Utils.StrUtils;
 
-public class Order implements Entity {
+import java.util.Date;
+
+public class Order implements Entity, Dated {
 
     private int id;
     private statuses status;
     private Car car;
     private Builder builder;
     private Client client;
+    private Date createdAt;
+    private Date updatedAt;
 
     static enum statuses {
         PENDING,
@@ -76,12 +81,29 @@ public class Order implements Entity {
         this.client = client;
     }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt() {
+        this.createdAt = new Date();
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt() {
+        this.updatedAt = new Date();;
+    }
+
     // Work function
     public void valid() throws OrderMutationException {
         if (status == statuses.CANCELLED) {
             throw new OrderMutationException();
         }
         status = statuses.DONE;
+        this.builder.decrementUsedCapacity();
     }
 
     public void cancel() throws OrderMutationException {
@@ -89,6 +111,7 @@ public class Order implements Entity {
             throw new OrderMutationException();
         }
         status = statuses.CANCELLED;
+        this.builder.decrementUsedCapacity();
     }
 
     @Override
@@ -98,7 +121,9 @@ public class Order implements Entity {
             ", " + client.toString() +
             ", " + car.getBrandName() +
             ", " + car.getModelName() +
-            ", " + builder.getName();
+            ", " + builder.getName() +
+            ", " + StrUtils.dateFmt(createdAt) +
+            ", " + StrUtils.dateFmt(updatedAt);
     }
 
     @Override

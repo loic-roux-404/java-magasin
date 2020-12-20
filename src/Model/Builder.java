@@ -1,61 +1,63 @@
 package Model;
 
-import Services.Entity.Entity;
+import Exceptions.ExceedBuilderCapacityException;
 
 import java.util.ArrayList;
 
-public class Builder implements Entity {
-    private int id;
-    private String name;
+public class Builder extends AbstractActor {
+    private ArrayList<Car> availableCars = new ArrayList<>();
+    private int maxCapacity;
+    private int usedCapacity = 0;
 
     /**
      * Default constructor
      */
     public Builder() {
+        super();
     }
 
-    public Builder(String name) {
-        this.name = name;
+    public Builder(String name, int maxCapacity) {
+        super(name);
+        this.maxCapacity = maxCapacity;
     }
 
-    private ArrayList<Car> availableCars = new ArrayList<>();
-
-    public boolean isSupportedCar(Car car) {
+    public boolean isSupportedCar(Car car) throws ExceedBuilderCapacityException {
         // search in cars list
-    	for(int i = 0 ; i < this.availableCars.size() ; i++) {
-        	if(car.getModelName() == this.availableCars.get(i).getModelName())
-        		return true;
+        this.checkCapacity();
+        for(int i = 0 ; i < this.availableCars.size() ; i++) {
+        	if(car.getModelName() == this.availableCars.get(i).getModelName()) {
+        	    this.incrementUsedCapacity();
+                return true;
+            }
         }
     	return false;
-        
     }
 
     public void addCar(Car car) {
         this.availableCars.add(car);
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public ArrayList<Car> getAvailableCars() {
         return availableCars;
     }
 
-    @Override
-    public int getId() {
-        return id;
+    public int getUsedCapacity() {
+        return usedCapacity;
     }
 
-    @Override
-    public Builder setId(int id) {
-        this.id = id;
+    public void incrementUsedCapacity() throws ExceedBuilderCapacityException {
+        this.checkCapacity();
+        this.usedCapacity += 1;
+    }
 
-        return this;
+    public void decrementUsedCapacity() {
+        this.usedCapacity -= 1;
+    }
+
+    protected void checkCapacity() throws ExceedBuilderCapacityException {
+        if (usedCapacity == maxCapacity) {
+            throw new ExceedBuilderCapacityException();
+        }
     }
 
     /**
@@ -68,15 +70,6 @@ public class Builder implements Entity {
         for (Car car: availableCars) {
             carsString += car.getModelName() + " / ";
         }
-        return name + carsString;
-    }
-
-    /**
-     * Java default toString
-     * @return
-     */
-    @Override
-    public String toString() {
-        return name;
+        return this.getName() + carsString;
     }
 }

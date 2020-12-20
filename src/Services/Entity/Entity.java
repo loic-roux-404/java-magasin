@@ -7,6 +7,7 @@ public interface Entity extends Serializable {
      * This method is for java components like combobox
      */
     String toString();
+
     /**
      * This method should return ordered comma list separated entity items
      */
@@ -14,5 +15,10 @@ public interface Entity extends Serializable {
 
     int getId();
 
+    /**
+     * Used by entity manager
+     * @param id
+     * @return
+     */
     Entity setId(int id);
 }

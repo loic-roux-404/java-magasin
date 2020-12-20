@@ -56,21 +56,21 @@ public class Fixtures implements Service {
     private ArrayList<Entity> getFakeBuilders() {
         ArrayList<Entity> arr = new ArrayList<>();
 
-        Builder b1 = new Builder("TMAX Y");
+        Builder b1 = new Builder("TMAX Y", 2);
         b1.addCar((Car) this.getFakeCars().get(0));
         b1.addCar((Car) this.getFakeCars().get(2));
         b1.addCar((Car) this.getFakeCars().get(3));
 
-        Builder b2 = new Builder("Jean Zouave SARL");
+        Builder b2 = new Builder("Jean Zouave SARL", 1);
         b2.addCar((Car) this.getFakeCars().get(3));
         b2.addCar((Car) this.getFakeCars().get(4));
 
-        Builder b3 = new Builder("ADIBOU SAS");
+        Builder b3 = new Builder("ADIBOU SAS", 4);
         b3.addCar((Car) this.getFakeCars().get(0));
-        Builder b4 = new Builder("Carrosserie MAXIMATOR");
+        Builder b4 = new Builder("Carrosserie MAXIMATOR", 3);
         b4.addCar((Car) this.getFakeCars().get(0));
 
-        Builder b5 = new Builder("86 Construct");
+        Builder b5 = new Builder("86 Construct", 1);
 
         arr.add(b1);
         arr.add(b2);
@@ -84,11 +84,11 @@ public class Fixtures implements Service {
     private ArrayList<Entity> getFakeCars() {
         ArrayList<Entity> arr = new ArrayList<>();
 
-        Car c1 = new Car("Renault", "Laguna", 1000, 2000);
-        Car c2 = new Car("Ferarri", "458 Italia", 1000, 2000);
-        Car c3 = new Car("Ford", "Fiesta", 800, 3000);
-        Car c4 = new Car("Mercedes", "AMG", 1000, 1200);
-        Car c5 = new Car("Renault", "Twingo", 200, 500);
+        Car c1 = new Car("Renault", "Laguna", 1000, 2000, 18000.49);
+        Car c2 = new Car("Ferarri", "458 Italia", 1000, 1100,1000000.00);
+        Car c3 = new Car("Ford", "Fiesta", 800, 3000, 12000.00);
+        Car c4 = new Car("Mercedes", "AMG", 1000, 1200, 67000.00);
+        Car c5 = new Car("Renault", "Twingo", 200, 500, 11000.00);
 
         arr.add(c1);
         arr.add(c2);

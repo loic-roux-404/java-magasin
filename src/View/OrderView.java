@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 
 public class OrderView {
     // Table config
-    static String[] tableColumn = {"ID", "STATUS", "NOM", "PRENOM", "MARQUE", "MODELE", "CONSTRUCTEUR"};
+    static String[] tableColumn = {"Id", "Status", "Nom", "Prénom", "Marque", "Modèle", "Constructeur", "Date Création", "Date Modification"};
 
     OrderController controller;
     static final String ADD = "order_add";

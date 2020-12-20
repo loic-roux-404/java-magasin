@@ -2,12 +2,12 @@ package Controller;
 
 import Exceptions.FormException;
 import Exceptions.InternalException;
-import Exceptions.InvalidOrderException;
 import Framework.Registery;
 import Model.Builder;
 import Model.Car;
 import Services.Entity.Entity;
 import Services.Entity.EntityManager;
+import Utils.StrUtils;
 import View.CarView;
 import View.Home;
 import View.SwingModules.Theme;
@@ -25,6 +25,8 @@ public class CarController extends AbstractController {
 
     private final EntityManager entityManager;
     private final CarView carView;
+
+    protected static String NUMBER_ERROR = "Le nombre choisi n'est pas le bon, vérifiez la présence de virgule";
 
     public CarController(Registery registery) throws InternalException {
         super(registery);
@@ -51,13 +53,11 @@ public class CarController extends AbstractController {
                 builder.addCar(car);
                 carView.carAdd.reset(true);
             } catch (FormException formException) {
-                JOptionPane.showMessageDialog(carView.carAdd.getPanel(), formException.getMessage(), Theme.dialogErrorTxt,
-                    JOptionPane.ERROR_MESSAGE);
+                this.orderDialog(formException.getMessage());
                 return;
             } catch (NumberFormatException numExeption) {
-            	JOptionPane.showMessageDialog(carView.carAdd.getPanel(), "Prix ne peut contenir qu'un nombre à virgule", Theme.dialogErrorTxt,
-                        JOptionPane.ERROR_MESSAGE);
-                    return;
+                this.orderDialog(NUMBER_ERROR);
+                return;
             }
         });
 
@@ -73,27 +73,38 @@ public class CarController extends AbstractController {
 
             Car en = (Car) this.entityManager.getById(e.getFirstRow());
 
-            switch (col) {
-                case 0:
-                    en.setBrandName((String) model.getValueAt(row, col));
-                    break;
-                case 1:
-                    en.setModelName((String) model.getValueAt(row, col));
-                    break;
-                /*
-                case 2:
-                    en.setLength((Integer) model.getValueAt(row, col));
-                    break;
-                case 3:
-                    en.setWeight((Integer) model.getValueAt(row, col));
-                    break;
-
-                 */
+            try {
+                switch (col) {
+                    case 0:
+                        en.setBrandName((String) model.getValueAt(row, col));
+                        break;
+                    case 1:
+                        en.setModelName((String) model.getValueAt(row, col));
+                        break;
+                    case 2:
+                        en.setLength(StrUtils.updateInteger(model.getValueAt(row, col)));
+                        break;
+                    case 3:
+                        en.setWeight(StrUtils.updateInteger(model.getValueAt(row, col)));
+                        break;
+                    case 4:
+                        en.setPrice(StrUtils.updateDouble(model.getValueAt(row, col)));
+                        break;
+                }
+            } catch (NumberFormatException numExeption) {
+                numExeption.printStackTrace();
+                this.orderDialog(NUMBER_ERROR);
+                return;
             }
         });
     }
 
     public ArrayList<Entity> getBuilders() throws InternalException {
         return this.getEntityManager(Builder.class).getAll();
+    }
+
+    protected void orderDialog(String txt) {
+        JOptionPane.showMessageDialog(carView.carAdd.getPanel(), txt, Theme.dialogErrorTxt,
+            JOptionPane.ERROR_MESSAGE);
     }
 }

@@ -57,7 +57,6 @@ public class OrderController extends AbstractController {
                 Car car = (Car) orderView.getCarSelect().getSelectedItem();
                 Builder availableBuilder = null;
 
-
                 // Search available builder
                 this.builders = this.getEntityManager(Builder.class).getAll();
 
@@ -109,7 +108,8 @@ public class OrderController extends AbstractController {
                 ((Order) orderView.orderList.getEntity()).cancel();
             } catch (OrderMutationException orderException) {
                 this.exceptionPane(orderException);
-                return;            }
+                return;
+            }
             this.fillList();
         });
     }
