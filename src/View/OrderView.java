@@ -52,7 +52,7 @@ public class OrderView {
         });
     }
 
-    public View.SwingModules.List LIST() {
+    public List LIST() {
         return new List(tableColumn);
     }
 

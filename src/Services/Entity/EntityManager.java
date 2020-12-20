@@ -43,7 +43,6 @@ public class EntityManager implements Service {
         return entityArrayList.get(index);
     }
 
-
     @Override
     public void load() {
         loaded = true;

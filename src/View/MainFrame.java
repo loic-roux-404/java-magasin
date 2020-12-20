@@ -1,7 +1,6 @@
 package View;
 
 import Controller.*;
-import Exceptions.FormException;
 import Exceptions.InternalException;
 import Exceptions.ServiceNotLoadedException;
 import Framework.Registery;
@@ -69,46 +68,17 @@ public class MainFrame extends JFrame {
         setJMenuBar(layout.menuBar);
 
         // menu listeners :
-        layout.menuBar.jMenuItemQuit.addActionListener((ActionEvent ev) ->
-        {
-            if (confirmBeforeExit()) {
-                {
-                    System.exit(0);
-                }
-            }
+        layout.menuBar.jMenuItemQuit.addActionListener((ActionEvent ev) -> {
+            if (confirmBeforeExit()) System.exit(0);
         });
 
-        layout.menuBar.jMenuItemHome.addActionListener((ActionEvent ev) ->
-        {
+        layout.menuBar.jMenuItemHome.addActionListener((ActionEvent ev) -> {
             layout.openHome();
         });
 
-        layout.menuBar.jMenuItemAbout.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ev) {
-                FormBuilder about = (new FormBuilder(false))
-                    .disableAllBtn()
-                    .addField(
-                        "img",
-                        (new LabelBuilder("")).buildImage("appicon.png").getjLabel()
-                    )
-                    .addField("aboutTitle", (new LabelBuilder("À propos")).buildTitle())
-                    .addField("about1", new JLabel("Cet outil de gestion permet de facilité le traitement d'imports et d'achats de voitures à notre magasin"))
-                    .addField("about2", new JLabel("Ainsi en temps qu'employé vous pouvez consulter et proposer un catalogue de voiture actualisé en temps réel"))
-                    .addField("about3", new JLabel("Et qui s'adapte à la disponibilité des constructeurs automobiles"))
-                    .addField("teamTitle", (new LabelBuilder("L'équipe")).buildTitle())
-                    .addField("team1", new JLabel("Lead developer : Loic Roux\n"))
-                    .addField("team2", new JLabel("Dev expérimenté : Julien Guillaud\n"))
-                    .addField("team3", new JLabel("Dev expérimenté : Achref Walcott\n"));
+        layout.menuBar.aboutOpen(e -> layout.menuBar.handleAbout(this));
 
-                JOptionPane.showMessageDialog(
-                    layout.mainFrame,
-                    about.create(Optional.empty()).getPanel(),
-                    "À propos du projet",
-                    JOptionPane.PLAIN_MESSAGE,
-                    null
-                );
-            }
-        });
+        layout.menuBar.helpOpen(e -> layout.menuBar.handleHelp(this));
     }
 
     /**

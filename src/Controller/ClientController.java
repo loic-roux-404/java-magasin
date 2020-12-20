@@ -8,6 +8,8 @@ import Services.Entity.EntityManager;
 import View.ClientView;
 
 import javax.swing.*;
+import javax.swing.event.TableModelEvent;
+import javax.swing.table.TableModel;
 
 public class ClientController extends AbstractController {
     public final static String TITLE = "Gestion des clients";
@@ -47,6 +49,23 @@ public class ClientController extends AbstractController {
             clientView.list.getDetails(this.entityManager.getAll());
         });
 
-        // TODO delete here
+        clientView.list.update(e -> {
+            if (e.getColumn() <= -1) return;
+            int col = e.getColumn();
+            int row = e.getFirstRow();
+            TableModel model = (TableModel) e.getSource();
+
+            Client en = (Client) this.entityManager.getById(e.getFirstRow());
+
+            switch (col) {
+                case 0:
+                    en.setFirstname((String) model.getValueAt(row, col));
+                    break;
+                case 1:
+                    en.setLastname((String) model.getValueAt(row, col));
+                    break;
+            }
+        });
+
     }
 }

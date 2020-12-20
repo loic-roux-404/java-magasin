@@ -26,6 +26,16 @@ public class Client implements Entity {
         return lastname;
     }
 
+    // setters
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
     @Override
     public int getId() {
         return id;

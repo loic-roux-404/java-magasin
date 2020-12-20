@@ -6,7 +6,6 @@ import Exceptions.InternalException;
 import Framework.Registery;
 import Model.Builder;
 import Model.Car;
-import Model.Client;
 import Services.Entity.Entity;
 import Services.Entity.EntityManager;
 import View.CarView;
