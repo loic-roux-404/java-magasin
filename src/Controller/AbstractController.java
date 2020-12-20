@@ -7,7 +7,6 @@ import Framework.Registery;
 import Framework.Service;
 import Services.Entity.EntityManager;
 import Services.Layout;
-import View.MainFrame;
 import View.SwingModules.PageBtn;
 
 import java.util.HashMap;

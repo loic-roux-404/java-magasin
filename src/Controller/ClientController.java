@@ -6,6 +6,7 @@ import Framework.Registery;
 import Model.Client;
 import Services.Entity.EntityManager;
 import View.ClientView;
+import View.SwingModules.Theme;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
@@ -34,10 +35,13 @@ public class ClientController extends AbstractController {
                 String firstname = clientView.getFirstname().trim();
                 String lastname = clientView.getLastname().trim();
                 this.entityManager.add(new Client(firstname, lastname));
-
             } catch (FormException formException) {
-                JOptionPane.showMessageDialog(clientView.createForm.getPanel(), formException.getMessage(), "Error",
-                    JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(
+                    clientView.createForm.getPanel(),
+                    formException.getMessage(),
+                    Theme.dialogErrorTxt,
+                    JOptionPane.ERROR_MESSAGE
+                );
                 return;
             }
 
@@ -66,6 +70,5 @@ public class ClientController extends AbstractController {
                     break;
             }
         });
-
     }
 }

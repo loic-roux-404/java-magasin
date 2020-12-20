@@ -80,8 +80,4 @@ public class Car implements Entity {
             + ", " + length
             + ", " + weight;
     }
-
-    public void Operation1() {
-        // TODO implement here
-    }
 }

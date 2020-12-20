@@ -6,12 +6,15 @@ import Exceptions.InternalException;
 import Framework.Registery;
 import Model.Builder;
 import Model.Car;
+import Model.Client;
 import Services.Entity.Entity;
 import Services.Entity.EntityManager;
 import View.CarView;
 import View.Home;
+import View.SwingModules.Theme;
 
 import javax.swing.*;
+import javax.swing.table.TableModel;
 import java.util.ArrayList;
 
 /**
@@ -24,7 +27,7 @@ public class CarController extends AbstractController {
     private final EntityManager entityManager;
     private final CarView carView;
 
-    // data
+    // other data
     public ArrayList<Entity> builders;
 
     public CarController(Registery registery) throws InternalException {
@@ -52,7 +55,7 @@ public class CarController extends AbstractController {
                 builder.addCar(car);
                 carView.carAdd.reset(true);
             } catch (FormException formException) {
-                JOptionPane.showMessageDialog(carView.carAdd.getPanel(), formException.getMessage(), "Error",
+                JOptionPane.showMessageDialog(carView.carAdd.getPanel(), formException.getMessage(), Theme.dialogErrorTxt,
                     JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -60,6 +63,30 @@ public class CarController extends AbstractController {
 
         this.getLayout().home.page(Home.CARS).onOpen(e -> {
             carView.carList.getDetails(this.entityManager.getAll());
+        });
+
+        carView.carList.update(e -> {
+            if (e.getColumn() <= -1) return;
+            int col = e.getColumn();
+            int row = e.getFirstRow();
+            TableModel model = (TableModel) e.getSource();
+
+            Car en = (Car) this.entityManager.getById(e.getFirstRow());
+
+            switch (col) {
+                case 0:
+                    en.setModelName((String) model.getValueAt(row, col));
+                    break;
+                case 1:
+                    en.setBrandName((String) model.getValueAt(row, col));
+                    break;
+                case 2:
+                    en.setLength((Integer) model.getValueAt(row, col));
+                    break;
+                case 3:
+                    en.setWeight((Integer) model.getValueAt(row, col));
+                    break;
+            }
         });
     }
 

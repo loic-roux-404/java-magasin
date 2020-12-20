@@ -5,6 +5,7 @@ import View.Home;
 import View.MainFrame;
 import View.MenuBar;
 import View.SwingModules.PageBtn;
+import View.SwingModules.Theme;
 
 import javax.swing.*;
 import java.awt.*;
@@ -73,7 +74,7 @@ public class Layout implements Service {
 
     public void setPageTitle(String title) {
         this.mainFrame.setTitle(
-            MainFrame.TITLE + (title != null ? " - " + title : "")
+            Theme.TITLE + (title != null ? " - " + title : "")
         );
     }
 

@@ -36,6 +36,7 @@ public class ClientView {
             ly.openPage(list, LIST);
             ly.setPageTitle(ClientController.TITLE);
         });
+        // Button
         list.backButton.onClick(e -> {
             ly.openPage(createForm.getPanel(), ADD);
             ly.setPageTitle(ClientController.TITLE);

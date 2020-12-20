@@ -13,6 +13,7 @@ import View.Home;
 import View.OrderView;
 import View.SwingModules.Form;
 import View.SwingModules.FormBuilder;
+import View.SwingModules.Theme;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -58,16 +59,18 @@ public class OrderController extends AbstractController {
                 Car car = (Car) orderView.getCarSelect().getSelectedItem();
 
                 this.entityManager.add(new Order(client, car));
-
                 this.orderView.orderForm.reset(true);
             } catch (FormException formException) {
-                JOptionPane.showMessageDialog(orderForm.getPanel(), formException.getMessage(), "Error",
-                    JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(
+                    orderForm.getPanel(),
+                    formException.getMessage(),
+                    Theme.dialogErrorTxt,
+                    JOptionPane.ERROR_MESSAGE
+                );
                 return;
             }
         });
 
-        // Load orders // load users
         orderView.orderForm.list(e -> {
             orderView.orderList.getDetails(this.entityManager.getAll());
         });

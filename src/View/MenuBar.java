@@ -1,5 +1,6 @@
 package View;
 
+import Services.Fixtures;
 import View.SwingModules.FormBuilder;
 import View.SwingModules.LabelBuilder;
 
@@ -7,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.util.Optional;
 
@@ -19,6 +21,7 @@ public class MenuBar extends JMenuBar {
     // JMenuItem jMenuItemFrame1 = new JMenuItem("Clients");
     JMenuItem jMenuItemQuit = new JMenuItem("Quitter");
     JMenuItem jMenuItemHome = new JMenuItem("Accueil");
+    JMenuItem jMenuItemDemo = new JMenuItem(Fixtures.DEMO_TEXT_ON);
     JMenuItem jMenuItemShortcuts = new JMenuItem("Raccourcis");
 
     // help :
@@ -32,23 +35,24 @@ public class MenuBar extends JMenuBar {
         // Design
         this.setForeground(Color.lightGray);
 
-        this.addMenuItem(jMenuFile, jMenuItemHome, "H");
+        this.addMenuItem(jMenuFile, jMenuItemHome, "control H");
         jMenuFile.addSeparator();
 
-        this.addMenuItem(jMenuFile, jMenuItemQuit, "Q");
+        this.addMenuItem(jMenuFile, jMenuItemDemo, null);
+        this.addMenuItem(jMenuFile, jMenuItemQuit, "control Q");
 
         // help :
-        this.addMenuItem(jMenuHelp, jMenuItemShortcuts, "S");
-        this.addMenuItem(jMenuHelp, jMenuItemAbout, "A");
+        this.addMenuItem(jMenuHelp, jMenuItemShortcuts, "control S");
+        this.addMenuItem(jMenuHelp, jMenuItemAbout, "control A");
     }
 
     protected void addMenuItem(JMenu jMenu, JMenuItem item, String keyStroke) {
         if (jMenu.getParent() == null) {
             add(jMenu);
             this.designMenuItem(jMenu);
-            jMenu.setMnemonic(KeyEvent.VK_ALT);
+            jMenu.setMnemonic(KeyEvent.VK_F);
         }
-        item.setAccelerator(KeyStroke.getKeyStroke(keyStroke));
+        if (keyStroke != null) item.setAccelerator(KeyStroke.getKeyStroke(keyStroke));
         this.designMenuItem(item);
         jMenu.add(item);
     }
@@ -56,6 +60,10 @@ public class MenuBar extends JMenuBar {
     protected void designMenuItem(JMenuItem menuItem) {
         menuItem.setBackground(Color.gray);
         menuItem.setForeground(Color.black);
+    }
+
+    public void demoOpen(ActionListener listener) {
+        jMenuItemDemo.addActionListener(listener);
     }
 
     public void aboutOpen(ActionListener listener) {
@@ -95,7 +103,7 @@ public class MenuBar extends JMenuBar {
         FormBuilder about = (new FormBuilder(false))
             .disableAllBtn()
             .addField("shortcuts", (new LabelBuilder("Raccourcis claviers")).buildTitle())
-            .addField("shortcuts1", new JLabel("Un raccourci clavier fonctionne en maintenant MAJ + LETTRE"))
+            .addField("shortcuts1", new JLabel("Un raccourci clavier fonctionne en maintenant CTRL + LETTRE"))
             .addField("shortcuts2", new JLabel("Vous pouvez consulter les lettres associés dans les menus Aide et Menu"));
 
         JOptionPane.showMessageDialog(

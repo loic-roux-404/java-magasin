@@ -7,17 +7,19 @@ import java.util.ArrayList;
 public class EntityManager implements Service {
     private boolean loaded;
 
-    private final ArrayList<Entity> entityArrayList;
+    private ArrayList<Entity> entityArrayList;
 
     protected Entity managedEn;
+    private Class entityClass;
 
     public EntityManager(Class entityClass) {
+        this.entityClass = entityClass;
         entityArrayList = new ArrayList<>();
-        this.loadEntityInstance(entityClass);
+        this.loadEntityInstance();
         this.load();
     }
 
-    void loadEntityInstance(Class entityClass) {
+    void loadEntityInstance() {
         try {
             managedEn = (Entity) entityClass.getDeclaredConstructor().newInstance();
             // managedEn.ge
@@ -41,6 +43,18 @@ public class EntityManager implements Service {
 
     public Entity getById(int index) {
         return entityArrayList.get(index);
+    }
+
+    /**
+     * Used to set fixtures
+     * @param entityArrayList
+     */
+    public void setEntityArrayList(ArrayList<Entity> entityArrayList) {
+        this.entityArrayList = entityArrayList;
+    }
+
+    public Class getEntityClass() {
+        return entityClass;
     }
 
     @Override

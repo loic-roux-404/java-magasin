@@ -5,10 +5,13 @@ import Exceptions.InternalException;
 import Exceptions.ServiceRegisteryException;
 import Framework.Registery;
 import Model.Builder;
+import Model.Client;
 import Services.Entity.EntityManager;
 import View.BuilderView;
+import View.SwingModules.Theme;
 
 import javax.swing.*;
+import javax.swing.table.TableModel;
 
 public class BuilderController extends AbstractController {
     public final static String TITLE = "Gestion des Fabricants";
@@ -37,12 +40,33 @@ public class BuilderController extends AbstractController {
                 String builderName = builderview.getName().trim();
                 this.entityManager.add(new Builder(builderName));
             } catch (FormException formException) {
-                JOptionPane.showMessageDialog(builderview.builderCreateForm.getPanel(), formException.getMessage(), "Error",
-                    JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(
+                    builderview.builderCreateForm.getPanel(),
+                    formException.getMessage(),
+                    Theme.dialogErrorTxt,
+                    JOptionPane.ERROR_MESSAGE
+                );
                 return;
             }
 
             builderview.builderCreateForm.reset(true);
+        });
+
+        builderview.builderList.update(e -> {
+            if (e.getColumn() <= -1) return;
+            int col = e.getColumn();
+            int row = e.getFirstRow();
+            TableModel model = (TableModel) e.getSource();
+
+            Builder en = (Builder) this.entityManager.getById(e.getFirstRow());
+
+            switch (col) {
+                case 0:
+                    en.setName((String) model.getValueAt(row, col));
+                    break;
+                default:
+                    break;
+            }
         });
     }
 }

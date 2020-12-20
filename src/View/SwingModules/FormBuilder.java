@@ -81,7 +81,7 @@ public class FormBuilder implements Form {
             String name = entry.getKey();
             if (autoJLabel && !noLabelFields.contains(name)) {
                 panel.add(
-                    new JLabel(name.substring(0, 1).toUpperCase() + name.substring(1).replace("_", " ") + " :"),
+                    new JLabel(name.substring(0, 1).toUpperCase() + (name.substring(1)).replace("_", " ") + " :"),
                     gridBagConstraints
                 );
                 this.addGridBagConstraint(gridBagConstraints);
