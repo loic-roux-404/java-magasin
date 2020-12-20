@@ -1,6 +1,25 @@
 # java-automobile
 
+**Contexte** : Nous implémentons ici un logiciel pour le magasin de vente automobile ___"Automobile market"___ pour accompagner
+ses employés dans la gestion des commandes de voitures fabriquées par divers constructeurs partenaires
+
+- Chaque constructeur fabrique différents modèles et marques de voitures
+- Notre magasins Automobile market gère un registre de clients et renseigne les commandes en leur nom
+- Lors d'une commande, un constructeur peut changer dans l'espace dédié le status d'une commande parmis `("En cours", "Processing", "DONE", "Cancelled")`
+- La plupart des données sont modifiables dans les tableaux de présentation des différents espaces. Il suffit de cliquer sur une céllule et de modifier le texte ou le nombre.
+Une commande n'est pas modifiable, la liste des voitures prise en charge par un constructeur non plus.
+
 [Schémas Logiciels](https://miro.com/welcomeonboard/PE5sjBC3W7MUSrV7R4fpbLQdyP0hT7scbKkO8q64iCDPbfiT27uTNgcswV27chpu)
+
+### 0. Lancement
+
+Bien lancer le projet depuis le dossier `src/` avec eclipse, intellij ou la commande suivante :
+
+> open JDK > 13 est requis
+
+```
+cd src/ && javac Auto.java && java Auto
+```
 
 ### 1. Swing
 

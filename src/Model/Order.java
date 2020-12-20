@@ -6,6 +6,9 @@ import Utils.StrUtils;
 
 import java.util.Date;
 
+/**
+ * Order class correspond to a client buying a car
+ */
 public class Order implements Entity, Dated {
 
     private int id;
@@ -16,7 +19,7 @@ public class Order implements Entity, Dated {
     private Date createdAt;
     private Date updatedAt;
 
-    static enum statuses {
+    enum statuses {
         PENDING,
         PROCESSING,
         DONE,
@@ -32,15 +35,13 @@ public class Order implements Entity, Dated {
     /**
      * Default constructor, used by entityManager
      */
-    public Order() {
-
-    }
+    public Order() {}
 
     public Order(Client client, Car car, Builder builder) {
         this.client = client;
         this.car = car;
         this.builder = builder;
-        status = statuses.valueOf("PENDING");
+        status = statuses.PENDING;
     }
 
     @Override
@@ -103,7 +104,11 @@ public class Order implements Entity, Dated {
         this.updatedAt = new Date();;
     }
 
-    // Work function
+    /**
+     * Pass to next order status, DONE order is last one
+     *
+     * @throws OrderMutationException
+     */
     public void nextStatus() throws OrderMutationException {
         if (status == statuses.DONE || status == statuses.CANCELLED) {
             throw new OrderMutationException();
@@ -113,6 +118,11 @@ public class Order implements Entity, Dated {
         this.setUpdatedAt();
     }
 
+    /**
+     * Cancel an order
+     *
+     * @throws OrderMutationException
+     */
     public void cancel() throws OrderMutationException {
         if (status == statuses.DONE) {
             throw new OrderMutationException();
