@@ -97,3 +97,6 @@ src/.classpath
 src/.project
 .classpath
 .project
+
+build/
+target/

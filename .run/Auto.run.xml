@@ -1,9 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Main" type="Application" factoryName="Application" singleton="false">
-    <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
+  <configuration default="false" name="Auto" type="Application" factoryName="Application" nameIsGenerated="true">
     <option name="MAIN_CLASS_NAME" value="Auto" />
     <module name="java-automobile" />
-    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

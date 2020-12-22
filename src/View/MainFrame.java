@@ -1,13 +1,16 @@
 package View;
 
-import Controller.*;
+import com.sun.tools.javac.Main;
+import Controller.BuilderController;
+import Controller.CarController;
+import Controller.ClientController;
+import Controller.OrderController;
 import Exceptions.InternalException;
 import Exceptions.ServiceNotLoadedException;
 import Framework.Registery;
 import Services.Fixtures;
 import Services.Layout;
 import View.SwingModules.Theme;
-import com.sun.tools.javac.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -65,9 +68,8 @@ public class MainFrame extends JFrame {
 
     protected void setIcon(String iconPath) {
         //loading an image from a file
-        final Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
         final URL imageResource = Main.class.getClassLoader().getResource(iconPath);
-        final Image image = defaultToolkit.getImage(imageResource);
+        Image image = (new ImageIcon(imageResource)).getImage();
 
         //this is new since JDK 9
         final Taskbar taskbar = Taskbar.getTaskbar();

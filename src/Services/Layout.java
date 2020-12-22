@@ -17,13 +17,13 @@ public class Layout implements Service {
     // Main components
     public CardLayout card = new CardLayout();
     public Home home = new Home();
-    public View.MenuBar menuBar = new MenuBar();
-    public View.MainFrame mainFrame;
+    public MenuBar menuBar = new MenuBar();
+    public MainFrame mainFrame;
 
     // views map
     public HashMap<String, JPanel> views = new HashMap<>();
 
-    public Layout(View.MainFrame mainFrame) {
+    public Layout(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         this.load();
     }

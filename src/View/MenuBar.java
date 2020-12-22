@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.util.Optional;
 
 /**
  * MenuBar class.
@@ -73,7 +72,7 @@ public class MenuBar extends JMenuBar {
             .disableAllBtn()
             .addField(
                 "img",
-                (new LabelBuilder("")).buildImage("appicon.png").getjLabel()
+                (new LabelBuilder("")).buildImage("main/java/com/amarket/auto/auto/appicon.png").getjLabel()
             )
             .addField("aboutTitle", (new LabelBuilder("À propos")).buildTitle())
             .addField("about1", new JLabel("Cet outil de gestion permet de facilité le traitement d'imports et d'achats de voitures à notre magasin"))

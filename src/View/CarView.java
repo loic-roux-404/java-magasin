@@ -1,11 +1,11 @@
 package View;
 
+import View.SwingModules.*;
 import Controller.BuilderController;
 import Controller.CarController;
 import Exceptions.InternalException;
 import Services.Entity.Entity;
 import Services.Layout;
-import View.SwingModules.*;
 
 import javax.swing.*;
 import java.util.ArrayList;

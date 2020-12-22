@@ -1,14 +1,14 @@
 package View;
 
+import javax.swing.*;
+import java.util.HashMap;
+
 import Controller.BuilderController;
 import Controller.CarController;
 import Controller.ClientController;
 import Controller.OrderController;
 import View.SwingModules.FormBuilder;
 import View.SwingModules.PageBtn;
-
-import javax.swing.*;
-import java.util.HashMap;
 
 public class Home extends JPanel {
     public FormBuilder form = new FormBuilder(false).disableAllBtn();

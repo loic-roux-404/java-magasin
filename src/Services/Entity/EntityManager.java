@@ -4,7 +4,6 @@ import Framework.Service;
 import Model.Dated;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Class to manage entities and store them in list
