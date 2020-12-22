@@ -12,11 +12,9 @@ import Services.Fixtures;
 import Services.Layout;
 import View.SwingModules.Theme;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -35,7 +33,7 @@ public class MainFrame extends JFrame {
         // app runtime
         this.init();
         // icon for our application
-        this.setIcon("appicon.png");
+        this.setIcon(Theme.ICON);
         // size of our application frame
         setSize(Theme.FRAME_WIDTH, Theme.FRAME_HEIGHT);
 
@@ -69,7 +67,7 @@ public class MainFrame extends JFrame {
     protected void setIcon(String iconPath) {
         //loading an image from a file
         final URL imageResource = Main.class.getClassLoader().getResource(iconPath);
-        Image image = (new ImageIcon(imageResource)).getImage();
+        final Image image = (new ImageIcon(imageResource)).getImage();
 
         //this is new since JDK 9
         final Taskbar taskbar = Taskbar.getTaskbar();

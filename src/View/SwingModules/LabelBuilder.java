@@ -1,11 +1,11 @@
 package View.SwingModules;
 
-import javax.imageio.ImageIO;
+import View.MainFrame;
+import com.sun.tools.javac.Main;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.net.URL;
 
 public class LabelBuilder implements BuilderInterface {
     private JLabel jLabel;
@@ -34,14 +34,8 @@ public class LabelBuilder implements BuilderInterface {
     }
 
     public LabelBuilder buildImage(String path) {
-        BufferedImage image = null;
-        try {
-            image = ImageIO.read(new File(path));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        jLabel = new JLabel(new ImageIcon(image));
+        final URL imageResource = Main.class.getClassLoader().getResource(path);
+        jLabel = new JLabel(new ImageIcon(imageResource));
 
         return this;
     }
