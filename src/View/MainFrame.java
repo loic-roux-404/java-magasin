@@ -12,9 +12,11 @@ import Services.Fixtures;
 import Services.Layout;
 import View.SwingModules.Theme;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -36,7 +38,8 @@ public class MainFrame extends JFrame {
         this.setIcon("appicon.png");
         // size of our application frame
         setSize(Theme.FRAME_WIDTH, Theme.FRAME_HEIGHT);
-        // pack();
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
 
@@ -56,9 +59,6 @@ public class MainFrame extends JFrame {
         } catch (InternalException e) {
             System.err.println(e.getMessage());
         }
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
     }
 
     protected void loadServices() throws ServiceNotLoadedException {
