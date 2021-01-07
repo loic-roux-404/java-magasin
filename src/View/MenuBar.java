@@ -15,7 +15,7 @@ import java.awt.event.KeyEvent;
 public class MenuBar extends JMenuBar {
     // file :
     JMenu jMenuFile = new JMenu("Menu");
-    // JMenuItem jMenuItemFrame1 = new JMenuItem("Clients");
+
     JMenuItem jMenuItemQuit = new JMenuItem("Quitter");
     JMenuItem jMenuItemHome = new JMenuItem("Accueil");
     JMenuItem jMenuItemDemo = new JMenuItem(Fixtures.DEMO_TEXT_ON);
@@ -35,8 +35,8 @@ public class MenuBar extends JMenuBar {
         this.addMenuItem(jMenuFile, jMenuItemHome, "control H");
         jMenuFile.addSeparator();
 
-        this.addMenuItem(jMenuFile, jMenuItemDemo, null);
-        this.addMenuItem(jMenuFile, jMenuItemQuit, "control Q");
+        //this.addMenuItem(jMenuFile, jMenuItemDemo, null);
+        // this.addMenuItem(jMenuFile, jMenuItemQuit, "control Q");
 
         // help :
         this.addMenuItem(jMenuHelp, jMenuItemShortcuts, "control S");
@@ -75,13 +75,10 @@ public class MenuBar extends JMenuBar {
                 (new LabelBuilder("")).buildImage("appicon.png").getjLabel()
             )
             .addField("aboutTitle", (new LabelBuilder("À propos")).buildTitle())
-            .addField("about1", new JLabel("Cet outil de gestion permet de facilité le traitement d'imports et d'achats de voitures à notre magasin"))
-            .addField("about2", new JLabel("Ainsi en temps qu'employé vous pouvez consulter et proposer un catalogue de voiture actualisé en temps réel"))
-            .addField("about3", new JLabel("et qui s'adapte à la disponibilité des constructeurs automobiles"))
+            .addField("about1", new JLabel("Test java"))
+            .addField("about2", new JLabel("Gestion restaurant"))
             .addField("teamTitle", (new LabelBuilder("L'équipe")).buildTitle())
-            .addField("team1", new JLabel("Lead developer : Loic Roux\n"))
-            .addField("team2", new JLabel("Dev expérimenté : Julien Guillaud\n"))
-            .addField("team3", new JLabel("Dev : Achref Walcott\n"));
+            .addField("team1", new JLabel("Loic Roux\n"));
 
         JOptionPane.showMessageDialog(
             frame,

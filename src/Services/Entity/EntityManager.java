@@ -4,6 +4,7 @@ import Framework.Service;
 import Model.Dated;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Class to manage entities and store them in list
@@ -47,9 +48,9 @@ public class EntityManager implements Service {
     public void add(Entity item) {
         item.setId(entityArrayList.size() + 1);
         if (item instanceof Dated) {
-            ((Dated) item).setUpdatedAt();
+            ((Dated) item).setUpdatedAt(new Date());
             if (((Dated) item).getCreatedAt() == null) {
-                ((Dated) item).setCreatedAt();
+                ((Dated) item).setCreatedAt(new Date());
             }
         }
         entityArrayList.add(item);

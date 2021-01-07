@@ -1,10 +1,7 @@
 package View;
 
+import Controller.*;
 import com.sun.tools.javac.Main;
-import Controller.BuilderController;
-import Controller.CarController;
-import Controller.ClientController;
-import Controller.OrderController;
 import Exceptions.InternalException;
 import Exceptions.ServiceNotLoadedException;
 import Framework.Registery;
@@ -50,10 +47,9 @@ public class MainFrame extends JFrame {
             // Core Framework.Service creation
             this.loadServices();
             // Controllers
-            new ClientController(registery);
-            new CarController(registery);
-            new OrderController(registery);
-            new BuilderController(registery);
+            new ProductController(registery);
+            new RestaurantController(registery);
+
         } catch (InternalException e) {
             System.err.println(e.getMessage());
         }
@@ -109,18 +105,18 @@ public class MainFrame extends JFrame {
     }
 
     private void initFixtures(JMenuItem item) {
-        try {
-            if (!registery.has("fixtures")) {
-                registery.add("fixtures", new Fixtures());
-            }
+        // try {
+            // if (!registery.has("fixtures")) {
+                // registery.add("fixtures", new Fixtures());
+            // }
 
-            Fixtures fixtures = ((Fixtures) registery.get("fixtures"));
-            fixtures.bootFixtures(registery);
+            // Fixtures fixtures = ((Fixtures) registery.get("fixtures"));
+            // fixtures.bootFixtures(registery);
             // Change text
-            item.setText(fixtures.demoText());
-        } catch (InternalException e) {
-            e.printStackTrace();
-        }
+            // item.setText(fixtures.demoText());
+        // } catch (InternalException e) {
+           // e.printStackTrace();
+        //}
     }
 
     /**

@@ -3,6 +3,7 @@ package Services.Entity;
 import java.io.Serializable;
 
 public interface Entity extends Serializable {
+    String COMMA = ", ";
     /**
      * This method is for java components like combobox
      */

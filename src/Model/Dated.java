@@ -5,9 +5,9 @@ import java.util.Date;
 public interface Dated {
     Date getCreatedAt();
 
-    void setCreatedAt();
+    void setCreatedAt(Date createdAt);
 
     Date getUpdatedAt();
 
-    void setUpdatedAt();
+    void setUpdatedAt(Date updatedAt);
 }

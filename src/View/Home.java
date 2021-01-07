@@ -3,10 +3,7 @@ package View;
 import javax.swing.*;
 import java.util.HashMap;
 
-import Controller.BuilderController;
-import Controller.CarController;
-import Controller.ClientController;
-import Controller.OrderController;
+import Controller.*;
 import View.SwingModules.FormBuilder;
 import View.SwingModules.PageBtn;
 
@@ -15,16 +12,12 @@ public class Home extends JPanel {
 
     public HashMap<String, PageBtn> pages = new HashMap<>();
 
-    public final static String CLIENTS = "clients";
-    public final static String CARS = "cars";
-    public final static String ORDERS = "orders";
-    public final static String BUILDERS = "builders";
+    public final static String RESTAURANTS = "restaurants";
+    public final static String PRODUCTS = "products";
 
     public Home() {
-        this.addPageBtn(ClientController.TITLE, CLIENTS);
-        this.addPageBtn(CarController.TITLE, CARS);
-        this.addPageBtn(OrderController.TITLE, ORDERS);
-        this.addPageBtn(BuilderController.TITLE, BUILDERS);
+        this.addPageBtn(ProductController.TITLE, PRODUCTS);
+        this.addPageBtn(RestaurantController.TITLE, RESTAURANTS);
 
         form.create(this);
     }

@@ -21,7 +21,7 @@ Bien lancer le projet depuis le dossier `src/` avec eclipse, intellij ou la comm
 > open JDK > 13 est requis
 
 ```
-cd src/ && javac main.java.Auto.java && java main.java.Auto
+cd src/ && javac main.java.Main.java && java main.java.Main
 ```
 
 ### 1. Swing

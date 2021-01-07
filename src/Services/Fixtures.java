@@ -3,9 +3,6 @@ package Services;
 import Exceptions.ServiceRegisteryException;
 import Framework.Registery;
 import Framework.Service;
-import Model.Builder;
-import Model.Car;
-import Model.Client;
 import Services.Entity.Entity;
 import Services.Entity.EntityManager;
 
@@ -19,7 +16,7 @@ public class Fixtures implements Service {
     private boolean loaded = false;
 
     private HashMap<String, ArrayList<Entity>> map = new HashMap<>();
-
+/*
     public Fixtures() {
         this.map.put(Builder.class.getSimpleName(), this.getFakeBuilders());
         this.map.put(Client.class.getSimpleName(), this.getFakeClients());
@@ -116,7 +113,7 @@ public class Fixtures implements Service {
 
         return arr;
     }
-
+*/
     public String demoText() {
         return ENABLE ? DEMO_TEXT_OFF : DEMO_TEXT_ON;
     }
