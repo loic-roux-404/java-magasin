@@ -46,7 +46,7 @@ public class MainFrame extends JFrame {
             // Core Framework.Service creation
             this.loadServices();
             // Controllers
-            new ProductController(registery);
+            new ArticleController(registery);
             new MagasinController(registery);
 
         } catch (InternalException e) {

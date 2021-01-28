@@ -9,7 +9,7 @@ public class Magasin implements Entity {
     private String phoneNumber;
     private String address;
     private int postalCode;
-    private ArrayList<Product> availableArticles = new ArrayList<>();
+    private ArrayList<Article> availableArticles = new ArrayList<>();
 
     public Magasin() {}
 
@@ -19,7 +19,7 @@ public class Magasin implements Entity {
         this.postalCode = postalCode;
     }
 
-    public void addArticle(Product article) {
+    public void addArticle(Article article) {
         this.availableArticles.add(article);
     }
 
@@ -72,8 +72,8 @@ public class Magasin implements Entity {
     protected String availableArticles() {
         String ref = "";
 
-        for (Product p: availableArticles) {
-            ref += p.type + "(" + p.id + ")"; // TODO add p.technicalId instead of id
+        for (Article p: availableArticles) {
+            ref += p.intitule + "(" + p.technicalId + ")"; // TODO add p.technicalId instead of id
         };
 
         return ref;
