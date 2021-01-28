@@ -16,7 +16,7 @@ public class Home extends JPanel {
     public final static String PRODUCTS = "products";
 
     public Home() {
-        this.addPageBtn(ProductController.TITLE, PRODUCTS);
+        this.addPageBtn(ArticleController.TITLE, PRODUCTS);
         this.addPageBtn(MagasinController.TITLE, MAGASINS);
 
         form.create(this);

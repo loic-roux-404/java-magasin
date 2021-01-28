@@ -5,7 +5,7 @@ import main.java.proj.Exceptions.InternalException;
 
 import main.java.proj.Framework.Registery;
 import main.java.proj.Model.Magasin;
-import main.java.proj.Model.Product;
+import main.java.proj.Model.Article;
 import main.java.proj.Services.Entity.Entity;
 import main.java.proj.Services.Entity.EntityManager;
 import main.java.proj.View.Home;
@@ -21,18 +21,18 @@ import java.util.Date;
 /**
  * List / READ ONE cars (cars are provided by there builder so search cars in builders)
  */
-public class ProductController extends AbstractController {
+public class ArticleController extends AbstractController {
     public final static String TITLE = "Catalogue des Produits";
     public final static String TITLE_ADD = "Ajouter un produit";
 
     private final EntityManager entityManager;
     private final ProductView productView;
 
-    protected static String NUMBER_ERROR = "Le nombre choisi n'est pas le bon, vérifiez la présence de virgule";
+    protected static String NUMBER_ERROR = "Le format du nombre n'est pas correct";
 
-    public ProductController(Registery registery) throws InternalException {
+    public ArticleController(Registery registery) throws InternalException {
         super(registery);
-        this.entityManager = this.getEntityManager(Product.class);
+        this.entityManager = this.getEntityManager(Article.class);
         productView = new ProductView(this.getLayout(), this);
         this.actions();
     }
@@ -43,15 +43,15 @@ public class ProductController extends AbstractController {
         productView.productAdd.submit(e -> {
             try {
                 productView.productAdd.validate();
-                SimpleDateFormat frt = new SimpleDateFormat("MM/dd/yyyy");
-                Date expiration = frt.parse(productView.expiration.getText());
-                Magasin magasin = (Magasin) productView.restaurant.getSelectedItem();
-                Product car = new Product(
-                    productView.type.getText(),
-                    expiration
-                );
-                this.entityManager.add(car);
-                magasin.addArticle(car);
+                Magasin magasin = (Magasin) productView.magasin.getSelectedItem(); 
+                Article leProduit = new Article(
+                    Long.parseLong(productView.reference.getText()),
+                    productView.intitule.getText(),
+                    Float.parseFloat(productView.prixHT.getText()),
+                    Integer.parseInt(productView.qteStock.getText())
+                		);
+                this.entityManager.add(leProduit);
+                magasin.addArticle(leProduit);
                 productView.productAdd.reset(true);
             } catch (FormException formException) {
                 this.orderDialog(formException.getMessage());
@@ -59,9 +59,6 @@ public class ProductController extends AbstractController {
             } catch (NumberFormatException numExeption) {
                 this.orderDialog(NUMBER_ERROR);
                 return;
-            } catch (ParseException parseException) {
-                this.orderDialog("Erreur dans le rensignement de la date, il faut : MM/dd/yyyy");
-
             }
         });
 

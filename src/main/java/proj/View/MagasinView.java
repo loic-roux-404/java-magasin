@@ -2,7 +2,7 @@ package main.java.proj.View;
 
 import main.java.proj.Controller.MagasinController;
 import main.java.proj.View.SwingModules.*;
-import main.java.proj.Controller.ProductController;
+import main.java.proj.Controller.ArticleController;
 import main.java.proj.Exceptions.InternalException;
 import main.java.proj.Services.Layout;
 import main.java.proj.View.SwingModules.List;
@@ -43,7 +43,7 @@ public class MagasinView {
         // switch view according to its constraints on click
         controller.getLayout().home.page(ProductView.ADD).onOpen(e -> {
             ly.openPage(ly.getPage(ProductView.ADD), ProductView.ADD);
-            ly.setPageTitle(ProductController.TITLE_ADD);
+            ly.setPageTitle(ArticleController.TITLE_ADD);
         });
         magasinCreateForm.list(e -> {
             ly.openPage(builderList, LIST);
