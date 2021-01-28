@@ -6,7 +6,7 @@
 
     <groupId>proj</groupId>
     <artifactId>java-magasin</artifactId>
-    <version>1.0.2</version>
+    <version>${env.VERSION}</version>
 
     <name>java-magasin</name>
 
