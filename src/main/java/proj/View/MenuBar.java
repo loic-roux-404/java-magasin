@@ -3,6 +3,7 @@ package main.java.proj.View;
 import main.java.proj.Services.Fixtures;
 import main.java.proj.View.SwingModules.FormBuilder;
 import main.java.proj.View.SwingModules.LabelBuilder;
+import main.java.proj.View.SwingModules.Theme;
 
 import javax.swing.*;
 import java.awt.*;
@@ -70,10 +71,10 @@ public class MenuBar extends JMenuBar {
     protected void handleAbout(JFrame frame) {
         FormBuilder about = (new FormBuilder(false))
             .disableAllBtn()
-            .addField(
+            /* .addField(
                 "img",
-                (new LabelBuilder("")).buildImage("appicon.png").getjLabel()
-            )
+                (new LabelBuilder("")).buildImage(Theme.ICON).getjLabel()
+            ) */
             .addField("aboutTitle", (new LabelBuilder("À propos")).buildTitle())
             .addField("about1", new JLabel("Test java"))
             .addField("about2", new JLabel("Gestion restaurant"))
