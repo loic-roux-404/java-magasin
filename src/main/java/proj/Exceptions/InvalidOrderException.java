@@ -1,7 +1,0 @@
-package main.java.proj.Exceptions;
-
-public class InvalidOrderException extends Exception {
-    public InvalidOrderException(String reason) {
-        super(reason);
-    }
-}

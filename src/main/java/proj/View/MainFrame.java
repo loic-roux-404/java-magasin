@@ -47,7 +47,7 @@ public class MainFrame extends JFrame {
             this.loadServices();
             // Controllers
             new ProductController(registery);
-            new RestaurantController(registery);
+            new MagasinController(registery);
 
         } catch (InternalException e) {
             System.err.println(e.getMessage());

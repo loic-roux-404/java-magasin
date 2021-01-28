@@ -4,20 +4,23 @@ import main.java.proj.Services.Entity.Entity;
 
 import java.util.ArrayList;
 
-public class Restaurant implements Entity {
+public class Magasin implements Entity {
     private int id; // Numero
     private String phoneNumber;
     private String address;
-    private ArrayList<Product> availableProducts = new ArrayList<>();
+    private int postalCode;
+    private ArrayList<Product> availableArticles = new ArrayList<>();
 
-    public Restaurant() {}
+    public Magasin() {}
 
-    public Restaurant(String phoneNumber) {
+    public Magasin(String phoneNumber, String address, int postalCode) {
         this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.postalCode = postalCode;
     }
 
-    public void addRestaurant(Product restau) {
-        this.availableProducts.add(restau);
+    public void addArticle(Product article) {
+        this.availableArticles.add(article);
     }
 
     public String getPhoneNumber() {
@@ -50,7 +53,7 @@ public class Restaurant implements Entity {
 
     @Override
     public String toString() {
-        return Integer.toString(id);
+        return Integer.toString(id) + " / " + address;
     }
 
     @Override
@@ -59,14 +62,18 @@ public class Restaurant implements Entity {
             + ", "
             + phoneNumber
             + ", "
-            + availableProducts();
+            + address
+            + ", "
+            + postalCode
+            + ", "
+            + availableArticles();
     }
 
-    protected String availableProducts() {
+    protected String availableArticles() {
         String ref = "";
 
-        for (Product p: availableProducts) {
-            ref += p.type + "(" + p.id + ")";
+        for (Product p: availableArticles) {
+            ref += p.type + "(" + p.id + ")"; // TODO add p.technicalId instead of id
         };
 
         return ref;

@@ -4,8 +4,8 @@ import main.java.proj.Exceptions.FormException;
 import main.java.proj.Exceptions.InternalException;
 
 import main.java.proj.Framework.Registery;
+import main.java.proj.Model.Magasin;
 import main.java.proj.Model.Product;
-import main.java.proj.Model.Restaurant;
 import main.java.proj.Services.Entity.Entity;
 import main.java.proj.Services.Entity.EntityManager;
 import main.java.proj.View.Home;
@@ -45,13 +45,13 @@ public class ProductController extends AbstractController {
                 productView.productAdd.validate();
                 SimpleDateFormat frt = new SimpleDateFormat("MM/dd/yyyy");
                 Date expiration = frt.parse(productView.expiration.getText());
-                Restaurant restaurant = (Restaurant) productView.restaurant.getSelectedItem();
+                Magasin magasin = (Magasin) productView.restaurant.getSelectedItem();
                 Product car = new Product(
                     productView.type.getText(),
                     expiration
                 );
                 this.entityManager.add(car);
-                restaurant.addRestaurant(car);
+                magasin.addArticle(car);
                 productView.productAdd.reset(true);
             } catch (FormException formException) {
                 this.orderDialog(formException.getMessage());
@@ -71,7 +71,7 @@ public class ProductController extends AbstractController {
     }
 
     public ArrayList<Entity> getRestaurants() throws InternalException {
-        return this.getEntityManager(Restaurant.class).getAll();
+        return this.getEntityManager(Magasin.class).getAll();
     }
 
     protected void orderDialog(String txt) {

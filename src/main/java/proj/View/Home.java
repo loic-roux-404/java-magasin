@@ -12,12 +12,12 @@ public class Home extends JPanel {
 
     public HashMap<String, PageBtn> pages = new HashMap<>();
 
-    public final static String RESTAURANTS = "restaurants";
+    public final static String MAGASINS = "magasins";
     public final static String PRODUCTS = "products";
 
     public Home() {
         this.addPageBtn(ProductController.TITLE, PRODUCTS);
-        this.addPageBtn(RestaurantController.TITLE, RESTAURANTS);
+        this.addPageBtn(MagasinController.TITLE, MAGASINS);
 
         form.create(this);
     }

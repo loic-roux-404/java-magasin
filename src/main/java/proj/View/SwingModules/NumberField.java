@@ -3,6 +3,11 @@ package main.java.proj.View.SwingModules;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * @implNote usage :
+ * - To create field(new NumberField()).getField(); In a Form builder
+ * - To get value : (int) jSpinnner.getValue();
+ */
 public class NumberField {
     JSpinner numberChooser;
 

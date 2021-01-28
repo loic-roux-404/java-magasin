@@ -77,7 +77,7 @@ public class MenuBar extends JMenuBar {
             ) */
             .addField("aboutTitle", (new LabelBuilder("À propos")).buildTitle())
             .addField("about1", new JLabel("Test java"))
-            .addField("about2", new JLabel("Gestion restaurant"))
+            .addField("about2", new JLabel("Gestion Magasins"))
             .addField("teamTitle", (new LabelBuilder("L'équipe")).buildTitle())
             .addField("team1", new JLabel("Loic Roux\n"))
             .addField("team2", new JLabel("Julien Guillaud\n"));

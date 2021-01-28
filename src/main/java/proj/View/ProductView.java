@@ -1,7 +1,7 @@
 package main.java.proj.View;
 
 import main.java.proj.Controller.ProductController;
-import main.java.proj.Controller.RestaurantController;
+import main.java.proj.Controller.MagasinController;
 import main.java.proj.Services.Entity.Entity;
 import main.java.proj.View.SwingModules.*;
 import main.java.proj.Exceptions.InternalException;
@@ -47,8 +47,8 @@ public class ProductView {
         productList.backButton.onClick(e -> ly.openHome());
 
         productAdd.getBackButton().onClick(e -> {
-            ly.openPage(ly.getPage(RestaurantView.ADD), RestaurantView.ADD);
-            ly.setPageTitle(RestaurantController.TITLE);
+            ly.openPage(ly.getPage(MagasinView.ADD), MagasinView.ADD);
+            ly.setPageTitle(MagasinController.TITLE);
         });
     }
 
