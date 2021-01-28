@@ -21,7 +21,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>4.13</version>
             <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin -->
@@ -134,7 +134,7 @@
         <repository>
             <id>github</id>
             <name>java-magasin</name>
-            <url>https://maven.pkg.github.com/loic-roux-404/java-magasin</url>
+            <url>https://maven.pkg.github.com/esgi-lyon/java-magasin</url>
         </repository>
     </distributionManagement>
 </project>
