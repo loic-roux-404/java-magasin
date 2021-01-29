@@ -10,7 +10,7 @@ public class Article implements Entity {
     String intitule;
     float prixHT;
     int quantiteEnStock;
-
+    float TVA = 1.2f;
     public Article() {}
 
     public Article(long reference, String intitule, float prixHT,int quantiteEnStock) {
@@ -42,7 +42,8 @@ public class Article implements Entity {
     }
     
     public float prixTTC() {
-    	return (prixHT*(1+20/100));
+    	float ttc = Math.round((prixHT*TVA) * 100) / 100;
+    	return ttc;
     }
 
     @Override
