@@ -1,4 +1,4 @@
-name: Master Branch
+name: Build and run tests
 
 on:
     push:
