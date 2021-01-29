@@ -1,36 +1,119 @@
 package com.app.Model;
 
-import com.app.Services.Entity.Entity;
+import com.app.Services.Entity.IEntity;
 
-public class Article implements Entity {
-	int technicalId;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "article")
+public class Article implements IEntity {
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
+	int id;
+
+    @Column(name = "reference")
     long reference; // reference
+
+    @Column(name = "intitule")
     String intitule;
+
+    @Column(name = "prixHT")
     float prixHT;
-    int quantiteEnStock;
+
+    @Column(name = "stock")
+    int stock;
+
+    @Column(name = "TVA")
     float TVA = 1.2f;
+
+    @ManyToMany()
+    @JoinTable(name = "article_magasin",
+            joinColumns = { @JoinColumn(name = "fk_article") },
+            inverseJoinColumns = { @JoinColumn(name = "fk_magasin") })
+    List<Magasin> magasins = new ArrayList<Magasin>();
+
     public Article() {}
 
-    public Article(long reference, String intitule, float prixHT,int quantiteEnStock) {
+    public Article(long reference, String intitule, float prixHT,int stock) {
     	this.reference = reference;
     	this.intitule = intitule;
     	this.prixHT = prixHT;
-    	this.quantiteEnStock = quantiteEnStock;
+    	this.stock = stock;
     }
-    
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public IEntity setId(int id) {
+        this.id = id;
+        return this;
+    }
+
     public long getReference() {
-    	return reference;
+        return reference;
     }
-    
+
+    public void setReference(long reference) {
+        this.reference = reference;
+    }
+
+    public String getIntitule() {
+        return intitule;
+    }
+
+    public void setIntitule(String intitule) {
+        this.intitule = intitule;
+    }
+
+    public float getPrixHT() {
+        return prixHT;
+    }
+
+    public void setPrixHT(float prixHT) {
+        this.prixHT = prixHT;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int quantiteEnStock) {
+        this.stock = quantiteEnStock;
+    }
+
+    public float getTVA() {
+        return TVA;
+    }
+
+    public void setTVA(float TVA) {
+        this.TVA = TVA;
+    }
+
+    public List<Magasin> getMagasins() {
+        return magasins;
+    }
+
+    public void setMagasins(List<Magasin> magasins) {
+        this.magasins = magasins;
+    }
+
+    // Entity logical actions
+
     public void approvisionner(int qte) {
-    	quantiteEnStock+=qte;
+    	stock +=qte;
     }
     
     public boolean vendre(int qte) {
-    	if(qte > quantiteEnStock) {
+    	if(qte > stock) {
     		return false;
     	}else {
-    		quantiteEnStock-=qte;
+    		stock -=qte;
     		return true;
     	}
     }
@@ -46,26 +129,15 @@ public class Article implements Entity {
 
     @Override
     public String toString() {
-        return reference + Entity.COMMA + intitule;
+        return reference + IEntity.COMMA + intitule;
     }
 
     @Override
     public String toString(boolean list) {
-        return reference + Entity.COMMA +
-        		intitule + Entity.COMMA +
-        		prixHT + Entity.COMMA +
-        		prixTTC() + Entity.COMMA +
-        		quantiteEnStock + Entity.COMMA;
-    }
-
-    @Override
-    public int getId() {
-        return technicalId;
-    }
-
-    @Override
-    public Entity setId(int id) {
-        this.technicalId = id;
-        return this;
+        return reference + IEntity.COMMA +
+        		intitule + IEntity.COMMA +
+        		prixHT + IEntity.COMMA +
+        		prixTTC() + IEntity.COMMA +
+                stock + IEntity.COMMA;
     }
 }

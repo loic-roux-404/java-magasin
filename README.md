@@ -4,6 +4,12 @@
 
 ### 0. Lancement
 
+#### This uses following libraries/frameworks
+- Swing 
+- JGoodies Swing Extension Library
+- Hibernate 
+- H2 Database 
+
 Bien lancer le projet depuis le dossier `src/` avec eclipse, intellij ou la commande suivante :
 
 > open JDK > 13 est requis

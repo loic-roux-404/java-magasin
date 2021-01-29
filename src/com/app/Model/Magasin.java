@@ -1,15 +1,30 @@
 package com.app.Model;
 
-import com.app.Services.Entity.Entity;
+import com.app.Services.Entity.IEntity;
 
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Magasin implements Entity {
+@Entity
+@Table(name = "magasin")
+public class Magasin implements IEntity {
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
     private int id; // Numero
+
+    @Column(name = "phone_number")
     private String phoneNumber;
+
+    @Column(name = "address")
     private String address;
+
+    @Column(name = "postal_code")
     private int postalCode;
-    private ArrayList<Article> availableArticles = new ArrayList<>();
+
+    @ManyToMany(targetEntity = Article.class, mappedBy = "magasin")
+    private List<Article> availableArticles = new ArrayList<>();
 
     public Magasin() {}
 
@@ -17,6 +32,22 @@ public class Magasin implements Entity {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.postalCode = postalCode;
+    }
+
+    public int getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(int postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public List<Article> getAvailableArticles() {
+        return availableArticles;
+    }
+
+    public void setAvailableArticles(List<Article> availableArticles) {
+        this.availableArticles = availableArticles;
     }
 
     public void addArticle(Article article) {
@@ -45,7 +76,7 @@ public class Magasin implements Entity {
     }
 
     @Override
-    public Entity setId(int id) {
+    public IEntity setId(int id) {
         this.id = id;
 
         return this;
@@ -73,7 +104,7 @@ public class Magasin implements Entity {
         String ref = "";
 
         for (Article p: availableArticles) {
-            ref += p.intitule + "(" + p.technicalId + ")"; // TODO add p.technicalId instead of id
+            ref += p.intitule + "(" + p.id + ")"; // TODO add p.technicalId instead of id
         };
 
         return ref;
