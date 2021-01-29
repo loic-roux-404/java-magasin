@@ -1,7 +1,7 @@
 package com.app.View;
 
 import com.app.Controller.MagasinController;
-import com.app.Services.Entity.Entity;
+import com.app.Services.Entity.IEntity;
 import com.app.Services.Layout;
 import com.app.View.SwingModules.FormBuilder;
 import com.app.Controller.ArticleController;
@@ -57,11 +57,11 @@ public class ProductView {
         });
     }
 
-    public void fillForm(ArrayList<Entity> builders) {
+    public void fillForm(ArrayList<IEntity> builders) {
         magasin.removeAllItems(); 
         magasin.addItem(FormBuilder.NO_SELECT);
         // The solution
-        for (Entity builder : builders) {
+        for (IEntity builder : builders) {
         	magasin.addItem(builder);
         }
     }

@@ -1,8 +1,6 @@
 package com.app.Framework;
 
-import com.gt.common.constants.StrConstants;
-import com.gt.common.utils.CryptographicUtil;
-
+import com.app.Utils.CryptoUtils;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -23,26 +21,15 @@ public class ResourceManager {
     public static final String resourceMapFile = "string-resource.ini";
     public static final String configMapFile = "config.ini";
     private static final String a = "gt?Pass,e#. ";
-    private static com.gt.common.ResourceManager reader;
+    private static ResourceManager reader;
     private static Map<String, String> stringConstantsMap;
     private static Map<String, String> configParamMap;
 
-    public static synchronized com.gt.common.ResourceManager getReader() {
+    public static synchronized ResourceManager getReader() {
         if (reader == null) {
-            reader = new com.gt.common.ResourceManager();
+            reader = new ResourceManager();
         }
         return reader;
-    }
-
-    public static synchronized String getString(String key) {
-        if (stringConstantsMap == null) {
-            try {
-                stringConstantsMap = readMap(resourceMapFile, false);
-            } catch (Exception e) {
-                stringConstantsMap = StrConstants.getMap();
-            }
-        }
-        return stringConstantsMap.get(key);
     }
 
     public static Map<String, String> readMap(String file, boolean isEncry) throws IOException {
@@ -52,7 +39,7 @@ public class ResourceManager {
         while ((str = in.readLine()) != null) {
             String[] spl = str.split(":");
             if (isEncry) {
-                map.put(CryptographicUtil.decryptText(spl[0].trim(), a), CryptographicUtil.decryptText(spl[1].trim(), a));
+                map.put(CryptoUtils.decryptText(spl[0].trim(), a), CryptoUtils.decryptText(spl[1].trim(), a));
             } else {
                 map.put(spl[0].trim(), spl[1].trim());
             }
@@ -67,7 +54,7 @@ public class ResourceManager {
             out = new BufferedWriter(new FileWriter(file));
             for (Map.Entry<String, String> entry : map.entrySet()) {
                 if (isEncry) {
-                    out.write(CryptographicUtil.encryptText(entry.getKey(), a) + ":" + CryptographicUtil.encryptText(entry.getValue(), a) + "\n");
+                    out.write(CryptoUtils.encryptText(entry.getKey(), a) + ":" + CryptoUtils.encryptText(entry.getValue(), a) + "\n");
                 } else {
                     out.write(entry.getKey() + ":" + entry.getValue());
                 }
@@ -96,15 +83,15 @@ public class ResourceManager {
 
     public static Image getImage(String fileName) {
         // src/image/
-        return readImage(com.gt.common.ResourceManager.class.getResource("/images/" + fileName).toString());
+        return readImage(ResourceManager.class.getResource("/images/" + fileName).toString());
     }
 
     public static ImageIcon getImageIcon(String resourcePath) {
-        return new ImageIcon(com.gt.common.ResourceManager.class.getResource("/images/" + resourcePath));
+        return new ImageIcon(ResourceManager.class.getResource("/images/" + resourcePath));
     }
 
     public static URL getResource(String fileName) {
-        return com.gt.common.ResourceManager.class.getResource("/" + fileName);
+        return ResourceManager.class.getResource("/" + fileName);
     }
 
     public static BufferedImage readImage(String imageName) {

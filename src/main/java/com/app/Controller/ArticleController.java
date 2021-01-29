@@ -5,7 +5,7 @@ import com.app.Exceptions.InternalException;
 import com.app.Framework.Registery;
 import com.app.Model.Article;
 import com.app.Model.Magasin;
-import com.app.Services.Entity.Entity;
+import com.app.Services.Entity.IEntity;
 import com.app.Services.Entity.EntityManager;
 import com.app.View.Home;
 import com.app.View.ProductView;
@@ -63,7 +63,7 @@ public class ArticleController extends AbstractController {
         });
     }
 
-    public ArrayList<Entity> getRestaurants() throws InternalException {
+    public ArrayList<IEntity> getRestaurants() throws InternalException {
         return this.getEntityManager(Magasin.class).getAll();
     }
 
