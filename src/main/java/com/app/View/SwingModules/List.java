@@ -1,6 +1,6 @@
 package com.app.View.SwingModules;
 
-import com.app.Services.Entity.Entity;
+import com.app.Services.Entity.IEntity;
 
 import javax.swing.*;
 import javax.swing.event.TableModelListener;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * List data in table
  */
 public class List extends JPanel implements BuilderInterface {
-    ArrayList<Entity> entities;
+    ArrayList<IEntity> entities;
     // Table for user data
     private final JTable table;
     // table column
@@ -46,13 +46,13 @@ public class List extends JPanel implements BuilderInterface {
     }
 
     // gets data from database and loads to table
-    public void getDetails(ArrayList<Entity> entities) {
+    public void getDetails(ArrayList<IEntity> entities) {
         this.entities = entities;
         DefaultTableModel defaultTableModel = (DefaultTableModel) table.getModel();
         // Prevenir l'ajout de colonne alors qu'on a déjà les data
         defaultTableModel.setRowCount(0);
         defaultTableModel.setColumnIdentifiers(tableColumn);
-        for (Entity o : this.entities) {
+        for (IEntity o : this.entities) {
             String row = o.toString(true).trim();
             String[] rows = row.split(",");
             defaultTableModel.addRow(rows);
@@ -71,7 +71,7 @@ public class List extends JPanel implements BuilderInterface {
         }
     }
 
-    public Entity getEntity() {
+    public IEntity getEntity() {
         if (table.getSelectedRow() <= -1) return null;
         int selectedRow = table.getSelectedRow();
 

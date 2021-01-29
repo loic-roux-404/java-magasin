@@ -12,14 +12,14 @@ import java.util.Date;
 public class EntityManager implements Service {
     private boolean loaded;
 
-    private ArrayList<Entity> entityArrayList;
+    private ArrayList<IEntity> IEntityArrayList;
 
-    protected Entity managedEn;
+    protected IEntity managedEn;
     private Class entityClass;
 
     public EntityManager(Class entityClass) {
         this.entityClass = entityClass;
-        entityArrayList = new ArrayList<>();
+        IEntityArrayList = new ArrayList<>();
         this.loadEntityInstance();
         this.load();
     }
@@ -30,7 +30,7 @@ public class EntityManager implements Service {
      */
     void loadEntityInstance() {
         try {
-            managedEn = (Entity) entityClass.getDeclaredConstructor().newInstance();
+            managedEn = (IEntity) entityClass.getDeclaredConstructor().newInstance();
             // managedEn.ge
         } catch (Exception e) {
             System.err.println("This entity definition has errors " + entityClass.getName());
@@ -45,23 +45,23 @@ public class EntityManager implements Service {
      *
      * @param item
      */
-    public void add(Entity item) {
-        item.setId(entityArrayList.size() + 1);
+    public void add(IEntity item) {
+        item.setId(IEntityArrayList.size() + 1);
         if (item instanceof Dated) {
             ((Dated) item).setUpdatedAt(new Date());
             if (((Dated) item).getCreatedAt() == null) {
                 ((Dated) item).setCreatedAt(new Date());
             }
         }
-        entityArrayList.add(item);
+        IEntityArrayList.add(item);
     }
 
     /**
      * Get all entities for managed entity (ex Car)
      * @return
      */
-    public ArrayList<Entity> getAll() {
-        return entityArrayList;
+    public ArrayList<IEntity> getAll() {
+        return IEntityArrayList;
     }
 
     /**
@@ -69,16 +69,16 @@ public class EntityManager implements Service {
      * @param index
      * @return
      */
-    public Entity getById(int index) {
-        return entityArrayList.get(index);
+    public IEntity getById(int index) {
+        return IEntityArrayList.get(index);
     }
 
     /**
      * Used to set fixtures
-     * @param entityArrayList
+     * @param IEntityArrayList
      */
-    public void setEntityArrayList(ArrayList<Entity> entityArrayList) {
-        this.entityArrayList = entityArrayList;
+    public void setEntityArrayList(ArrayList<IEntity> IEntityArrayList) {
+        this.IEntityArrayList = IEntityArrayList;
     }
 
     public Class getEntityClass() {

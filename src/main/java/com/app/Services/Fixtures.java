@@ -1,7 +1,7 @@
 package com.app.Services;
 
 import com.app.Framework.Service;
-import com.app.Services.Entity.Entity;
+import com.app.Services.Entity.IEntity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +12,7 @@ public class Fixtures implements Service {
     public boolean ENABLE = false;
     private boolean loaded = false;
 
-    private HashMap<String, ArrayList<Entity>> map = new HashMap<>();
+    private HashMap<String, ArrayList<IEntity>> map = new HashMap<>();
 /*
     public Fixtures() {
         this.map.put(Builder.class.getSimpleName(), this.getFakeBuilders());
