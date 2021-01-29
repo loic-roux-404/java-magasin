@@ -4,6 +4,7 @@ on:
     push:
         branches:
             - 'prod'
+            - 'master'
 
 jobs:
     artifact:
@@ -23,6 +24,7 @@ jobs:
               uses: mathieudutour/github-tag-action@v5.1
               with:
                   release_branches: prod
+                  pre_release_branches: master
                   append_to_pre_release_tag: beta
                   github_token: ${{ secrets.GH_TOKEN }}
 
