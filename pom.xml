@@ -12,6 +12,7 @@
 
     <properties>
         <src.dir>src/</src.dir>
+        <src.class>com.app.Main</src.class>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -72,7 +73,7 @@
                     <artifactId>exec-maven-plugin</artifactId>
                     <version>1.2.1</version>
                     <configuration>
-                        <mainClass>main.java.proj.Main</mainClass>
+                        <mainClass>${src.class}</mainClass>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -87,7 +88,7 @@
                             <manifest>
                                 <addClasspath>true</addClasspath>
                                 <classpathPrefix>lib/</classpathPrefix>
-                                <mainClass>main.java.proj.Main</mainClass>
+                                <mainClass>${src.class}</mainClass>
                             </manifest>
                         </archive>
                     </configuration>
