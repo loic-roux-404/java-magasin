@@ -21,20 +21,5 @@
 		<mapping class="com.app.Model.Article" />
 		<mapping class="com.app.Model.Magasin" />
 
-		<!-- Mapping for new tables -->
-		<!-- system internals
-		<mapping class="com.ca.db.model.LoginUser" />
-		<mapping class="com.ca.db.model.ApplicationLog" />
-
-		<mapping class="com.ca.db.model.BranchOffice" />
-		<mapping class="com.ca.db.model.Vendor" />
-		<mapping class="com.ca.db.model.Category" />
-		<mapping class="com.ca.db.model.UnitsString" />
-		<mapping class="com.ca.db.model.Specification" />
-
-		<mapping class="com.ca.db.model.Item" />
-		<mapping class="com.ca.db.model.Transfer" />
-		<mapping class="com.ca.db.model.ItemReturn" /> -->
-
 	</session-factory>
 </hibernate-configuration>
