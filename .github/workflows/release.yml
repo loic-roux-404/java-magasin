@@ -3,7 +3,7 @@ name: Prod Branch
 on:
     push:
         branches:
-            - 'prod'
+            - prod
 
 jobs:
     artifact:
@@ -15,9 +15,12 @@ jobs:
             contains(github.event.head_commit.message, '[skip-release]') == false
             && contains(github.event.pull_request.labels.*.name, 'skip-release') == false
         runs-on: ubuntu-latest
-
         steps:
             - uses: actions/checkout@v2
+            - name: log commit in common
+              run: |
+                [[ git --no-pager log -1 master..origin/prod ]] && echo 'History OK' || \
+                echo 'History is not synchronized with the pre-release branch' && exit 1
             - name: Bump version and push tag
               id: tag_version
               uses: mathieudutour/github-tag-action@v5.1
