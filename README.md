@@ -186,6 +186,13 @@ Staging area &rarr; repo local &rarr; remote
 
 ![Remote / local](https://support.nesi.org.nz/hc/article_attachments/360004194235/Git_Diagram.svg)
 
+### Git flow
+
+- On `merge squash` toujours une branche de feature dans la develop
+- On **rebase** toujours la `develop` dans la `prod` pour release
+
+`my-branch --> develop (master) --> prod`
+
 ### Commandes
 
 ```sh
