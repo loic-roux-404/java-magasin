@@ -2,7 +2,7 @@ package com.app.View;
 
 import com.app.Controller.MagasinController;
 import com.app.Exceptions.InternalException;
-import com.app.Exceptions.ServiceNotLoadedException;
+import com.app.Exceptions.NotLoadedException;
 import com.app.Services.Layout;
 import com.app.View.SwingModules.Theme;
 import com.sun.tools.javac.Main;
@@ -55,7 +55,7 @@ public class MainFrame extends JFrame {
         }
     }
 
-    protected void loadServices() throws ServiceNotLoadedException {
+    protected void loadServices() throws NotLoadedException {
         registery = new Registery(null);
         registery.add(Layout.NAME, layout);
     }

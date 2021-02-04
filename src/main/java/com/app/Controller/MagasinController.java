@@ -3,7 +3,7 @@ package com.app.Controller;
 import com.app.Exceptions.FormException;
 import com.app.Exceptions.InternalException;
 import com.app.Exceptions.PhoneNumberDigitsException;
-import com.app.Exceptions.ServiceRegisteryException;
+import com.app.Exceptions.RegisteryException;
 import com.app.Framework.Registery;
 import com.app.Model.Magasin;
 import com.app.Services.EntityManagerProxy;
@@ -27,7 +27,7 @@ public class MagasinController extends AbstractController{
     }
 
     @Override
-    protected void actions() throws ServiceRegisteryException {
+    protected void actions() throws RegisteryException {
         // Open list page from create form
         magasinView.magasinCreateForm.list(e -> {
             magasinView.builderTableList.getDetails(this.entityManager.getAll());

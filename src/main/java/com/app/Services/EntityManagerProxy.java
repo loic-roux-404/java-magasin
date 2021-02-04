@@ -3,7 +3,6 @@ package com.app.Services;
 import com.app.Framework.Service;
 import com.app.Utils.SessionUtils;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 import java.util.List;
 
@@ -14,18 +13,18 @@ public class EntityManagerProxy extends SessionUtils implements Service {
 
     boolean loaded = false;
 
-    Class enClass;
+    Class clazz;
     SessionFactory sessionFactory;
     EntityManager manager;
 
-    public EntityManagerProxy(Class classObj) {
-        enClass = classObj;
+    public EntityManagerProxy(Class clazz) {
+        this.clazz = clazz;
         sessionFactory = get();
         manager = sessionFactory.createEntityManager();
     }
 
     public List<IEntity> getAll() {
-        return manager.createQuery("from " + enClass.getSimpleName()).getResultList();
+        return manager.createQuery("from " + clazz.getSimpleName()).getResultList();
     }
 
     /**

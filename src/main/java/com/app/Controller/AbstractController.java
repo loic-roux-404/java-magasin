@@ -1,6 +1,6 @@
 package com.app.Controller;
 
-import com.app.Exceptions.ServiceRegisteryException;
+import com.app.Exceptions.RegisteryException;
 import com.app.Framework.Service;
 import com.app.Services.EntityManagerProxy;
 import com.app.Services.Layout;
@@ -26,7 +26,7 @@ public abstract class AbstractController {
         setRegistery(registery);
     }
 
-    public EntityManagerProxy getEntityManager(Class entityClass) throws ServiceRegisteryException {
+    public EntityManagerProxy getEntityManager(Class entityClass) throws RegisteryException {
         // Init first services
         String name = entityClass.getSimpleName();
         return (EntityManagerProxy) (this.registery.has(name)
@@ -34,11 +34,11 @@ public abstract class AbstractController {
             : this.registery.add(name, new EntityManagerProxy(entityClass)));
     }
 
-    public Layout getLayout() throws ServiceRegisteryException {
+    public Layout getLayout() throws RegisteryException {
         return (Layout) this.getService(Layout.NAME);
     }
 
-    public Service getService(String name) throws ServiceRegisteryException {
+    public Service getService(String name) throws RegisteryException {
         return this.registery.get(name);
     }
 
