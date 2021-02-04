@@ -1,9 +1,8 @@
-package com.app.Services.Entity;
+package com.app.Services;
 
 import java.io.Serializable;
 
 public interface IEntity extends Serializable {
-    String COMMA = ", ";
     /**
      * This method is for java components like combobox
      */
@@ -11,15 +10,20 @@ public interface IEntity extends Serializable {
 
     /**
      * This method should return ordered comma list separated entity items
+     * Used by swing table layouts
      */
     String toString(boolean list);
 
-    int getId();
+    /**
+     * Get Id
+     * @return int
+     */
+    Long getId();
 
     /**
      * Used by entity manager
      * @param id
-     * @return
+     * @return IEntity
      */
-    IEntity setId(int id);
+    IEntity setId(Long id);
 }

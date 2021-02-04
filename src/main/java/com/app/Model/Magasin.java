@@ -1,18 +1,12 @@
 package com.app.Model;
 
-import com.app.Services.Entity.IEntity;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "magasin")
-public class Magasin implements IEntity {
-    @Id
-    @GeneratedValue
-    @Column(name = "id")
-    private int id; // Numero
+@Table(name = "Magasin")
+public class Magasin extends AbstractEntity {
 
     @Column(name = "phone_number")
     private String phoneNumber;
@@ -71,40 +65,29 @@ public class Magasin implements IEntity {
     }
 
     @Override
-    public int getId() {
-        return id;
-    }
-
-    @Override
-    public IEntity setId(int id) {
-        this.id = id;
-
-        return this;
-    }
-
-    @Override
     public String toString() {
-        return Integer.toString(id) + " / " + address;
+        return Long.toString(getId()) + " / " + address;
     }
 
     @Override
     public String toString(boolean list) {
-        return id
+        return getId()
             + ", "
-            + phoneNumber
+            + getPhoneNumber()
             + ", "
-            + address
+            + getAddress()
             + ", "
-            + postalCode
+            + getPostalCode()
             + ", "
-            + availableArticles();
+            + availableArticles()
+        ;
     }
 
     protected String availableArticles() {
         String ref = "";
 
         for (Article p: availableArticles) {
-            ref += p.intitule + "(" + p.id + ")"; // TODO add p.technicalId instead of id
+            ref += p.intitule + "(" + p.getId() + ")";
         };
 
         return ref;

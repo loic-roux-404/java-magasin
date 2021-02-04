@@ -1,18 +1,18 @@
 package com.app.View.SwingModules;
 
-import com.app.Services.Entity.IEntity;
+import com.app.Services.IEntity;
 
 import javax.swing.*;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * List data in table
  */
-public class List extends JPanel implements BuilderInterface {
-    ArrayList<IEntity> entities;
+public class TableList extends JPanel implements BuilderInterface {
+    List<IEntity> entities;
     // Table for user data
     private final JTable table;
     // table column
@@ -22,7 +22,7 @@ public class List extends JPanel implements BuilderInterface {
     public BackButton backButton = new BackButton();
     JButton delete = new JButton("Supprimer");
 
-    public List(String[] tableColumn) {
+    public TableList(String[] tableColumn) {
         add(backButton.getToolBar());
         this.tableColumn = tableColumn;
         // uses box layout
@@ -36,7 +36,7 @@ public class List extends JPanel implements BuilderInterface {
     }
 
     @Override
-    public List create(JPanel jpanel) {
+    public TableList create(JPanel jpanel) {
         if (delete != null) {
             addButton(delete);
             this.delete(e -> this.handleDelete());
@@ -46,7 +46,7 @@ public class List extends JPanel implements BuilderInterface {
     }
 
     // gets data from database and loads to table
-    public void getDetails(ArrayList<IEntity> entities) {
+    public void getDetails(List<IEntity> entities) {
         this.entities = entities;
         DefaultTableModel defaultTableModel = (DefaultTableModel) table.getModel();
         // Prevenir l'ajout de colonne alors qu'on a déjà les data
@@ -86,14 +86,14 @@ public class List extends JPanel implements BuilderInterface {
         delete.addActionListener(actionListener);
     }
 
-    public List disableDeleteButton()
+    public TableList disableDeleteButton()
     {
         delete = null;
 
         return this;
     }
 
-    public List addButton(JButton button) {
+    public TableList addButton(JButton button) {
         button.setSize(400, 50);
         add(button, BoxLayout.LINE_AXIS);
 

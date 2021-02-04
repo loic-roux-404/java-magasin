@@ -1,18 +1,12 @@
 package com.app.Model;
 
-import com.app.Services.Entity.IEntity;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "article")
-public class Article implements IEntity {
-    @Id
-    @GeneratedValue
-    @Column(name = "id")
-	int id;
+@Table(name = "Article")
+public class Article extends AbstractEntity {
 
     @Column(name = "reference")
     long reference; // reference
@@ -33,7 +27,7 @@ public class Article implements IEntity {
     @JoinTable(name = "article_magasin",
             joinColumns = { @JoinColumn(name = "fk_article") },
             inverseJoinColumns = { @JoinColumn(name = "fk_magasin") })
-    List<Magasin> magasins = new ArrayList<Magasin>();
+    List<Magasin> magasins = new ArrayList<>();
 
     public Article() {}
 
@@ -42,17 +36,6 @@ public class Article implements IEntity {
     	this.intitule = intitule;
     	this.prixHT = prixHT;
     	this.stock = stock;
-    }
-
-    @Override
-    public int getId() {
-        return id;
-    }
-
-    @Override
-    public IEntity setId(int id) {
-        this.id = id;
-        return this;
     }
 
     public long getReference() {
@@ -129,15 +112,17 @@ public class Article implements IEntity {
 
     @Override
     public String toString() {
-        return reference + IEntity.COMMA + intitule;
+        return reference + ", " + intitule;
     }
 
     @Override
     public String toString(boolean list) {
-        return reference + IEntity.COMMA +
-        		intitule + IEntity.COMMA +
-        		prixHT + IEntity.COMMA +
-        		prixTTC() + IEntity.COMMA +
-                stock + IEntity.COMMA;
+        return
+            getReference() + ", "
+                + getIntitule() + ", "
+                + getPrixHT() + ", "
+                + prixTTC() + ", "
+                + getStock()
+            ;
     }
 }

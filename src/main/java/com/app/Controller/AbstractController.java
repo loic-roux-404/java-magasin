@@ -2,12 +2,12 @@ package com.app.Controller;
 
 import com.app.Exceptions.ServiceRegisteryException;
 import com.app.Framework.Service;
+import com.app.Services.EntityManagerProxy;
 import com.app.Services.Layout;
 import com.app.View.SwingModules.PageBtn;
 import com.app.Exceptions.FormException;
 import com.app.Exceptions.InternalException;
 import com.app.Framework.Registery;
-import com.app.Services.Entity.EntityManager;
 
 import java.util.HashMap;
 
@@ -26,12 +26,12 @@ public abstract class AbstractController {
         setRegistery(registery);
     }
 
-    public EntityManager getEntityManager(Class entityClass) throws ServiceRegisteryException {
+    public EntityManagerProxy getEntityManager(Class entityClass) throws ServiceRegisteryException {
         // Init first services
         String name = entityClass.getSimpleName();
-        return (EntityManager) (this.registery.has(name)
+        return (EntityManagerProxy) (this.registery.has(name)
             ? this.registery.get(name)
-            : this.registery.add(name, new EntityManager(entityClass)).get(name));
+            : this.registery.add(name, new EntityManagerProxy(entityClass)));
     }
 
     public Layout getLayout() throws ServiceRegisteryException {

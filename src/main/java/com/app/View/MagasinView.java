@@ -5,7 +5,7 @@ import com.app.Exceptions.InternalException;
 import com.app.Services.Layout;
 import com.app.View.SwingModules.Form;
 import com.app.View.SwingModules.FormBuilder;
-import com.app.View.SwingModules.List;
+import com.app.View.SwingModules.TableList;
 import com.app.View.SwingModules.NumberField;
 import com.app.View.SwingModules.PageBtn;
 import com.app.Controller.ArticleController;
@@ -28,14 +28,14 @@ public class MagasinView {
     private PageBtn articlePageBtn;
     // Components
     public Form magasinCreateForm;
-    public com.app.View.SwingModules.List builderList;
+    public TableList builderTableList;
 
     public MagasinView(Layout ly, MagasinController controller) throws HeadlessException, InternalException {
         // Recuperate the page object
         articlePageBtn = controller.getLayout().home.page(ProductView.ADD);
 
         magasinCreateForm = this.CREATE();
-        builderList = this.LIST();
+        builderTableList = this.LIST();
 
         magasinCreateForm.getBackButton().onClick(e -> ly.openHome());
         // Home access
@@ -49,10 +49,10 @@ public class MagasinView {
             ly.setPageTitle(ArticleController.TITLE_ADD);
         });
         magasinCreateForm.list(e -> {
-            ly.openPage(builderList, LIST);
+            ly.openPage(builderTableList, LIST);
             ly.setPageTitle(MagasinController.TITLE);
         });
-        builderList.backButton.onClick(e -> {
+        builderTableList.backButton.onClick(e -> {
             ly.openPage(magasinCreateForm.getPanel(), ADD);
             ly.setPageTitle(MagasinController.TITLE);
         });
@@ -68,8 +68,8 @@ public class MagasinView {
         return builder.create(null);
     }
 
-    public com.app.View.SwingModules.List LIST() {
-        return new List(tableColumn);
+    public TableList LIST() {
+        return new TableList(tableColumn);
     }
 
     public String getPhoneNumber() {

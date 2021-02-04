@@ -1,13 +1,16 @@
 package com.app.Model;
 
-import com.app.Services.Entity.IEntity;
+import com.app.Services.IEntity;
+
+import javax.persistence.MappedSuperclass;
 
 /**
  * Class used to reuse simple properties for
  * Client and Builders which are the two actors of the app
  */
-public abstract class AbstractActor implements IEntity {
-    private int id;
+@MappedSuperclass
+public abstract class AbstractActor extends AbstractEntity {
+    private Long id;
     private String name;
 
     /**
@@ -27,12 +30,12 @@ public abstract class AbstractActor implements IEntity {
     }
 
     @Override
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
     @Override
-    public IEntity setId(int id) {
+    public IEntity setId(Long id) {
         this.id = id;
 
         return this;

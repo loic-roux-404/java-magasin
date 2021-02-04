@@ -5,14 +5,14 @@ import com.app.Exceptions.InternalException;
 import com.app.Framework.Registery;
 import com.app.Model.Article;
 import com.app.Model.Magasin;
-import com.app.Services.Entity.IEntity;
-import com.app.Services.Entity.EntityManager;
+import com.app.Services.EntityManagerProxy;
+import com.app.Services.IEntity;
 import com.app.View.Home;
 import com.app.View.ProductView;
 import com.app.View.SwingModules.Theme;
 
 import javax.swing.*;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * List / READ ONE cars (cars are provided by there builder so search cars in builders)
@@ -21,7 +21,7 @@ public class ArticleController extends AbstractController {
     public final static String TITLE = "Catalogue des Produits";
     public final static String TITLE_ADD = "Ajouter un produit";
 
-    private final EntityManager entityManager;
+    private final EntityManagerProxy entityManager;
     private final ProductView productView;
 
     protected static String NUMBER_ERROR = "Le format du nombre n'est pas correct";
@@ -45,7 +45,7 @@ public class ArticleController extends AbstractController {
                     productView.intitule.getText(),
                     Float.parseFloat(productView.prixHT.getText()),
                     Integer.parseInt(productView.qteStock.getText())
-                		);
+                );
                 this.entityManager.add(leProduit);
                 magasin.addArticle(leProduit);
                 productView.productAdd.reset(true);
@@ -59,11 +59,11 @@ public class ArticleController extends AbstractController {
         });
 
         this.getLayout().home.page(Home.PRODUCTS).onOpen(e -> {
-            productView.productList.getDetails(this.entityManager.getAll());
+            productView.productTableList.getDetails(this.entityManager.getAll());
         });
     }
 
-    public ArrayList<IEntity> getRestaurants() throws InternalException {
+    public List<IEntity> getRestaurants() throws InternalException {
         return this.getEntityManager(Magasin.class).getAll();
     }
 

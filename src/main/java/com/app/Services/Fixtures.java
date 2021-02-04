@@ -1,7 +1,6 @@
 package com.app.Services;
 
 import com.app.Framework.Service;
-import com.app.Services.Entity.IEntity;
 
 import java.util.ArrayList;
 import java.util.HashMap;

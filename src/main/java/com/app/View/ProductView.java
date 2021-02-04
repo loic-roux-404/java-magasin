@@ -1,17 +1,17 @@
 package com.app.View;
 
 import com.app.Controller.MagasinController;
-import com.app.Services.Entity.IEntity;
+import com.app.Services.IEntity;
 import com.app.Services.Layout;
 import com.app.View.SwingModules.FormBuilder;
 import com.app.Controller.ArticleController;
 import com.app.Exceptions.InternalException;
 import com.app.View.SwingModules.Form;
-import com.app.View.SwingModules.List;
+import com.app.View.SwingModules.TableList;
 import com.app.View.SwingModules.PageBtn;
 
 import javax.swing.*;
-import java.util.ArrayList;
+import java.util.List;
 
 public class ProductView {
     static String[] tableColumn = {"Référence", "Nom", "PrixHT", "PrixTTC", "Quantitée"};
@@ -29,7 +29,7 @@ public class ProductView {
     public JComboBox magasin = new JComboBox();
 
     // Components
-    public List productList = new List(tableColumn);
+    public TableList productTableList = new TableList(tableColumn);
     public Form productAdd = this.CREATE();
 
     public ProductView(Layout ly, ArticleController controller) throws InternalException {
@@ -37,7 +37,7 @@ public class ProductView {
 
         // Home access
         ly.home.page(Home.PRODUCTS).onOpen(e -> {
-            ly.openPage(productList, LIST);
+            ly.openPage(productTableList, LIST);
             ly.setPageTitle(ArticleController.TITLE);
         });
         // Functional
@@ -49,7 +49,7 @@ public class ProductView {
             }
         });
         // Warning : we open car form from builder
-        productList.backButton.onClick(e -> ly.openHome());
+        productTableList.backButton.onClick(e -> ly.openHome());
 
         productAdd.getBackButton().onClick(e -> {
             ly.openPage(ly.getPage(MagasinView.ADD), MagasinView.ADD);
@@ -57,7 +57,7 @@ public class ProductView {
         });
     }
 
-    public void fillForm(ArrayList<IEntity> builders) {
+    public void fillForm(List<IEntity> builders) {
         magasin.removeAllItems(); 
         magasin.addItem(FormBuilder.NO_SELECT);
         // The solution
