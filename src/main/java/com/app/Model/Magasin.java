@@ -17,7 +17,7 @@ public class Magasin extends AbstractEntity {
     @Column(name = "postal_code")
     private int postalCode;
 
-    @ManyToMany(targetEntity = Article.class, mappedBy = "magasin")
+    @ManyToMany(targetEntity = Article.class, mappedBy = "magasins")
     private List<Article> availableArticles = new ArrayList<>();
 
     public Magasin() {}

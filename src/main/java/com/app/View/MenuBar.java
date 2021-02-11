@@ -36,7 +36,7 @@ public class MenuBar extends JMenuBar {
         jMenuFile.addSeparator();
 
         //this.addMenuItem(jMenuFile, jMenuItemDemo, null);
-        // this.addMenuItem(jMenuFile, jMenuItemQuit, "control Q");
+        this.addMenuItem(jMenuFile, jMenuItemQuit, "control Q");
 
         // help :
         this.addMenuItem(jMenuHelp, jMenuItemShortcuts, "control S");
@@ -81,7 +81,7 @@ public class MenuBar extends JMenuBar {
             .addField("team1", new JLabel("Loic Roux\n"))
             .addField("team2", new JLabel("Julien Guillaud\n"));
         JOptionPane.showMessageDialog(
-            frame,
+            null, // frame (FIXME)
             about.create(null).getPanel(),
             "À propos du projet",
             JOptionPane.PLAIN_MESSAGE,
@@ -101,7 +101,7 @@ public class MenuBar extends JMenuBar {
             .addField("shortcuts2", new JLabel("Vous pouvez consulter les lettres associés dans les menus Aide et Menu"));
 
         JOptionPane.showMessageDialog(
-            frame,
+            frame, // FIXME
             about.create(null).getPanel(),
             "Tutoriel - raccourcis",
             JOptionPane.PLAIN_MESSAGE,
