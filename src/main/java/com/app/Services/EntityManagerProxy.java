@@ -14,19 +14,19 @@ public class EntityManagerProxy extends SessionUtils implements Service {
 
     boolean loaded = false;
 
-    Class clazz;
+    Class entityClass;
     SessionFactory sessionFactory;
     EntityManager manager;
 
-    public EntityManagerProxy(Class clazz) {
-        this.clazz = clazz;
+    public EntityManagerProxy(Class entityClass) {
+        this.entityClass = entityClass;
         sessionFactory = get();
         manager = sessionFactory.createEntityManager();
         load();
     }
 
     public List<IEntity> getAll() {
-        return manager.createQuery("from " + clazz.getSimpleName()).getResultList();
+        return manager.createQuery("from " + entityClass.getSimpleName()).getResultList();
     }
 
     /**
@@ -54,7 +54,7 @@ public class EntityManagerProxy extends SessionUtils implements Service {
     }
 
     public Class getEntityClass() {
-        return clazz;
+        return entityClass;
     }
 
     @Override
