@@ -43,7 +43,7 @@ public class ProductView {
         // Functional
         carPageBtn.onOpen(e -> {
             try {
-                this.fillForm(controller.getRestaurants()); // @todo transformer en magasin
+                this.fillForm(controller.getMagasins());
             } catch (InternalException internalException) {
                 internalException.printStackTrace();
             }

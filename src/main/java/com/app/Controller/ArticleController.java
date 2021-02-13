@@ -63,7 +63,7 @@ public class ArticleController extends AbstractController {
         });
     }
 
-    public List<IEntity> getRestaurants() throws InternalException {
+    public List<IEntity> getMagasins() throws InternalException {
         return this.getEntityManager(Magasin.class).getAll();
     }
 
