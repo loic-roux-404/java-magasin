@@ -1,7 +1,7 @@
 package com.app.Framework;
 
-import com.app.Exceptions.ServiceNotLoadedException;
-import com.app.Exceptions.ServiceRegisteryException;
+import com.app.Exceptions.NotLoadedException;
+import com.app.Exceptions.RegisteryException;
 
 import java.util.HashMap;
 
@@ -13,10 +13,10 @@ public class Registery {
         this.services = services != null ? services : new HashMap<>();
     }
 
-    public Registery add(String name, Service service) throws ServiceNotLoadedException {
+    public Registery add(String name, Service service) throws NotLoadedException {
 
         if (!service.isLoaded()) {
-            throw new ServiceNotLoadedException(name);
+            throw new NotLoadedException(name);
         }
 
         this.services.put(name, service);
@@ -24,11 +24,11 @@ public class Registery {
         return this;
     }
 
-    public Service get(String name) throws ServiceRegisteryException {
+    public Service get(String name) throws RegisteryException {
         try {
             return services.get(name);
         } catch (Exception e) {
-            throw new ServiceRegisteryException(name, e.getMessage());
+            throw new RegisteryException(name, e.getMessage());
         }
     }
 

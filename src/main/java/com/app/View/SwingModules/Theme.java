@@ -5,5 +5,5 @@ public interface Theme {
     String dialogErrorTxt = "Erreur";
     int FRAME_WIDTH = 1200;
     int FRAME_HEIGHT = 700;
-    String ICON = "proj/resources/appicon.png";
+    String ICON = "appicon.png";
 }

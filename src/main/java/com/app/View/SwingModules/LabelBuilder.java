@@ -1,10 +1,9 @@
 package com.app.View.SwingModules;
 
-import com.sun.tools.javac.Main;
+import com.app.Framework.ResourceManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.net.URL;
 
 public class LabelBuilder implements BuilderInterface {
     private JLabel jLabel;
@@ -33,8 +32,7 @@ public class LabelBuilder implements BuilderInterface {
     }
 
     public LabelBuilder buildImage(String path) {
-        final URL imageResource = Main.class.getClassLoader().getResource(path);
-        jLabel = new JLabel(new ImageIcon(imageResource));
+        jLabel = new JLabel(ResourceManager.getImageIcon(path));
 
         return this;
     }

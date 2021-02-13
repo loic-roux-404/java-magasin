@@ -3,6 +3,7 @@ package com.app.View;
 import com.app.View.SwingModules.LabelBuilder;
 import com.app.Services.Fixtures;
 import com.app.View.SwingModules.FormBuilder;
+import com.app.View.SwingModules.Theme;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,8 +36,8 @@ public class MenuBar extends JMenuBar {
         this.addMenuItem(jMenuFile, jMenuItemHome, "control H");
         jMenuFile.addSeparator();
 
-        //this.addMenuItem(jMenuFile, jMenuItemDemo, null);
-        // this.addMenuItem(jMenuFile, jMenuItemQuit, "control Q");
+        this.addMenuItem(jMenuFile, jMenuItemDemo, null);
+        this.addMenuItem(jMenuFile, jMenuItemQuit, "control Q");
 
         // help :
         this.addMenuItem(jMenuHelp, jMenuItemShortcuts, "control S");
@@ -70,10 +71,10 @@ public class MenuBar extends JMenuBar {
     protected void handleAbout(JFrame frame) {
         FormBuilder about = (new FormBuilder(false))
             .disableAllBtn()
-            /* .addField(
+            .addField(
                 "img",
                 (new LabelBuilder("")).buildImage(Theme.ICON).getjLabel()
-            ) */
+            )
             .addField("aboutTitle", (new LabelBuilder("À propos")).buildTitle())
             .addField("about1", new JLabel("Test java"))
             .addField("about2", new JLabel("Gestion Magasins"))
@@ -101,7 +102,7 @@ public class MenuBar extends JMenuBar {
             .addField("shortcuts2", new JLabel("Vous pouvez consulter les lettres associés dans les menus Aide et Menu"));
 
         JOptionPane.showMessageDialog(
-            frame,
+            frame, // FIXME
             about.create(null).getPanel(),
             "Tutoriel - raccourcis",
             JOptionPane.PLAIN_MESSAGE,

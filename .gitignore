@@ -101,3 +101,5 @@ src/.project
 build/
 target/
 *.iml
+# h2 internal db
+*.mv.db

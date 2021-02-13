@@ -1,21 +1,12 @@
 package com.app.Model;
 
-import com.app.Services.Entity.IEntity;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "article")
-public class Article implements IEntity {
-    @Id
-    @GeneratedValue
-    @Column(name = "id")
-	int id;
-
-    @Column(name = "reference")
-    long reference; // reference
+@Table(name = "Article")
+public class Article extends AbstractEntity {
 
     @Column(name = "intitule")
     String intitule;
@@ -33,34 +24,14 @@ public class Article implements IEntity {
     @JoinTable(name = "article_magasin",
             joinColumns = { @JoinColumn(name = "fk_article") },
             inverseJoinColumns = { @JoinColumn(name = "fk_magasin") })
-    List<Magasin> magasins = new ArrayList<Magasin>();
+    List<Magasin> magasins = new ArrayList<>();
 
     public Article() {}
 
-    public Article(long reference, String intitule, float prixHT,int stock) {
-    	this.reference = reference;
+    public Article(String intitule, float prixHT, int stock) {
     	this.intitule = intitule;
     	this.prixHT = prixHT;
     	this.stock = stock;
-    }
-
-    @Override
-    public int getId() {
-        return id;
-    }
-
-    @Override
-    public IEntity setId(int id) {
-        this.id = id;
-        return this;
-    }
-
-    public long getReference() {
-        return reference;
-    }
-
-    public void setReference(long reference) {
-        this.reference = reference;
     }
 
     public String getIntitule() {
@@ -129,15 +100,17 @@ public class Article implements IEntity {
 
     @Override
     public String toString() {
-        return reference + IEntity.COMMA + intitule;
+        return getId() + ", " + intitule;
     }
 
     @Override
     public String toString(boolean list) {
-        return reference + IEntity.COMMA +
-        		intitule + IEntity.COMMA +
-        		prixHT + IEntity.COMMA +
-        		prixTTC() + IEntity.COMMA +
-                stock + IEntity.COMMA;
+        return
+            getId() + ", "
+                + getIntitule() + ", "
+                + getPrixHT() + ", "
+                + prixTTC() + ", "
+                + getStock()
+            ;
     }
 }

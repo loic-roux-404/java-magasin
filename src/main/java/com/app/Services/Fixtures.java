@@ -1,7 +1,10 @@
 package com.app.Services;
 
+import com.app.Exceptions.RegisteryException;
+import com.app.Framework.Registery;
 import com.app.Framework.Service;
-import com.app.Services.Entity.IEntity;
+import com.app.Model.Article;
+import com.app.Model.Magasin;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,76 +16,72 @@ public class Fixtures implements Service {
     private boolean loaded = false;
 
     private HashMap<String, ArrayList<IEntity>> map = new HashMap<>();
-/*
+
     public Fixtures() {
-        this.map.put(Builder.class.getSimpleName(), this.getFakeBuilders());
-        this.map.put(Client.class.getSimpleName(), this.getFakeClients());
-        this.map.put(Car.class.getSimpleName(), this.getFakeCars());
+        this.map.put(Magasin.class.getSimpleName(), this.getFakeMagasin());
+        this.map.put(Article.class.getSimpleName(), this.getFakeArticles());
         load();
     }
 
-    public void bootFixtures(Registery registery) throws ServiceRegisteryException {
+    public void bootFixtures(Registery registery) throws RegisteryException {
         ENABLE = !ENABLE;
-        EntityManager builderManager = (EntityManager) registery.get(Builder.class.getSimpleName());
-        EntityManager carManager = (EntityManager) registery.get(Car.class.getSimpleName());
-        EntityManager clientManager = (EntityManager) registery.get(Client.class.getSimpleName());
+        EntityManagerProxy magasinManager = (EntityManagerProxy) registery.get(Magasin.class.getSimpleName());
+        EntityManagerProxy articleManager = (EntityManagerProxy) registery.get(Article.class.getSimpleName());
 
         if (ENABLE == false) {
-            managerRemoveFixtures(builderManager);
-            managerRemoveFixtures(carManager);
-            managerRemoveFixtures(clientManager);
+            managerRemoveFixtures(magasinManager);
+            managerRemoveFixtures(articleManager);
             return;
         };
 
-        managerSetFixtures(builderManager);
-        managerSetFixtures(carManager);
-        managerSetFixtures(clientManager);
+        managerSetFixtures(magasinManager);
+        managerSetFixtures(articleManager);
     }
 
-    protected void managerSetFixtures(EntityManager manager) {
-        manager.setEntityArrayList(this.map.get(manager.getEntityClass().getSimpleName()));
+    protected void managerSetFixtures(EntityManagerProxy manager) {
+        for (IEntity en : this.map.get(manager.getEntityClass().getSimpleName())) {
+            manager.add(en);
+        }
     }
 
-    protected void managerRemoveFixtures(EntityManager manager) {
-        manager.setEntityArrayList(new ArrayList<>());
+    protected void managerRemoveFixtures(EntityManagerProxy manager) {
+        manager.hqlTruncate(manager.getEntityClass().getSimpleName());
     }
 
-    private ArrayList<Entity> getFakeBuilders() {
-        ArrayList<Entity> arr = new ArrayList<>();
+    private ArrayList<IEntity> getFakeMagasin() {
+        ArrayList<IEntity> arr = new ArrayList<>();
 
-        Builder b1 = new Builder("TMAX Y", 2);
-        b1.addCar((Car) this.getFakeCars().get(0));
-        b1.addCar((Car) this.getFakeCars().get(2));
-        b1.addCar((Car) this.getFakeCars().get(3));
+        Magasin b1 = new Magasin("0778452313", "12 chemin du four", 79000);
+        b1.addArticle((Article) this.getFakeArticles().get(0));
+        b1.addArticle((Article) this.getFakeArticles().get(2));
+        b1.addArticle((Article) this.getFakeArticles().get(3));
 
-        Builder b2 = new Builder("Jean Zouave SARL", 1);
-        b2.addCar((Car) this.getFakeCars().get(3));
-        b2.addCar((Car) this.getFakeCars().get(4));
+        Magasin b2 = new Magasin("0618452312", "23 rue de l'abbé", 69100);
+        b2.addArticle((Article) this.getFakeArticles().get(3));
+        b2.addArticle((Article) this.getFakeArticles().get(4));
 
-        Builder b3 = new Builder("ADIBOU SAS", 4);
-        b3.addCar((Car) this.getFakeCars().get(0));
-        Builder b4 = new Builder("Carrosserie MAXIMATOR", 3);
-        b4.addCar((Car) this.getFakeCars().get(0));
+        Magasin b3 = new Magasin("0421452512", "45 rue garibaldi", 75100);
+        b3.addArticle((Article) this.getFakeArticles().get(0));
 
-        Builder b5 = new Builder("86 Construct", 1);
+        Magasin b4 = new Magasin("0721402501", "8 cour suchet", 69007);
+        b4.addArticle((Article) this.getFakeArticles().get(0));
 
         arr.add(b1);
         arr.add(b2);
         arr.add(b3);
         arr.add(b4);
-        arr.add(b5);
 
         return arr;
     }
 
-    private ArrayList<Entity> getFakeCars() {
-        ArrayList<Entity> arr = new ArrayList<>();
+    private ArrayList<IEntity> getFakeArticles() {
+        ArrayList<IEntity> arr = new ArrayList<>();
 
-        Car c1 = new Car("Renault", "Laguna", 1000, 2000, 18000.49);
-        Car c2 = new Car("Ferarri", "458 Italia", 1000, 1100,1000000.00);
-        Car c3 = new Car("Ford", "Fiesta", 800, 3000, 12000.00);
-        Car c4 = new Car("Mercedes", "AMG", 1000, 1200, 67000.00);
-        Car c5 = new Car("Renault", "Twingo", 200, 500, 11000.00);
+        Article c1 = new Article("Huitres", (float) 10.99, 100);
+        Article c2 = new Article("Moutardes", (float) 3.49, 120);
+        Article c3 = new Article("Steak", (float) 2.99, 76);
+        Article c4 = new Article("Haricots", (float) 3.99, 29);
+        Article c5 = new Article("Melon", (float) 3.99, 40);
 
         arr.add(c1);
         arr.add(c2);
@@ -93,24 +92,6 @@ public class Fixtures implements Service {
         return arr;
     }
 
-    private ArrayList<Entity> getFakeClients() {
-        ArrayList<Entity> arr = new ArrayList<>();
-
-        Client c1 = new Client("Honoré", "de Balzac");
-        Client c2 = new Client("Steve", "Jobs");
-        Client c3 = new Client("Brad", "Pitre");
-        Client c4 = new Client("Jean", "Chie");
-        Client c5 = new Client("Sarah", "sciste");
-
-        arr.add(c1);
-        arr.add(c2);
-        arr.add(c3);
-        arr.add(c4);
-        arr.add(c5);
-
-        return arr;
-    }
-*/
     public String demoText() {
         return ENABLE ? DEMO_TEXT_OFF : DEMO_TEXT_ON;
     }
