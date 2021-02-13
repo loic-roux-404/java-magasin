@@ -3,6 +3,7 @@ package com.app.View;
 import com.app.Controller.MagasinController;
 import com.app.Exceptions.InternalException;
 import com.app.Exceptions.NotLoadedException;
+import com.app.Services.Fixtures;
 import com.app.Services.Layout;
 import com.app.View.SwingModules.Theme;
 import com.sun.tools.javac.Main;
@@ -51,7 +52,7 @@ public class MainFrame extends JFrame {
             new MagasinController(registery);
 
         } catch (InternalException e) {
-            System.err.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -105,18 +106,18 @@ public class MainFrame extends JFrame {
     }
 
     private void initFixtures(JMenuItem item) {
-        // try {
-            // if (!registery.has("fixtures")) {
-                // registery.add("fixtures", new Fixtures());
-            // }
+         try {
+             if (!registery.has("fixtures")) {
+                 registery.add("fixtures", new Fixtures());
+             }
 
-            // Fixtures fixtures = ((Fixtures) registery.get("fixtures"));
-            // fixtures.bootFixtures(registery);
-            // Change text
-            // item.setText(fixtures.demoText());
-        // } catch (InternalException e) {
-           // e.printStackTrace();
-        //}
+             Fixtures fixtures = ((Fixtures) registery.get("fixtures"));
+             fixtures.bootFixtures(registery);
+             // Change text
+             item.setText(fixtures.demoText());
+         } catch (InternalException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

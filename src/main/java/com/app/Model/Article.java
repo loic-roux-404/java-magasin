@@ -8,9 +8,6 @@ import java.util.List;
 @Table(name = "Article")
 public class Article extends AbstractEntity {
 
-    @Column(name = "reference")
-    long reference; // reference
-
     @Column(name = "intitule")
     String intitule;
 
@@ -31,19 +28,10 @@ public class Article extends AbstractEntity {
 
     public Article() {}
 
-    public Article(long reference, String intitule, float prixHT,int stock) {
-    	this.reference = reference;
+    public Article(String intitule, float prixHT, int stock) {
     	this.intitule = intitule;
     	this.prixHT = prixHT;
     	this.stock = stock;
-    }
-
-    public long getReference() {
-        return reference;
-    }
-
-    public void setReference(long reference) {
-        this.reference = reference;
     }
 
     public String getIntitule() {
@@ -112,13 +100,13 @@ public class Article extends AbstractEntity {
 
     @Override
     public String toString() {
-        return reference + ", " + intitule;
+        return getId() + ", " + intitule;
     }
 
     @Override
     public String toString(boolean list) {
         return
-            getReference() + ", "
+            getId() + ", "
                 + getIntitule() + ", "
                 + getPrixHT() + ", "
                 + prixTTC() + ", "

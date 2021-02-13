@@ -26,12 +26,15 @@ public abstract class AbstractController {
         setRegistery(registery);
     }
 
-    public EntityManagerProxy getEntityManager(Class entityClass) throws RegisteryException {
+    public EntityManagerProxy getEntityManagerProxy(Class entityClass) throws RegisteryException {
         // Init first services
         String name = entityClass.getSimpleName();
         return (EntityManagerProxy) (this.registery.has(name)
-            ? this.registery.get(name)
-            : this.registery.add(name, new EntityManagerProxy(entityClass)));
+            ? getService(name)
+            : this.registery
+                .add(name, new EntityManagerProxy(entityClass))
+                .get(name))
+            ;
     }
 
     public Layout getLayout() throws RegisteryException {

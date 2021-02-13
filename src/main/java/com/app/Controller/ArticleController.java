@@ -28,7 +28,7 @@ public class ArticleController extends AbstractController {
 
     public ArticleController(Registery registery) throws InternalException {
         super(registery);
-        this.entityManager = this.getEntityManager(Article.class);
+        this.entityManager = this.getEntityManagerProxy(Article.class);
         productView = new ProductView(this.getLayout(), this);
         this.actions();
     }
@@ -41,7 +41,6 @@ public class ArticleController extends AbstractController {
                 productView.productAdd.validate();
                 Magasin magasin = (Magasin) productView.magasin.getSelectedItem();
                 Article leProduit = new Article(
-                    Long.parseLong(productView.reference.getText()),
                     productView.intitule.getText(),
                     Float.parseFloat(productView.prixHT.getText()),
                     Integer.parseInt(productView.qteStock.getText())
@@ -64,7 +63,7 @@ public class ArticleController extends AbstractController {
     }
 
     public List<IEntity> getMagasins() throws InternalException {
-        return this.getEntityManager(Magasin.class).getAll();
+        return this.getEntityManagerProxy(Magasin.class).getAll();
     }
 
     protected void orderDialog(String txt) {

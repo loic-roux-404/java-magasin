@@ -21,7 +21,7 @@ public class MagasinController extends AbstractController{
     // Form create, List list
     public MagasinController(Registery registery) throws InternalException {
         super(registery);
-        this.entityManager = this.getEntityManager(Magasin.class);
+        this.entityManager = this.getEntityManagerProxy(Magasin.class);
         magasinView = new MagasinView(this.getLayout(), this);
         this.actions();
     }

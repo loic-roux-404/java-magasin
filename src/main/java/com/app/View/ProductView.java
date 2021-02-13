@@ -21,7 +21,6 @@ public class ProductView {
     // Core
     public PageBtn carPageBtn = new PageBtn("Ajouter un produit");
 
-    public JTextField reference = new JTextField(25);
     public JTextField intitule = new JTextField(25);
     public JTextField prixHT = new JTextField(25);
     public JTextField qteStock = new JTextField(25);
@@ -68,7 +67,6 @@ public class ProductView {
 
     public Form CREATE() {
         FormBuilder builder = (new FormBuilder(true))
-            .addField("Reference", reference)
             .addField("Intitule", intitule)
             .addField("PrixHT", prixHT)
             .addField("Quantitée Stock", qteStock)

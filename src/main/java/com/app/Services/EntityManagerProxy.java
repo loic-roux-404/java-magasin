@@ -3,6 +3,7 @@ package com.app.Services;
 import com.app.Framework.Service;
 import com.app.Utils.SessionUtils;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class EntityManagerProxy extends SessionUtils implements Service {
         this.clazz = clazz;
         sessionFactory = get();
         manager = sessionFactory.createEntityManager();
+        load();
     }
 
     public List<IEntity> getAll() {
@@ -39,12 +41,20 @@ public class EntityManagerProxy extends SessionUtils implements Service {
             transaction.begin();
             manager.persist(en);
             transaction.setRollbackOnly();
-
             transaction.commit();
         } catch (Exception e) {
-            transaction.rollback();
+            rollback((Transaction) transaction);
             throw (e);
         }
+    }
+
+    public int hqlTruncate(String myTable){
+        String hql = String.format("delete from %s", myTable);
+        return manager.createQuery(hql).executeUpdate();
+    }
+
+    public Class getEntityClass() {
+        return clazz;
     }
 
     @Override
@@ -54,6 +64,6 @@ public class EntityManagerProxy extends SessionUtils implements Service {
 
     @Override
     public boolean isLoaded() {
-        return false;
+        return loaded;
     }
 }

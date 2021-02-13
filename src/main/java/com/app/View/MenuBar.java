@@ -3,6 +3,7 @@ package com.app.View;
 import com.app.View.SwingModules.LabelBuilder;
 import com.app.Services.Fixtures;
 import com.app.View.SwingModules.FormBuilder;
+import com.app.View.SwingModules.Theme;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,7 +36,7 @@ public class MenuBar extends JMenuBar {
         this.addMenuItem(jMenuFile, jMenuItemHome, "control H");
         jMenuFile.addSeparator();
 
-        //this.addMenuItem(jMenuFile, jMenuItemDemo, null);
+        this.addMenuItem(jMenuFile, jMenuItemDemo, null);
         this.addMenuItem(jMenuFile, jMenuItemQuit, "control Q");
 
         // help :
@@ -70,10 +71,10 @@ public class MenuBar extends JMenuBar {
     protected void handleAbout(JFrame frame) {
         FormBuilder about = (new FormBuilder(false))
             .disableAllBtn()
-            /* .addField(
+            .addField(
                 "img",
                 (new LabelBuilder("")).buildImage(Theme.ICON).getjLabel()
-            ) */
+            )
             .addField("aboutTitle", (new LabelBuilder("À propos")).buildTitle())
             .addField("about1", new JLabel("Test java"))
             .addField("about2", new JLabel("Gestion Magasins"))
@@ -81,7 +82,7 @@ public class MenuBar extends JMenuBar {
             .addField("team1", new JLabel("Loic Roux\n"))
             .addField("team2", new JLabel("Julien Guillaud\n"));
         JOptionPane.showMessageDialog(
-            null, // frame (FIXME)
+            frame,
             about.create(null).getPanel(),
             "À propos du projet",
             JOptionPane.PLAIN_MESSAGE,
