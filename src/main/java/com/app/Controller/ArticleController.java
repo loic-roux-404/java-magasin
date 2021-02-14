@@ -1,5 +1,6 @@
 package com.app.Controller;
 
+import com.app.Exceptions.EntityManagerProxyException;
 import com.app.Exceptions.FormException;
 import com.app.Exceptions.InternalException;
 import com.app.Framework.Registery;
@@ -9,9 +10,7 @@ import com.app.Services.EntityManagerProxy;
 import com.app.Services.IEntity;
 import com.app.View.Home;
 import com.app.View.ProductView;
-import com.app.View.SwingModules.Theme;
 
-import javax.swing.*;
 import java.util.List;
 
 /**
@@ -21,21 +20,19 @@ public class ArticleController extends AbstractController {
     public final static String TITLE = "Catalogue des Produits";
     public final static String TITLE_ADD = "Ajouter un produit";
 
-    private final EntityManagerProxy entityManager;
+    private final EntityManagerProxy articleEntityManager;
     private final ProductView productView;
 
     protected static String NUMBER_ERROR = "Le format du nombre n'est pas correct";
 
     public ArticleController(Registery registery) throws InternalException {
         super(registery);
-        this.entityManager = this.getEntityManagerProxy(Article.class);
+        articleEntityManager = this.getEntityManagerProxy(Article.class);
         productView = new ProductView(this.getLayout(), this);
-        this.actions();
+        actions();
     }
 
-    @Override
-    protected void actions() throws InternalException {
-
+    protected void submitArticleAction() {
         productView.productAdd.submit(e -> {
             try {
                 productView.productAdd.validate();
@@ -45,20 +42,26 @@ public class ArticleController extends AbstractController {
                     Float.parseFloat(productView.prixHT.getText()),
                     Integer.parseInt(productView.qteStock.getText())
                 );
-                this.entityManager.add(leProduit);
+                this.articleEntityManager.persist(leProduit);
                 magasin.addArticle(leProduit);
                 productView.productAdd.reset(true);
             } catch (FormException formException) {
-                this.orderDialog(formException.getMessage());
+                productView.productAdd.errorDialog(formException.getMessage());
                 return;
-            } catch (NumberFormatException numExeption) {
-                this.orderDialog(NUMBER_ERROR);
+            } catch (NumberFormatException numException) {
+                productView.productAdd.errorDialog(NUMBER_ERROR);
                 return;
+            } catch (EntityManagerProxyException exception) {
+                productView.productAdd.errorDialog(exception.getMessage());
             }
         });
+    }
 
+    protected void openMagasinArticlePageAction() throws InternalException {
         this.getLayout().home.page(Home.PRODUCTS).onOpen(e -> {
-            productView.productTableList.getDetails(this.entityManager.getAll());
+            try {
+                productView.productTableList.getDetails(this.articleEntityManager.getAll());
+            } catch (EntityManagerProxyException entityManagerProxy) {}
         });
     }
 
@@ -66,8 +69,9 @@ public class ArticleController extends AbstractController {
         return this.getEntityManagerProxy(Magasin.class).getAll();
     }
 
-    protected void orderDialog(String txt) {
-        JOptionPane.showMessageDialog(productView.productAdd.getPanel(), txt, Theme.dialogErrorTxt,
-            JOptionPane.ERROR_MESSAGE);
+    @Override
+    protected void actions() throws InternalException {
+        this.submitArticleAction();
+        this.openMagasinArticlePageAction();
     }
 }

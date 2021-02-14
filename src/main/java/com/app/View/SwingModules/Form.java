@@ -20,5 +20,7 @@ public interface Form extends BuilderInterface {
 
     BackButton getBackButton();
 
+    void errorDialog(String txt);
+
     void validate() throws FormException;
 }

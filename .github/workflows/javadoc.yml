@@ -1,0 +1,34 @@
+name: javadoc
+
+on:
+    push:
+        branches: [ master ]
+        paths: [ '**.java' ]
+
+jobs:
+    api-website:
+        strategy:
+            matrix:
+                java: [ 13 ]
+        env:
+            MVN_FLAGS: "-Dproperties.java.version=${{ matrix.java }} -B clean"
+        name: Generate and publish javadoc
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout the repo
+              uses: actions/checkout@v2
+
+            - name: Set up JDK
+              uses: actions/setup-java@v1
+              with:
+                  java-version: ${{ matrix.java }}
+
+            - name: Build docs with Maven
+              run: mvn ${MVN_FLAGS} javadoc:javadoc
+
+            - name: Deploy
+              uses: peaceiris/actions-gh-pages@v3
+              with:
+                    github_token: ${{ secrets.GH_TOKEN }}
+                    publish_dir: ./doc/code

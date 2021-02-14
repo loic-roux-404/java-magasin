@@ -1,12 +1,11 @@
 # java-automobile
 
-**Contexte** : ![consigne](./doc/consigne.png)
+**Contexte** : ![consigne](doc/images/consigne.png)
 
 ### 0. Lancement
 
 #### This uses following libraries/frameworks
 - Swing 
-- JGoodies Swing Extension Library
 - Hibernate 
 - H2 Database 
 
@@ -62,30 +61,31 @@ Voici les méthodes obligatoires d'un service si jamais vous avez besoin de cré
 // C'est un exemple cela n'est pas conseillé
 (Layout) ly = this.getService('layout'); 
 ```
-Pour récupérer les services particulier du `entityManager` et du layout dans un contrôleur
+Pour récupérer les services particuliers du `entityManager` et du layout dans un contrôleur
 
 ```java
 // Faites plutôt un
 this.getLayout(); // pour récupérer une classe Layout
 
-// Pour un entity Manager d'un certaine entité
-EntityManager car = this.getEntityManager(Car.class);
+// Pour un entity Manager Proxy d'un certaine entité
+EntityManagerPrixy car = this.getEntityManagerProxy(Article.class);
 ``` 
 
-#### l'entity manager
+#### l'entity manager proxy
 
 Ce service permet la récupération et la sauvegarde sur la base de données.
+Il s'agit d'un proxy pour communiquer avec la session hibernate qui s'occupe des différents états de persistence en base de donnée.
 
 ```java
 // On le récupère dans un controlleur comme cela
-EntityManager car = this.getEntityManager(Car.class);
-// ou 
-EntityManager car = new EntityManager(Car.class);
+EntityManagerProxy car = this.EntityManagerProxy(Article.class);
+// ou (moins conseillé car non conservé en registre)
+EntityManagerProxy car = new EntityManagerProxy(Article.class);
 ```
 
 Il contient ces méthodes
 
-`add` : Ajout d'une instance à la base
+`persist` : Ajout ou mise à jour d'une instance à la base
 
 `getAll` : récupérer la liste des entités
 
@@ -93,17 +93,9 @@ Il contient ces méthodes
 
 ##### Création d'une entité
 
-> Pour créer une entité veiller à bien utiliser un constructuer vide pour que l'entity manager puisse correctement fonctionner
-
 Voici les **méthodes** clés d'une entité 
 
-`toString()` : Pour récupérer les propriétés dans une liste en les séparant par des virgules. Utile pour créer des vue tableau des données d'entités.
-
-`getId()` : Pour récupérer l'id de l'entité, cet id correspond à sa place dans la liste stocké dans un `EntityManager`
-Très utile si on veut pouvoir récupérer précisemment une entité pour faire une modification de celle-ci.
-
-`setId()` : Pour ajouter un id, obligation de l'implémenter dans une entité pour avoir que l'index dans la `ArrayList<Entity>` corresponde bien à l'id.
-N'utilisez pas cette méthode, elle fait partie du fonctionnement interne d'un `entityManager` 
+`toString(boolean list)` : Pour récupérer les propriétés dans une liste en les séparant par des virgules. Utile pour créer des vue tableau des données d'entités.
 
 #### Le cas du service Layout : 
 
@@ -155,11 +147,14 @@ builder.add('NomLabel', new JLabel("Nom"))
 
 // Ensuite pour récupérer le panel à attacher à la window
 builder.getPanel();
+
+// Si on veut aussi gérer un cas d'erreur on peut faire un
+builder.errorDialog(exception.getMessage());
 ```
 
 Les évênements sur les boutons :
 
-Lorsque l'on clique sur un bouton de formulaire, des fonctions vont être automatiquemment lancées, par exemple sur un formulaire `submit()` est déclenché et appelée partout là ou on écoute la fonction. C'est une fonction correspondante à un listener java, ainsi on peut en déclencher une autre sur plusieurs classes quand celle-ci survient : 
+Lorsque l'on clique sur un bouton de formulaire, des fonctions vont être automatiquemment lancées, par exemple sur un formulaire `submit()` est déclenché et appelé de partout là ou on écoute la fonction. C'est une fonction correspondante à un listener java, ainsi on peut en déclencher une autre sur plusieurs classes quand celle-ci survient : 
 
 > Voir Exemple dans la vue client
 
@@ -170,17 +165,19 @@ Form.submit(e -> { // ici le code déclenché au submit, en général validation
 Form.list(e -> { // ici le code déclenché au listing d'entités, On récupère bien les données avant de la ajouté à la vue Swing })
 ``` 
 
-D'autres méthodes listeners sont utilisables notamment celles de `Home` (récupérable dans un controller avec `this.getLayout().home` :
-
-- `home.usersPage(ActionListener actionListener)` 
-- `home.carsPage(e -> {} )`
-- `ordersPage(e -> {})` 
-- `buildersPage(e -> {} )`
-
 > Il peut être utile d'appeler des donneés dans ces méthodes lors de la création de JCombobox (cf `OrderController` et `OrderView`)
-
 > Logiquement elles sont déjà appélées dans la View correspondante d'une entié (OrderView), mais pour la récupération de donnée, il est quand même préférable de les stocker 
 dans une propriété du constructeur et d'après les récupérées de la vue...
+
+### Pour les pages du services home :
+Les pages sont les boutons cliquables qui redirigent vers un autre espace.
+Des Pages peuvent se trouver à l'accueil mais aussi imbriqués dans d'autres pages
+
+On a une fonction pour récupérer une page :
+
+> Utilisez des constantes pour bien récupérer la page voulu
+
+- `this.getLayout().home.page(Home.PRODUCTS)`
 
 ### 3. Git
 
