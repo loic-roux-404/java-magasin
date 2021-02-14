@@ -1,5 +1,7 @@
 # java-automobile
 
+This project follow [semver](https://www.conventionalcommits.org/en/v1.0.0/)
+
 **Contexte** : ![consigne](doc/images/consigne.png)
 
 ### 0. Lancement
