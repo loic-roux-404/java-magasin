@@ -5,7 +5,6 @@ import com.app.Framework.Registery;
 import com.app.Framework.Service;
 import com.app.Model.Article;
 import com.app.Model.Magasin;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 

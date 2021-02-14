@@ -8,6 +8,10 @@ import org.hibernate.Transaction;
 import javax.transaction.Transactional;
 import java.util.List;
 
+/**
+ * class EntityManagerProxy : Db operations for a specific entity class
+ * @author loic-roux-404
+ */
 public class EntityManagerProxy extends SessionUtils implements Service {
 
     boolean loaded = false;
@@ -16,6 +20,11 @@ public class EntityManagerProxy extends SessionUtils implements Service {
     Session session;
     Transaction tx;
 
+    /**
+     * Constructor
+     *
+     * @param entityClass
+     */
     public EntityManagerProxy(Class entityClass) {
         this.entityClass = entityClass;
         session = getSession();
@@ -23,7 +32,68 @@ public class EntityManagerProxy extends SessionUtils implements Service {
     }
 
     /**
-     * Get all from entity
+     * [Save Method] ACID custom persist
+     *
+     * @param en
+     */
+    @Transactional
+    public void persist(IEntity en) throws EntityManagerProxyException {
+        try {
+            startOperation();
+            session.saveOrUpdate(en);
+            session.flush();
+            tx.commit();
+        } catch (Exception e) {
+            rollback(tx);
+            throw new EntityManagerProxyException(e);
+        } finally {
+            close(session);
+        }
+    }
+
+    /**
+     * [Delete Method] Delete an entity
+     *
+     * @param en
+     * @throws Exception
+     */
+    public final void delete(IEntity en) throws Exception {
+        try {
+            startOperation();
+            session.delete(en);
+            session.flush();
+            tx.commit();
+        } catch (Exception e) {
+            rollback(tx);
+            throw new Exception(e);
+        } finally {
+            close(session);
+        }
+    }
+
+    /**
+     * [Delete Method] Empty a table
+     *
+     * @throws EntityManagerProxyException
+     */
+    public final void hqlTruncate() throws EntityManagerProxyException {
+        startOperation();
+        String hql = String.format("delete from %s", entityClass.getSimpleName());
+
+        try {
+            session.createQuery(hql).executeUpdate();
+            session.flush();
+            tx.commit();
+        } catch (Exception exception) {
+            rollback(tx);
+            throw new EntityManagerProxyException(exception);
+        } finally {
+            close(session);
+        }
+    }
+
+    /**
+     * [Read method] Get all from entity
      *
      * @return
      * @throws EntityManagerProxyException
@@ -44,65 +114,13 @@ public class EntityManagerProxy extends SessionUtils implements Service {
     }
 
     /**
-     * ACID custom persist
-     *
-     * @param en
-     */
-    @Transactional
-    public void persist(IEntity en) throws EntityManagerProxyException {
-        try {
-            startOperation();
-            session.saveOrUpdate(en);
-            tx.commit();
-        } catch (Exception e) {
-            rollback(tx);
-            throw new EntityManagerProxyException(e);
-        } finally {
-            close(session);
-        }
-    }
-
-    /**
-     * Empty a table
-     *
-     * @throws EntityManagerProxyException
-     */
-    public final void hqlTruncate() throws EntityManagerProxyException {
-        startOperation();
-        String hql = String.format("delete from %s", entityClass.getSimpleName());
-
-        try {
-            session.createQuery(hql).executeUpdate();
-            tx.commit();
-        } catch (Exception exception) {
-            rollback(tx);
-            throw new EntityManagerProxyException(exception);
-        } finally {
-            close(session);
-        }
-    }
-
-    public final void delete(Object obj) throws Exception {
-        try {
-            startOperation();
-            session.delete(obj);
-            tx.commit();
-        } catch (Exception e) {
-            rollback(tx);
-            throw new Exception(e);
-        } finally {
-            close(session);
-        }
-    }
-
-    /**
-     * Find entity by id
+     * [Read method] Find an entity by id
      *
      * @param id
      * @return
      * @throws Exception
      */
-    public final Object find(Long id) throws Exception {
+    public final Object getById(Long id) throws Exception {
         Object obj;
         try {
             session = getSession();
@@ -114,11 +132,19 @@ public class EntityManagerProxy extends SessionUtils implements Service {
         return obj;
     }
 
+    /**
+     * Internal helper to start a transaction
+     */
     protected final void startOperation() {
         session = getSession();
         tx = session.beginTransaction();
     }
 
+    /**
+     * Get entity class for use with SQL table name
+     *
+     * @return Class
+     */
     public Class getEntityClass() {
         return entityClass;
     }
