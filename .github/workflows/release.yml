@@ -33,6 +33,16 @@ jobs:
                     GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
                     RELEASE_BRANCHES: prod
                     DEFAULT_BUMP: minor
+
+            - uses: paulhatch/semantic-version@v4
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+              with:
+                  format: "${major}.${minor}.${patch}${increment}"
+                  major_pattern: major
+                  minor_pattern: minor
+                  patch_pattern: patch
+
             - name: Set up JDK
               uses: actions/setup-java@v1
               with:
