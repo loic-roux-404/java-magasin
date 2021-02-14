@@ -42,7 +42,7 @@ public class ArticleController extends AbstractController {
                     Float.parseFloat(productView.prixHT.getText()),
                     Integer.parseInt(productView.qteStock.getText())
                 );
-                this.articleEntityManager.add(leProduit);
+                this.articleEntityManager.persist(leProduit);
                 magasin.addArticle(leProduit);
                 productView.productAdd.reset(true);
             } catch (FormException formException) {

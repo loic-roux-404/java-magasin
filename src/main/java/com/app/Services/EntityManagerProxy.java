@@ -5,6 +5,7 @@ import com.app.Framework.Service;
 import com.app.Utils.SessionUtils;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import javax.transaction.Transactional;
 import java.util.List;
 
 public class EntityManagerProxy extends SessionUtils implements Service {
@@ -21,6 +22,12 @@ public class EntityManagerProxy extends SessionUtils implements Service {
         load();
     }
 
+    /**
+     * Get all from entity
+     *
+     * @return
+     * @throws EntityManagerProxyException
+     */
     public List<IEntity> getAll() throws EntityManagerProxyException {
         List<IEntity> entities;
         session = getSession();
@@ -37,10 +44,12 @@ public class EntityManagerProxy extends SessionUtils implements Service {
     }
 
     /**
-     * ACID add
+     * ACID custom persist
+     *
      * @param en
      */
-    public void add(IEntity en) throws EntityManagerProxyException {
+    @Transactional
+    public void persist(IEntity en) throws EntityManagerProxyException {
         try {
             startOperation();
             session.saveOrUpdate(en);
@@ -53,21 +62,59 @@ public class EntityManagerProxy extends SessionUtils implements Service {
         }
     }
 
-    public final void hqlTruncate(String myTable) throws EntityManagerProxyException {
+    /**
+     * Empty a table
+     *
+     * @throws EntityManagerProxyException
+     */
+    public final void hqlTruncate() throws EntityManagerProxyException {
         startOperation();
-        String hql = String.format("delete from %s", myTable);
+        String hql = String.format("delete from %s", entityClass.getSimpleName());
 
         try {
             session.createQuery(hql).executeUpdate();
+            tx.commit();
         } catch (Exception exception) {
+            rollback(tx);
             throw new EntityManagerProxyException(exception);
         } finally {
             close(session);
         }
-
     }
 
-    public final void startOperation() {
+    public final void delete(Object obj) throws Exception {
+        try {
+            startOperation();
+            session.delete(obj);
+            tx.commit();
+        } catch (Exception e) {
+            rollback(tx);
+            throw new Exception(e);
+        } finally {
+            close(session);
+        }
+    }
+
+    /**
+     * Find entity by id
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    public final Object find(Long id) throws Exception {
+        Object obj;
+        try {
+            session = getSession();
+            obj = session.load(entityClass, id);
+        } catch (Exception e) {
+            throw new EntityManagerProxyException(e);
+        }
+
+        return obj;
+    }
+
+    protected final void startOperation() {
         session = getSession();
         tx = session.beginTransaction();
     }

@@ -1,7 +1,6 @@
 package com.app.Services;
 
 import com.app.Exceptions.EntityManagerProxyException;
-import com.app.Exceptions.RegisteryException;
 import com.app.Framework.Registery;
 import com.app.Framework.Service;
 import com.app.Model.Article;
@@ -41,13 +40,13 @@ public class Fixtures implements Service {
 
     protected void managerSetFixtures(EntityManagerProxy manager) throws Exception {
         for (IEntity en : this.map.get(manager.getEntityClass().getSimpleName())) {
-            manager.add(en);
+            manager.persist(en);
         }
     }
 
     protected void managerRemoveFixtures(EntityManagerProxy manager) {
         try {
-            manager.hqlTruncate(manager.getEntityClass().getSimpleName());
+            manager.hqlTruncate();
         } catch (EntityManagerProxyException exception) {
             exception.printStackTrace();
         }

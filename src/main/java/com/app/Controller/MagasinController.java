@@ -41,7 +41,7 @@ public class MagasinController extends AbstractController {
                     throw new PhoneNumberDigitsException();
                 }
 
-                this.entityManager.add(new Magasin(phoneNumber, address, postalCode));
+                this.entityManager.persist(new Magasin(phoneNumber, address, postalCode));
             } catch (Exception exception) {
                 magasinView.magasinCreateForm.errorDialog(exception.getMessage());
                 return;
