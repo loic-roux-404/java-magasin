@@ -1,8 +1,8 @@
 package com.app.Model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "Article")
@@ -24,7 +24,7 @@ public class Article extends AbstractEntity {
     @JoinTable(name = "article_magasin",
             joinColumns = { @JoinColumn(name = "fk_article") },
             inverseJoinColumns = { @JoinColumn(name = "fk_magasin") })
-    List<Magasin> magasins = new ArrayList<>();
+    Set<Magasin> magasins = new HashSet<>();
 
     public Article() {}
 
@@ -66,11 +66,11 @@ public class Article extends AbstractEntity {
         this.TVA = TVA;
     }
 
-    public List<Magasin> getMagasins() {
+    public Set<Magasin> getMagasins() {
         return magasins;
     }
 
-    public void setMagasins(List<Magasin> magasins) {
+    public void setMagasins(Set<Magasin> magasins) {
         this.magasins = magasins;
     }
 

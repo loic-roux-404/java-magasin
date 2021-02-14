@@ -170,6 +170,14 @@ public class FormBuilder implements Form {
         }
     }
 
+    public void errorDialog(String txt) {
+        JOptionPane.showMessageDialog(
+            getPanel(),
+            txt != null ? txt : "Erreur inattendue", Theme.dialogErrorTxt,
+            JOptionPane.ERROR_MESSAGE
+        );
+    }
+
     public static void setPosition(int position) {
         FormBuilder.position = position;
     }

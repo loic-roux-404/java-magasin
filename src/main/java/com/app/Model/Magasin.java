@@ -1,8 +1,11 @@
 package com.app.Model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "Magasin")
@@ -17,8 +20,9 @@ public class Magasin extends AbstractEntity {
     @Column(name = "postal_code")
     private int postalCode;
 
-    @ManyToMany(targetEntity = Article.class, mappedBy = "magasins")
-    private List<Article> availableArticles = new ArrayList<>();
+    @Fetch(FetchMode.JOIN)
+    @ManyToMany(mappedBy = "magasins", fetch = FetchType.LAZY)
+    private Set<Article> availableArticles = new HashSet<>();
 
     public Magasin() {}
 
@@ -36,11 +40,11 @@ public class Magasin extends AbstractEntity {
         this.postalCode = postalCode;
     }
 
-    public List<Article> getAvailableArticles() {
+    public Set<Article> getAvailableArticles() {
         return availableArticles;
     }
 
-    public void setAvailableArticles(List<Article> availableArticles) {
+    public void setAvailableArticles(Set<Article> availableArticles) {
         this.availableArticles = availableArticles;
     }
 
@@ -79,15 +83,15 @@ public class Magasin extends AbstractEntity {
             + ", "
             + getPostalCode()
             + ", "
-            + availableArticles()
+            + showAvailableArticles()
         ;
     }
 
-    protected String availableArticles() {
+    protected String showAvailableArticles() {
         String ref = "";
 
-        for (Article p: availableArticles) {
-            ref += p.intitule + "(" + p.getId() + ")";
+        for (Article p: getAvailableArticles()) {
+            ref += p.getIntitule() + "(" + p.getId() + ")";
         };
 
         return ref;

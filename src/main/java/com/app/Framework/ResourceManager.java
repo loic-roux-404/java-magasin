@@ -6,22 +6,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
-import java.util.Map;
 
 /**
- * @author Ganesh Tiwari @@ gtiwari333@gmail.com <br/>
- * Created on : Mar 19, 2012<br/>
- * Copyright : <a
- * href="http://ganeshtiwaridotcomdotnp.blogspot.com">Ganesh Tiwari </a>
+ * @credit Ganesh Tiwari (github.com/gtiwari333)
  */
 public class ResourceManager {
-
-    public static final String resourceMapFile = "string-resource.ini";
-    public static final String configMapFile = "config.ini";
-    private static final String a = "gt?Pass,e#. ";
-    private static ResourceManager reader;
-    private static Map<String, String> stringConstantsMap;
-    private static Map<String, String> configParamMap;
 
     public static Image getImage(String fileName) {
         // src/image/
