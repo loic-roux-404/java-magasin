@@ -1,5 +1,6 @@
 package com.app.Services;
 
+import com.app.Exceptions.EntityManagerProxyException;
 import com.app.Exceptions.RegisteryException;
 import com.app.Framework.Registery;
 import com.app.Framework.Service;
@@ -23,7 +24,7 @@ public class Fixtures implements Service {
         load();
     }
 
-    public void bootFixtures(Registery registery) throws RegisteryException {
+    public void bootFixtures(Registery registery) throws Exception {
         ENABLE = !ENABLE;
         EntityManagerProxy magasinManager = (EntityManagerProxy) registery.get(Magasin.class.getSimpleName());
         EntityManagerProxy articleManager = (EntityManagerProxy) registery.get(Article.class.getSimpleName());
@@ -38,14 +39,18 @@ public class Fixtures implements Service {
         managerSetFixtures(articleManager);
     }
 
-    protected void managerSetFixtures(EntityManagerProxy manager) {
+    protected void managerSetFixtures(EntityManagerProxy manager) throws Exception {
         for (IEntity en : this.map.get(manager.getEntityClass().getSimpleName())) {
             manager.add(en);
         }
     }
 
     protected void managerRemoveFixtures(EntityManagerProxy manager) {
-        manager.hqlTruncate(manager.getEntityClass().getSimpleName());
+        try {
+            manager.hqlTruncate(manager.getEntityClass().getSimpleName());
+        } catch (EntityManagerProxyException exception) {
+            exception.printStackTrace();
+        }
     }
 
     private ArrayList<IEntity> getFakeMagasin() {

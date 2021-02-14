@@ -1,18 +1,12 @@
 package com.app.Controller;
 
-import com.app.Exceptions.FormException;
-import com.app.Exceptions.InternalException;
-import com.app.Exceptions.PhoneNumberDigitsException;
-import com.app.Exceptions.RegisteryException;
+import com.app.Exceptions.*;
 import com.app.Framework.Registery;
 import com.app.Model.Magasin;
 import com.app.Services.EntityManagerProxy;
 import com.app.View.MagasinView;
-import com.app.View.SwingModules.Theme;
 
-import javax.swing.*;
-
-public class MagasinController extends AbstractController{
+public class MagasinController extends AbstractController {
     public final static String TITLE = "Gestion des Magasins";
     private final EntityManagerProxy entityManager;
 
@@ -26,13 +20,16 @@ public class MagasinController extends AbstractController{
         this.actions();
     }
 
-    @Override
-    protected void actions() throws RegisteryException {
+    protected void listMagasinActions() {
         // Open list page from create form
         magasinView.magasinCreateForm.list(e -> {
-            magasinView.builderTableList.getDetails(this.entityManager.getAll());
+            try {
+                magasinView.builderTableList.getDetails(this.entityManager.getAll());
+            } catch (EntityManagerProxyException entityManagerProxyException) {}
         });
+    }
 
+    protected void submitMagasinAction() {
         magasinView.magasinCreateForm.submit(e -> {
             try {
                 magasinView.magasinCreateForm.validate();
@@ -45,17 +42,18 @@ public class MagasinController extends AbstractController{
                 }
 
                 this.entityManager.add(new Magasin(phoneNumber, address, postalCode));
-            } catch (FormException formException) {
-                JOptionPane.showMessageDialog(
-                    magasinView.magasinCreateForm.getPanel(),
-                    formException.getMessage(),
-                    Theme.dialogErrorTxt,
-                    JOptionPane.ERROR_MESSAGE
-                );
+            } catch (Exception exception) {
+                magasinView.magasinCreateForm.errorDialog(exception.getMessage());
                 return;
             }
 
             magasinView.magasinCreateForm.reset(true);
         });
+    }
+
+    @Override
+    protected void actions() throws InternalException {
+        this.listMagasinActions();
+        this.submitMagasinAction();
     }
 }

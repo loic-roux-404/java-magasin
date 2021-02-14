@@ -117,7 +117,9 @@ public class MainFrame extends JFrame {
              item.setText(fixtures.demoText());
          } catch (InternalException e) {
             e.printStackTrace();
-        }
+         } catch (Exception exception) {
+             exception.printStackTrace();
+         }
     }
 
     /**

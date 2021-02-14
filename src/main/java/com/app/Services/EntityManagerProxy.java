@@ -1,56 +1,75 @@
 package com.app.Services;
 
+import com.app.Exceptions.EntityManagerProxyException;
 import com.app.Framework.Service;
 import com.app.Utils.SessionUtils;
-import org.hibernate.SessionFactory;
+import org.hibernate.Session;
 import org.hibernate.Transaction;
-
 import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 
 public class EntityManagerProxy extends SessionUtils implements Service {
 
     boolean loaded = false;
 
     Class entityClass;
-    SessionFactory sessionFactory;
-    EntityManager manager;
+    Session session;
+    Transaction tx;
 
     public EntityManagerProxy(Class entityClass) {
         this.entityClass = entityClass;
-        sessionFactory = get();
-        manager = sessionFactory.createEntityManager();
+        session = getSession();
         load();
     }
 
-    public List<IEntity> getAll() {
-        return manager.createQuery("from " + entityClass.getSimpleName()).getResultList();
+    public List<IEntity> getAll() throws EntityManagerProxyException {
+        List<IEntity> entities;
+        session = getSession();
+
+        try {
+            entities = session.createQuery("from " + entityClass.getSimpleName()).list();
+        } catch (Exception e) {
+            throw new EntityManagerProxyException(e);
+        } finally {
+            close(session);
+        }
+
+        return entities;
     }
 
     /**
      * ACID add
      * @param en
      */
-    public void add(IEntity en) {
-        EntityTransaction transaction = null;
-
+    public void add(IEntity en) throws EntityManagerProxyException {
         try {
-            transaction = manager.getTransaction();
-            transaction.begin();
-            manager.persist(en);
-            transaction.setRollbackOnly();
-            transaction.commit();
+            startOperation();
+            session.saveOrUpdate(en);
+            tx.commit();
         } catch (Exception e) {
-            rollback((Transaction) transaction);
-            throw (e);
+            rollback(tx);
+            throw new EntityManagerProxyException(e);
+        } finally {
+            close(session);
         }
     }
 
-    public int hqlTruncate(String myTable){
+    public final void hqlTruncate(String myTable) throws EntityManagerProxyException {
+        startOperation();
         String hql = String.format("delete from %s", myTable);
-        return manager.createQuery(hql).executeUpdate();
+
+        try {
+            session.createQuery(hql).executeUpdate();
+        } catch (Exception exception) {
+            throw new EntityManagerProxyException(exception);
+        } finally {
+            close(session);
+        }
+
+    }
+
+    public final void startOperation() {
+        session = getSession();
+        tx = session.beginTransaction();
     }
 
     public Class getEntityClass() {
