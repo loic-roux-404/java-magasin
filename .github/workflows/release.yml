@@ -42,13 +42,6 @@ jobs:
                       prerelease: true
                     }
                   ]
-            #-   name: Bump version and push tag
-            #    id: tag_version
-            #    uses: anothrNick/github-tag-action@1.34.0
-            #    env:
-            #        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-            #        RELEASE_BRANCHES: prod
-            #        DEFAULT_BUMP: minor
 
             - name: Set up JDK
               uses: actions/setup-java@v1
@@ -60,12 +53,3 @@ jobs:
               env:
                   VERSION: ${{ steps.semantic.outputs.new_release_version }}
                   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-
-            #-   name: Create a GitHub release
-            #    uses: actions/create-release@v1
-            #    env:
-            #        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            #    with:
-            #        tag_name: ${{ steps.semantic.outputs.new_release_version }}
-            #        release_name: Release ${{ steps.semantic.outputs.new_release_version }}
-            #        prerelease: ${{ contains('refs/heads/master', github.ref) }}
