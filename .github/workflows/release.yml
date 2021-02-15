@@ -26,6 +26,9 @@ jobs:
                 git fetch origin
                 [[ $(git rev-parse --verify HEAD) = $(git rev-parse --verify origin/master) ]] \
                  && echo 'History OK' && exit 0 || echo "history don't match with pre-release" && exit 1
+            # Install sem release plugins
+            - uses: actions/setup-node@v2
+            - run: npm install
 
             - name: Semantic Release
               uses: cycjimmy/semantic-release-action@v2
@@ -39,6 +42,7 @@ jobs:
                   java-version: ${{ matrix.java }}
 
             - name: Publish artifact on GitHub Packages
+              if: ${{ steps.tag_version.outputs.new_release_version }}
               run: mvn ${MVN_FLAGS} deploy -DskipTests
               env:
                   VERSION: ${{ steps.tag_version.outputs.new_release_version }}
