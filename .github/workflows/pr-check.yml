@@ -17,8 +17,3 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
               with:
                   requireScope: false
-                  types: |
-                      patch
-                      minor
-                      major
-

@@ -90,6 +90,10 @@ hs_err_pid*
 # Mac
 .DS_Store
 
+# node
+node_modules
+*.log
+
 # specific to project
 db/*.txt
 src/db/*.txt

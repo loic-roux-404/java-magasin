@@ -26,22 +26,12 @@ jobs:
                 git fetch origin
                 [[ $(git rev-parse --verify HEAD) = $(git rev-parse --verify origin/master) ]] \
                  && echo 'History OK' && exit 0 || echo "history don't match with pre-release" && exit 1
-            -   name: Bump version and push tag
-                id: tag_version
-                uses: anothrNick/github-tag-action@1.26.0
-                env:
-                    GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-                    RELEASE_BRANCHES: prod
-                    DEFAULT_BUMP: minor
 
-            - uses: paulhatch/semantic-version@v4
+            - name: Semantic Release
+              uses: cycjimmy/semantic-release-action@v2
+              id: tag_version
               env:
                   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-              with:
-                  format: "${major}.${minor}.${patch}${increment}"
-                  major_pattern: major
-                  minor_pattern: minor
-                  patch_pattern: patch
 
             - name: Set up JDK
               uses: actions/setup-java@v1
@@ -51,14 +41,14 @@ jobs:
             - name: Publish artifact on GitHub Packages
               run: mvn ${MVN_FLAGS} deploy -DskipTests
               env:
-                  VERSION: ${{ steps.tag_version.outputs.new_tag }}
+                  VERSION: ${{ steps.tag_version.outputs.new_release_version }}
                   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
-            -   name: Create a GitHub release
-                uses: actions/create-release@v1
-                env:
-                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                with:
-                    tag_name: ${{ steps.tag_version.outputs.new_tag }}
-                    release_name: Release ${{ steps.tag_version.outputs.new_tag }}
-                    prerelease: ${{ contains('refs/heads/master', github.ref) }}
+            #-   name: Create a GitHub release
+            #    uses: actions/create-release@v1
+            #    env:
+            #        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            #    with:
+            #        tag_name: ${{ steps.tag_version.outputs.new_release_version }}
+            #        release_name: Release ${{ steps.tag_version.outputs.new_release_version }}
+            #        prerelease: ${{ contains('refs/heads/master', github.ref) }}
