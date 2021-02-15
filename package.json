@@ -1,0 +1,21 @@
+{
+  "name": "java-magasin",
+  "description": "Sources of hibernate / swing project",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/esgi-lyon/java-magasin.git"
+  },
+  "keywords": [],
+  "author": "esgi-lyon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/esgi-lyon/java-magasin/issues"
+  },
+  "homepage": "https://github.com/esgi-lyon/java-magasin#readme",
+  "dependencies": {
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/commit-analyzer": "^8.0.1",
+    "@semantic-release/github": "^7.2.0",
+    "@semantic-release/release-notes-generator": "^9.0.1"
+  }
+}

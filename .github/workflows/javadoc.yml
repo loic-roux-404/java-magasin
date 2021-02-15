@@ -25,7 +25,7 @@ jobs:
                   java-version: ${{ matrix.java }}
 
             - name: Build docs with Maven
-              run: mvn ${MVN_FLAGS} javadoc:javadoc
+              run: mvn ${MVN_FLAGS} javadoc:javadoc -Xdoclint:all -Xdoclint:-missing
 
             - name: Deploy
               uses: peaceiris/actions-gh-pages@v3
