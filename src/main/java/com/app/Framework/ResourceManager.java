@@ -8,7 +8,7 @@ import java.io.*;
 import java.net.URL;
 
 /**
- * @credit Ganesh Tiwari (github.com/gtiwari333)
+ * @author Ganesh-Tiwari (github.com/gtiwari333)
  */
 public class ResourceManager {
 

@@ -1,6 +1,5 @@
 package com.app.Utils;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -8,8 +7,8 @@ public class StrUtils {
     /**
      * Convert date to human readable string
      *
-     * @param date
-     * @return
+     * @param date date to format
+     * @return string
      */
     public static String dateFmt(Date date) {
         if (date == null) return "";
@@ -20,18 +19,18 @@ public class StrUtils {
     /**
      * Cast Object to string and trim whitespaces
      *
-     * @param o
-     * @return
+     * @param o object to stringify
+     * @return string
      */
-    public static String updateString(Object o) {
+    public static String updateString(Object o) throws Exception {
         return ((String) o).trim();
     }
 
     /**
      * Cast Object to integer and trim whitespaces
      *
-     * @param o
-     * @return
+     * @param o object to convert to int
+     * @return int
      */
     public static int updateInteger(Object o) throws NumberFormatException {
         String str = ((String) o).trim();
@@ -41,8 +40,8 @@ public class StrUtils {
     /**
      * Cast Object to double and trim whitespaces
      *
-     * @param o
-     * @return
+     * @param o object to convert to double
+     * @return double
      */
     public static double updateDouble(Object o) throws NumberFormatException {
         String str = ((String) o).trim();

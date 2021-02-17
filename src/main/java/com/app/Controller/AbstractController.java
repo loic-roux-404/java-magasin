@@ -58,8 +58,8 @@ public abstract class AbstractController {
      * Actions are update / delete / list operation on entities, triggered by
      * user form submission and clicks
      *
-     * @throws InternalException
-     * @throws FormException
+     * @throws InternalException Internal Exception
+     * @throws FormException Form Exception
      */
     abstract protected void actions() throws InternalException, FormException;
 }

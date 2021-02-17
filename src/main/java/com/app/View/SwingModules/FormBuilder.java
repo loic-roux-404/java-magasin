@@ -28,7 +28,7 @@ public class FormBuilder implements Form {
     Insets buttonInset = new Insets(20, 0, 0, 0);
     // Config
     private final boolean autoJLabel;
-   static private int position = GridBagConstraints.WEST;
+    static private int position = GridBagConstraints.WEST;
     // combobox
     public static String NO_SELECT = "Sélectionner ...";
 
@@ -47,9 +47,9 @@ public class FormBuilder implements Form {
     /**
      * Display on end
      *
-     * @param name
-     * @param jComponent
-     * @return
+     * @param name button label
+     * @param jComponent Swing component
+     * @return FormBuilder
      */
     public FormBuilder addButton(String name, JComponent jComponent) {
         buttons.put(name, jComponent);
@@ -148,9 +148,14 @@ public class FormBuilder implements Form {
             }
         }
     }
-    // reset fields
-    public void reset(boolean bln) {
-        if (!bln) {
+
+    /**
+     * Clean filled fields
+     *
+     * @param enable enable
+     */
+    public void reset(boolean enable) {
+        if (!enable) {
             return;
         }
 
