@@ -8,6 +8,10 @@ import com.app.Controller.ArticleController;
 import com.app.View.SwingModules.FormBuilder;
 import com.app.View.SwingModules.PageBtn;
 
+/**
+ * class Home
+ * Form used to store homepage buttons to open other pages
+ */
 public class Home extends JPanel {
     public FormBuilder form = new FormBuilder(false).disableAllBtn();
 

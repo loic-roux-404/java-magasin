@@ -8,6 +8,10 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+/**
+ * class SessionUtils (used in a DAO system)
+ * prepare a persistence session to make transactions in db
+ */
 public class SessionUtils {
     private static SessionFactory sessionFactory;
 
@@ -28,6 +32,7 @@ public class SessionUtils {
 
     /**
      * Builds a SessionFactory, if it hasn't been already.
+     * @return sessionFactory getter
      */
     public static SessionFactory get() {
         return sessionFactory;
@@ -37,6 +42,10 @@ public class SessionUtils {
         return sessionFactory.openSession();
     }
 
+    /**
+     * Important to close persistance session after transaction
+     * @param session Session to close
+     */
     public static void close(Session session) {
         if (session != null) {
             try {
@@ -47,6 +56,10 @@ public class SessionUtils {
         }
     }
 
+    /**
+     * Util function to secure a transaction rollback
+     * @param tx Transaction
+     */
     public static void rollback(Transaction tx) {
         try {
             if (tx != null) {

@@ -43,7 +43,7 @@ public abstract class AbstractActor extends AbstractEntity {
 
     /**
      * Java default toString
-     * @return
+     * @return string
      */
     @Override
     public String toString() {

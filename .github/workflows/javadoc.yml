@@ -2,7 +2,7 @@ name: javadoc
 
 on:
     push:
-        branches: [ master ]
+        branches: [ * ]
         paths: [ '**.java' ]
 
 jobs:
@@ -28,6 +28,7 @@ jobs:
               run: mvn ${MVN_FLAGS} javadoc:javadoc -Xdoclint:all -Xdoclint:-missing
 
             - name: Deploy
+              if: github.ref == 'refs/heads/master'
               uses: peaceiris/actions-gh-pages@v3
               with:
                     github_token: ${{ secrets.GH_TOKEN }}

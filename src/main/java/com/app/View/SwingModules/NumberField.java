@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * @implNote usage :
+ * usage :
  * - To create field(new NumberField()).getField(); In a Form builder
  * - To get value : (int) jSpinnner.getValue();
  */

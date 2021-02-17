@@ -11,6 +11,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
+/**
+ * class Layout
+ * Manager to call essential components of UI
+ * - card : layout of all app, dynamic way to switch between pages
+ * - menuBar : Menu on top right
+ * - home : Home page page key store
+ */
 public class Layout implements Service {
     public static String NAME = "layout";
     private boolean loaded;
@@ -31,8 +38,8 @@ public class Layout implements Service {
     /**
      * Get page Jpanel
      *
-     * @param name
-     * @return
+     * @param name page name
+     * @return JPanel
      */
     public JPanel getPage(String name) {
         return views.get(name);
@@ -41,8 +48,9 @@ public class Layout implements Service {
     /**
      * Add a page for a later use
      *
-     * @param jPanel
-     * @param name
+     * @param jPanel Swing panel
+     * @param name Page name
+     * @param pageBtn page button (link button abstraction)
      */
     public void addPage(JPanel jPanel, String name, PageBtn pageBtn) {
         if (null != pageBtn) {
@@ -59,8 +67,9 @@ public class Layout implements Service {
 
     /**
      * Open and create the page
-     * @param jPanel
-     * @param name
+     *
+     * @param jPanel Swing panel
+     * @param name Page name
      */
     public void openPage(JPanel jPanel, String name) {
         this.addPage(jPanel, name, null);
