@@ -2,7 +2,6 @@ name: javadoc
 
 on:
     push:
-        branches: [ * ]
         paths: [ '**.java' ]
 
 jobs:

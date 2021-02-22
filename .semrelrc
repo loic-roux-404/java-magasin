@@ -1,0 +1,11 @@
+{
+    "plugins": {
+        "maintainedVersion": "master",
+        "changelog-generator": {
+            "name": "Changelog",
+            "options": {
+                "emojis": "true"
+            }
+        }
+    }
+}

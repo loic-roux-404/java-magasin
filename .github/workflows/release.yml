@@ -22,28 +22,30 @@ jobs:
         steps:
             - uses: actions/checkout@v2
             - name: log commit in common
+              env:
+                  INVALID_MERGE_MSG: History don't match with pre-release branch, verify merge strategy used.
+                  VALID_MERGE_MSG: History is correctly rebased on pre-release branch
               run: |
                 git fetch origin
                 [[ $(git rev-parse --verify HEAD) = $(git rev-parse --verify origin/master) ]] \
-                 && echo 'History OK' && exit 0 || echo "history don't match with pre-release" && exit 1
-            # Install sem release plugins
-            - uses: actions/setup-node@v2
-            - run: npm install
+                && echo ${VALID_MERGE_MSG} && exit 0 || echo ${INVALID_MERGE_MSG} && exit 1
 
-            - name: Semantic Release
-              uses: cycjimmy/semantic-release-action@v2
-              id: tag_version
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+            - uses: go-semantic-release/action@v1
+              id: semrel
+              with:
+                  github-token: ${{ secrets.GH_TOKEN }}
+                  changelog-generator-opt: "emojis=true"
+                  allow-initial-development-versions: true
 
             - name: Set up JDK
+              if: ${{ steps.semrel.outputs.version }}
               uses: actions/setup-java@v1
               with:
                   java-version: ${{ matrix.java }}
 
             - name: Publish artifact on GitHub Packages
-              if: ${{ steps.tag_version.outputs.new_release_version }}
+              if: ${{ steps.semrel.outputs.version }}
               run: mvn ${MVN_FLAGS} deploy -DskipTests
               env:
-                  VERSION: ${{ steps.tag_version.outputs.new_release_version }}
+                  VERSION: ${{ steps.semrel.outputs.version }}
                   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
