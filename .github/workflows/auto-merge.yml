@@ -1,0 +1,15 @@
+name: Automatic merge
+
+on:
+    check_suite:
+        types:
+            - completed
+
+jobs:
+    auto-merge:
+        name: Automatic merge
+        runs-on: ubuntu-latest
+        steps:
+            - uses: ridedott/merge-me-action@v1
+              with:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

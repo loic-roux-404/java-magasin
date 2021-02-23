@@ -197,7 +197,7 @@ Staging area &rarr; repo local &rarr; remote
 - On `merge squash` toujours une branche de feature dans la develop
 - On **rebase** toujours la `develop` dans la `prod` pour release
 
-`my-branch --> develop (master) --> prod`
+`my-branch --> develop (beta) --> master`
 
 ### Commandes
 
