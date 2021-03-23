@@ -17,7 +17,7 @@ jobs:
             MVN_FLAGS: "-Dproperties.java.version=${{ matrix.java }} -B clean"
 
         steps:
-            - uses: actions/checkout@v1
+            - uses: actions/checkout@v2
             - name: Set up JDK
               uses: actions/setup-java@v1
               with:
