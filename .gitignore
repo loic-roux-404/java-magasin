@@ -95,8 +95,6 @@ node_modules
 *.log
 
 # specific to project
-db/*.txt
-src/db/*.txt
 src/.classpath
 src/.project
 .classpath
@@ -107,3 +105,5 @@ target/
 *.iml
 # h2 internal db
 *.mv.db
+
+

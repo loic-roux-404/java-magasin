@@ -1,0 +1,7 @@
+manala:
+  repository: http://github.com/loic-roux-404/manala-recipes.git
+  recipe: dev.java
+
+gitignore: ""
+
+semantic_release: {}
