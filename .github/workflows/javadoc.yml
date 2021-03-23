@@ -2,7 +2,12 @@ name: javadoc
 
 on:
     push:
-        branches: [ * ]
+        branches:
+            - master
+            - beta
+            - next
+            - next-major
+            - "*.*.*"
         paths: [ '**.java' ]
 
 jobs:
